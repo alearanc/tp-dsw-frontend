@@ -1,0 +1,18 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>tipoInmueble</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" color="light">
+  <ion-list [inset]="true">
+  @for (tipoInmueble of listaTipoInmueble; track tipoInmueble.id_tipoinmueble) {
+    <ion-item>
+      <ion-label>{{tipoInmueble.id_tipoinmueble + " - " + tipoInmueble.descripcion}}</ion-label>
+      <ion-button (click)="openModal(tipoInmueble)"><ion-icon name="create"></ion-icon></ion-button>
+      <ion-button (click)="deleteTipoInmueble(tipoInmueble)" color="danger"><ion-icon name="trash"></ion-icon></ion-button>
+    </ion-item>
+  }
+  </ion-list>
+  <ion-button (click)="openModal()" expand="block">Crear tipo inmueble</ion-button>
+</ion-content>
