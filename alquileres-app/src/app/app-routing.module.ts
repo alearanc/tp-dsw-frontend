@@ -8,6 +8,10 @@ const routes: Routes = [
   },  {
     path: 'tipo-inmueble',
     loadChildren: () => import('./pages/tipo-inmueble/tipo-inmueble.module').then( m => m.TipoInmueblePageModule)
+  },
+  {
+    path: 'localidad',
+    loadChildren: () => import('./pages/localidad/localidad.module').then( m => m.LocalidadPageModule)
   }
 
 ];
