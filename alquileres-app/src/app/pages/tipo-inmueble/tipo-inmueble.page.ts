@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import TipoInmueble from 'src/app/models/TipoInmueble';
-import { TipoInmubeleService } from 'src/app/services/tipo-inmubele.service';
+import { TipoInmubeleService } from 'src/app/services/tipo-inmueble/tipo-inmubele.service';
 import { OverlayEventDetail } from '@ionic/core/components';
 import { AlertController, IonModal, ModalController } from '@ionic/angular';
 import { ModalContentPage } from './modal/tipo-inmueble.modal';

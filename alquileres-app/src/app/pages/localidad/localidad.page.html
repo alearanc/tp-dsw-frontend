@@ -1,0 +1,18 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Localidad</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" color="light">
+  <ion-list [inset]="true">
+  @for (localidad of listaLocalidad; track localidad.cod_postal) {
+    <ion-item>
+      <ion-label>{{localidad.cod_postal + " - " + localidad.nombre}}</ion-label>
+      <ion-button (click)="openModal(localidad)"><ion-icon name="create"></ion-icon></ion-button>
+      <ion-button (click)="deleteLocalidad(localidad)" color="danger"><ion-icon name="trash"></ion-icon></ion-button>
+    </ion-item>
+  }
+  </ion-list>
+  <ion-button (click)="openModal()" expand="block">Crear localidad</ion-button>
+</ion-content>

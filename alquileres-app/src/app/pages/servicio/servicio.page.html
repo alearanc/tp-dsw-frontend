@@ -1,0 +1,18 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Servicio</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" color="light">
+  <ion-list [inset]="true">
+  @for (servicio of listaServicio; track servicio.id_servicio) {
+    <ion-item>
+      <ion-label>{{servicio.id_servicio + " - " + servicio.descripcion_servicio}}</ion-label>
+      <ion-button (click)="openModal(servicio)"><ion-icon name="create"></ion-icon></ion-button>
+      <ion-button (click)="deleteTipoInmueble(servicio)" color="danger"><ion-icon name="trash"></ion-icon></ion-button>
+    </ion-item>
+  }
+  </ion-list>
+  <ion-button (click)="openModal()" expand="block">Crear servicio</ion-button>
+</ion-content>
