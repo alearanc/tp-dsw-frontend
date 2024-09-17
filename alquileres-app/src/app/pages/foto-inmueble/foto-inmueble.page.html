@@ -1,0 +1,62 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>fotoInmueble</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">fotoInmueble</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-item>
+    <ion-select interface="popover" label="Seleccionar inmuebles" (ionChange)="onInmuebleChange($event)" placeholder="Seleccione un inmueble para cargar las fotos">
+      @for (inm of inmuebles; track inm) {
+      <ion-select-option [value]="inm.id_inmueble">{{inm.descripcion_inmueble}}</ion-select-option>
+    }
+    </ion-select>
+    </ion-item>
+
+    <!-- THUMBNAILS DEL INMUEBLE SELECCIONADO -->
+
+    <div class="image-preview-container" *ngIf="showUploadButton">
+      <div *ngFor="let image of existingPhotos" class="image-preview">
+        <img [src]="'http://localhost:3000/photos/' + image.urlFoto" />
+        <ion-button color="danger" shape="round" class="remove-button" (click)="removeExistingPhoto(image)">
+          <ion-icon slot="icon-only" name="remove"></ion-icon>
+        </ion-button>
+      </div>
+    </div>
+
+    <!-- COMIENZA TEMA DEL FILE -->
+
+    <input
+    type="file"
+    id="file-upload"
+    style="display: none"
+    (change)="setImage($event)"
+    #file
+    />
+
+    <ion-button (click)="file.click()" *ngIf="showUploadButton">
+      <ion-icon slot="start" name="camera"></ion-icon>
+      Seleccionar fotos
+    </ion-button>
+    <!-- TERMINA TEMA DEL FILE -->
+    
+    <div class="image-preview-container" *ngIf="selectedImages.length > 0">
+      <div *ngFor="let image of selectedImages" class="image-preview">
+        <img [src]="image.url" />
+        <ion-button color="danger" shape="round" (click)="removeImage(image)" class="remove-button">
+          <ion-icon slot="icon-only" name="remove"></ion-icon>
+        </ion-button>
+      </div>
+    </div>
+
+    <ion-button *ngIf="selectedImages.length > 0" (click)="upload()">
+      <ion-icon slot="end" name="cloud-upload"></ion-icon>
+      Subir fotos
+    </ion-button>
+
+</ion-content>

@@ -8,6 +8,10 @@ const routes: Routes = [
   },  {
     path: 'tipo-inmueble',
     loadChildren: () => import('./pages/tipo-inmueble/tipo-inmueble.module').then( m => m.TipoInmueblePageModule)
+  },
+  {
+    path: 'foto-inmueble',
+    loadChildren: () => import('./pages/foto-inmueble/foto-inmueble.module').then( m => m.FotoInmueblePageModule)
   }
 
 ];
