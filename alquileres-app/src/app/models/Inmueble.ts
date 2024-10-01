@@ -1,23 +1,36 @@
 export default class Inmueble {
-  idInmueble: string;
-  tituloInmueble: string;
-  descripcionInmueble: string;
-  precioNoche: number;
-  direccionInmueble: string;
+  id_inmueble!: number; 
+  titulo_inmueble: string;
+  descripcion_inmueble: string;
+  precio_noche: number;
+  direccion_inmueble: string;
   capacidad: number;
-  idTipoInmueble: number;
-  codPostal: number;
-  idPropietario: number;
+  tipoinmueble: {
+    id_tipoinmueble: number;
+  };
+  localidad: {
+    cod_postal: number;
+    nombre: string;
+  };
+  propietario: number;
 
-  constructor(data: any) {
-    this.idInmueble = data.idInmueble;
-    this.tituloInmueble = data.tituloInmueble;
-    this.descripcionInmueble = data.descripcionInmueble;
-    this.precioNoche = data.precioNoche;
-    this.direccionInmueble = data.direccionInmueble;
-    this.capacidad = data.capacidad;
-    this.idTipoInmueble = data.idTipoInmueble;
-    this.codPostal = data.codPostal;
-    this.idPropietario = data.idPropietario;
+  constructor(
+    titulo_inmueble: string,
+    descripcion_inmueble: string,
+    precio_noche: number,
+    direccion_inmueble: string,
+    capacidad: number,
+    id_tipoinmueble: number,
+    cod_postal: number,
+    propietario: number
+  ) {
+    this.titulo_inmueble = titulo_inmueble;
+    this.descripcion_inmueble = descripcion_inmueble;
+    this.precio_noche = precio_noche;
+    this.direccion_inmueble = direccion_inmueble;
+    this.capacidad = capacidad;
+    this.tipoinmueble = { id_tipoinmueble };
+    this.localidad = { cod_postal, nombre: '' };
+    this.propietario = propietario;
   }
 }
