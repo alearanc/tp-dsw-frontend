@@ -1,0 +1,23 @@
+/* signup.page.scss */
+ion-item.password-item {
+  display: flex;
+  align-items: center;
+}
+
+ion-item.password-item ion-input {
+  flex: 1;
+}
+
+ion-item.radio-item {
+  display: flex;
+  align-items: center;
+}
+
+ion-item.radio-item ion-label {
+  margin-right: 10px;
+}
+
+ion-item.radio-item ion-radio-group {
+  display: flex;
+  flex-direction: row;
+}
