@@ -1,8 +1,9 @@
 // login.page.ts
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { NavController } from '@ionic/angular';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { CustomNavControllerService } from 'src/app/services/custom-router.service';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,9 @@ export class LoginPage implements OnInit {
   loginForm!: FormGroup;
   showPassword = false;
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {}
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: CustomNavControllerService, private navCtrl: NavController) {}
+
+  error = false;
 
   ngOnInit() {
     this.loginForm = this.fb.group({
@@ -28,10 +31,11 @@ export class LoginPage implements OnInit {
       this.authService.signin(email, password).subscribe(
         (response) => {
           console.log('Login successful');
-          this.router.navigate(['/home']);
+          this.router.navigateRoot(['/dashboard']);
         },
         (error) => {
-          console.error('Login failed', error);
+          this.error = true;
+          this.loginForm.controls['password'].setErrors({ incorrect: true });
         }
       );
     }
@@ -39,5 +43,9 @@ export class LoginPage implements OnInit {
 
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
+  }
+
+  navigateToSignup() {
+    this.navCtrl.navigateForward('/signup', { animated: false });
   }
 }

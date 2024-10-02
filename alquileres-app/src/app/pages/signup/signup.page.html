@@ -1,60 +1,63 @@
-<app-header></app-header>
 <ion-content>
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>Registro</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <form [formGroup]="signupForm" (ngSubmit)="signup()">
-        <ion-item>
-          <ion-label position="floating">Nombre</ion-label>
-          <ion-input type="text" formControlName="nombre"></ion-input>
+  <ion-grid>
+    <ion-row class="ion-align-items-center">
+      <ion-col>
+      <form class="form-container" [formGroup]="signupForm" (ngSubmit)="signup()">
+        <h3>Crear cuenta</h3>
+        <ion-item lines="none">
+          <ion-input labelPlacement="floating" label="Nombre" type="text" formControlName="nombre"></ion-input>
         </ion-item>
-        <ion-item>
-          <ion-label position="floating">Apellido</ion-label>
-          <ion-input type="text" formControlName="apellido"></ion-input>
+        <ion-item lines="none">
+          <ion-input labelPlacement="floating" label="Apellido" type="text" formControlName="apellido"></ion-input>
         </ion-item>
-        <ion-item>
-          <ion-label position="floating">Email</ion-label>
-          <ion-input type="email" formControlName="email"></ion-input>
+        <ion-item lines="none">
+          <ion-input labelPlacement="floating" label="Email" type="email" formControlName="email"></ion-input>
         </ion-item>
-        <ion-item class="password-item">
-          <ion-label position="floating">Password</ion-label>
-          <ion-input [type]="showPassword ? 'text' : 'password'" formControlName="password"></ion-input>
-          <ion-button fill="clear" slot="end" (click)="togglePasswordVisibility()">
-            <ion-icon [name]="showPassword ? 'eye-off' : 'eye'"></ion-icon>
-          </ion-button>
+        <ion-item class="password-item" lines="none">
+          <ion-input labelPlacement="floating" label="Contraseña" [type]="showPassword ? 'text' : 'password'" formControlName="password">
+            <ion-button fill="clear" (click)="togglePasswordVisibility()">
+              <ion-icon [name]="showPassword ? 'eye-off' : 'eye'"></ion-icon>
+            </ion-button>
+          </ion-input>
         </ion-item>
-        <ion-item class="password-item">
-          <ion-label position="floating">Repetir Password</ion-label>
-          <ion-input [type]="showRepeatPassword ? 'text' : 'password'" formControlName="repeatPassword"></ion-input>
-          <ion-button fill="clear" slot="end" (click)="toggleRepeatPasswordVisibility()">
-            <ion-icon [name]="showRepeatPassword ? 'eye-off' : 'eye'"></ion-icon>
-          </ion-button>
+        <ion-item class="password-item" lines="none">
+          <ion-input labelPlacement="floating" label="Repetir contraseña" [type]="showRepeatPassword ? 'text' : 'password'" formControlName="repeatPassword">
+            <ion-button fill="clear" (click)="toggleRepeatPasswordVisibility()">
+              <ion-icon [name]="showRepeatPassword ? 'eye-off' : 'eye'"></ion-icon>
+            </ion-button>
+          </ion-input>
         </ion-item>
-        <ion-item class="radio-item">
-          <ion-label>Tipo de Usuario</ion-label>
+        <ion-item class="radio-item" lines="none">
+          <ion-label style="padding-left: 4px;">Tipo de Usuario:</ion-label>
           <ion-radio-group formControlName="tipo_usuario">
-            <ion-item>
+            <ion-item lines="none">
               <ion-label>Huésped</ion-label>
               <ion-radio slot="start" value="Huesped"></ion-radio>
             </ion-item>
-            <ion-item>
+            <ion-item lines="none">
               <ion-label>Propietario</ion-label>
               <ion-radio slot="start" value="Propietario"></ion-radio>
             </ion-item>
           </ion-radio-group>
         </ion-item>
-        <ion-item>
-          <ion-label position="floating">Teléfono</ion-label>
-          <ion-input type="text" formControlName="telefono"></ion-input>
+        <ion-item lines="none">
+          <ion-input labelPlacement="floating" label="Teléfono" type="text" formControlName="telefono"></ion-input>
         </ion-item>
-        <ion-item>
-          <ion-label position="floating">Domicilio</ion-label>
-          <ion-input type="text" formControlName="domicilio"></ion-input>
+        <ion-item lines="none">
+          <ion-input labelPlacement="floating" label="Domicilio" type="text" formControlName="domicilio"></ion-input>
         </ion-item>
-        <ion-button expand="block" type="submit" [disabled]="signupForm.invalid">Registrarse</ion-button>
+        <ion-button mode="ios" expand="block" type="submit" [disabled]="signupForm.invalid">
+          Registrarse
+          <ion-icon name="chevron-forward"></ion-icon>
+        </ion-button>
       </form>
-    </ion-card-content>
-  </ion-card>
+      <ion-button mode="ios" expand="block" fill="clear" (click)="navigateToLogin()">
+        ¿Ya tienes cuenta? Iniciá sesion
+      </ion-button>
+    </ion-col>
+    <ion-col class="bgImage ion-hide-sm-down">
+      <!-- Solo tengo este col para poner la imagen de fondo -->
+    </ion-col>
+  </ion-row>
+</ion-grid>
 </ion-content>

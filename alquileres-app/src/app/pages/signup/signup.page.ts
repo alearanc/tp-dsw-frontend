@@ -1,7 +1,7 @@
 // signup.page.ts
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { CustomNavControllerService } from 'src/app/services/custom-router.service';
 import { PersonaService } from '../../services/persona/persona.service';
 
 @Component({
@@ -14,7 +14,7 @@ export class SignupPage implements OnInit {
   showPassword = false;
   showRepeatPassword = false;
 
-  constructor(private fb: FormBuilder, private personaService: PersonaService, private router: Router) {}
+  constructor(private fb: FormBuilder, private personaService: PersonaService, private router: CustomNavControllerService) {}
 
   ngOnInit() {
     this.signupForm = this.fb.group({
@@ -38,7 +38,7 @@ export class SignupPage implements OnInit {
       const formData = this.signupForm.value;
       console.log('Form Data:', formData);
       this.personaService.addPersona(formData).subscribe((res: any) => { //No se ni que esperar del backend xD
-        this.router.navigate(['/home']);
+        this.router.navigateForward(['/home']);
       });
     }
   }
@@ -49,5 +49,9 @@ export class SignupPage implements OnInit {
 
   toggleRepeatPasswordVisibility() {
     this.showRepeatPassword = !this.showRepeatPassword;
+  }
+
+  navigateToLogin() {
+    this.router.navigateForward(['/login']);
   }
 }

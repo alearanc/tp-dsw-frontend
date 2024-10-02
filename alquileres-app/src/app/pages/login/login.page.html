@@ -1,24 +1,39 @@
-<app-header></app-header>
 <ion-content>
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>Login</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <form [formGroup]="loginForm" (ngSubmit)="login()">
-        <ion-item>
-          <ion-label position="floating">Email</ion-label>
-          <ion-input type="email" formControlName="email"></ion-input>
-        </ion-item>
-        <ion-item class="password-item">
-          <ion-label position="floating">Password</ion-label>
-          <ion-input [type]="showPassword ? 'text' : 'password'" formControlName="password"></ion-input>
-          <ion-button fill="clear" slot="end" (click)="togglePasswordVisibility()">
-            <ion-icon [name]="showPassword ? 'eye-off' : 'eye'"></ion-icon>
+  <ion-grid>
+    <ion-row class="ion-align-items-center">
+      <ion-col>
+        <form class="form-container" [formGroup]="loginForm" (ngSubmit)="login()">
+          <h3>Iniciar sesión</h3>
+          <div class="warning"></div>
+          <ion-item lines="none">
+            <ion-input labelPlacement="floating" label="Email" type="email" formControlName="email"></ion-input>
+          </ion-item>
+          <ion-item class="password-item" lines="none">
+            <ion-input labelPlacement="floating" label="Contraseña" [type]="showPassword ? 'text' : 'password'" formControlName="password">
+              <ion-button fill="clear" (click)="togglePasswordVisibility()">
+                <ion-icon [name]="showPassword ? 'eye-off' : 'eye'"></ion-icon>
+              </ion-button>
+            </ion-input>
+            <span slot="error">Name is required</span>
+          </ion-item>
+          <ion-text color="danger" *ngIf="error" class="error-text">
+            Credenciales incorrectas
+          </ion-text>
+          <ion-button mode="ios" expand="block" type="submit" [disabled]="loginForm.invalid">
+            Iniciar sesión
+            <ion-icon name="chevron-forward"></ion-icon>
           </ion-button>
-        </ion-item>
-        <ion-button expand="block" type="submit" [disabled]="loginForm.invalid">Login</ion-button>
-      </form>
-    </ion-card-content>
-  </ion-card>
+          <ion-button mode="ios" class="fpbtn" fill="clear" (click)="navigateToSignup()">
+            Olvié mi contraseña
+          </ion-button>
+        </form>
+        <ion-button mode="ios" expand="block" fill="clear" (click)="navigateToSignup()">
+          ¿No tienes cuenta? Regístrate
+        </ion-button>
+      </ion-col>
+      <ion-col class="bgImage ion-hide-sm-down">
+        <!-- Solo tengo este col para poner la imagen de fondo -->
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

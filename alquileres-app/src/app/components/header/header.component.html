@@ -1,3 +1,35 @@
-<p>
-  header works!
-</p>
+<div class="wrapper">
+  <ion-buttons mode="ios" slot="start" class="ion-hide-lg-up">
+    <ion-menu-button style="color: #000; transform: translateY(6px);"></ion-menu-button>
+  </ion-buttons>
+  <h1 routerLink="/" style="cursor: pointer;">AlquileresApp</h1>
+  <div class="buttons ion-hide-sm-down">
+    <ion-button mode="ios" routerLink="/alquileres" routerLinkActive="active" fill="clear">Buscar alquileres</ion-button>
+    <ion-button mode="ios" routerLink="/categorias" routerLinkActive="active" fill="clear">Categorias</ion-button>
+    <ion-button mode="ios" routerLink="/lugares" routerLinkActive="active" fill="clear">Lugares para alquilar</ion-button>
+  </div>
+  <ion-buttons slot="end">
+    <ion-button *ngIf="!isAuthenticated" mode="ios" (click)="navigateToLogin()" fill="outline" class="ion-hide-sm-down">Iniciar sesión</ion-button>
+    <ion-button *ngIf="!isAuthenticated" mode="ios" (click)="navigateToLogin()" fill="clear" class="ion-hide-lg-up" style="transform: translateY(6px);">
+      <ion-icon slot="icon-only" name="log-in-outline"></ion-icon>
+    </ion-button>
+    <ion-button *ngIf="isAuthenticated" mode="ios" (click)="presentPopover($event)" fill="clear">
+      <div class="avatar">{{ userInitials }}</div>
+    </ion-button>
+  </ion-buttons>
+</div>
+
+<ion-menu mode="md" side="start" menuId="first" contentId="main-content">
+  <ion-content>
+    <ion-list>
+      <h1 routerLink="/" style="padding-left: 16px;">AlquileresApp</h1>
+      <ion-item lines="none" routerLink="/alquileres">Buscar alquileres</ion-item>
+      <ion-item lines="none" routerLink="/categorias">Categorias</ion-item>
+      <ion-item lines="none" routerLink="/lugares">Lugares para alquilar</ion-item>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+
+
+

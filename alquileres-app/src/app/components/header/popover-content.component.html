@@ -1,0 +1,11 @@
+<ion-list>
+    <ion-item class="nombre-usuario">
+        <ion-label>{{ userFullName }}</ion-label>
+    </ion-item>
+    <ion-item lines="none" button (click)="navigateToProfile()">
+        <ion-label>Mi perfil</ion-label>
+    </ion-item>
+    <ion-item lines="none" button (click)="signout()">
+        <ion-label>Cerrar sesión</ion-label>
+    </ion-item>
+</ion-list>

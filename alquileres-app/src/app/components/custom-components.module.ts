@@ -1,11 +1,12 @@
 // custom-components.module.ts
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { HeaderComponent } from './header/header.component';
+import { IonicModule } from '@ionic/angular';
+import { HeaderComponent, PopoverContentComponent } from './header/header.component';
 
 @NgModule({
-  declarations: [HeaderComponent],
-  imports: [CommonModule],
-  exports: [HeaderComponent]
+  declarations: [HeaderComponent, PopoverContentComponent],
+  imports: [CommonModule, IonicModule.forRoot(),],
+  exports: [HeaderComponent, PopoverContentComponent]
 })
 export class CustomComponentsModule {}
