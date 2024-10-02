@@ -1,6 +1,7 @@
 // signup.page.ts
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { catchError, throwError } from 'rxjs';
 import { CustomNavControllerService } from 'src/app/services/custom-router.service';
 import { PersonaService } from '../../services/persona/persona.service';
 
@@ -13,6 +14,7 @@ export class SignupPage implements OnInit {
   signupForm!: FormGroup;
   showPassword = false;
   showRepeatPassword = false;
+  error!: string;
 
   constructor(private fb: FormBuilder, private personaService: PersonaService, private router: CustomNavControllerService) {}
 
@@ -37,12 +39,18 @@ export class SignupPage implements OnInit {
     if (this.signupForm.valid) {
       const formData = this.signupForm.value;
       console.log('Form Data:', formData);
-      this.personaService.addPersona(formData).subscribe((res: any) => { //No se ni que esperar del backend xD
+      this.personaService.addPersona(formData).pipe(
+        catchError((error) => {
+          this.error = error.error;
+          this.signupForm.setErrors({ invalid: true });
+          return throwError(error);
+        })
+      ).subscribe((res: any) => {
         this.router.navigateForward(['/home']);
       });
     }
   }
-
+  
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
   }
