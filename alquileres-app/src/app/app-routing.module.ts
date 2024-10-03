@@ -36,6 +36,14 @@ const routes: Routes = [
     loadChildren: () => import('./pages/dashboard/dashboard.module').then( m => m.DashboardPageModule),
     canActivate: [AuthGuard]
   },
+  {
+    path: 'recovery-account',
+    loadChildren: () => import('./pages/recovery-account/recovery-account.module').then( m => m.RecoveryAccountPageModule)
+  },
+  {
+    path: 'reset-password',
+    loadChildren: () => import('./pages/reset-password/reset-password.module').then( m => m.ResetPasswordPageModule)
+  },
 
 ];
 @NgModule({

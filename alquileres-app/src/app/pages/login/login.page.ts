@@ -48,4 +48,8 @@ export class LoginPage implements OnInit {
   navigateToSignup() {
     this.navCtrl.navigateForward('/signup', { animated: false });
   }
+  
+  navigateToForgotPassword() {
+    this.navCtrl.navigateForward('/recovery-account', { animated: false });
+  }
 }

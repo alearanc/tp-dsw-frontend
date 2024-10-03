@@ -13,9 +13,7 @@
     <ion-button *ngIf="!isAuthenticated" mode="ios" (click)="navigateToLogin()" fill="clear" class="ion-hide-lg-up" style="transform: translateY(6px);">
       <ion-icon slot="icon-only" name="log-in-outline"></ion-icon>
     </ion-button>
-    <ion-button *ngIf="isAuthenticated" mode="ios" (click)="presentPopover($event)" fill="clear">
-      <div class="avatar">{{ userInitials }}</div>
-    </ion-button>
+    <div *ngIf="isAuthenticated" mode="ios" (click)="presentPopover($event)" class="avatar">{{ userInitials }}</div>
   </ion-buttons>
 </div>
 

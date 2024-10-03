@@ -38,4 +38,12 @@ export class PersonaService {
       domicilio
     });
   }
+
+  recoverAccount(email: string): Observable<any> {
+    return this.httpClient.post(`http://localhost:3000/persona/recover_account`, { email });
+  }
+
+  resetPassword(token: string, newPassword: string): Observable<any> {
+    return this.httpClient.post(`http://localhost:3000/persona/reset_password`, { token, newPassword });
+  }
 }
