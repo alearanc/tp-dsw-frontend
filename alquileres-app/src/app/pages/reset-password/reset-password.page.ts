@@ -15,6 +15,8 @@ export class ResetPasswordPage implements OnInit {
   resetError: string | null = null;
   resetSuccess: string | null = null;
   token!: string;
+  showPassword = false;
+  showRepeatPassword = false;
 
   constructor(
     private fb: FormBuilder,
@@ -52,5 +54,13 @@ export class ResetPasswordPage implements OnInit {
         }, 3000);
       });
     }
+  }
+
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
+
+  toggleRepeatPasswordVisibility() {
+    this.showRepeatPassword = !this.showRepeatPassword;
   }
 }
