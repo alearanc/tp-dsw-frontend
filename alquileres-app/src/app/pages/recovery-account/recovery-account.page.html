@@ -1,0 +1,27 @@
+<ion-content>
+  <form class="form-container" [formGroup]="recoveryForm" (ngSubmit)="recover()">
+    <h3>Recuperar mi contraseña</h3>
+    <ion-text>
+      <p>Ingrese su mail para recuperar la contraseña:</p>
+    </ion-text>
+    <ion-item lines="none">
+      <ion-input labelPlacement="floating" label="Email" type="email" formControlName="email"></ion-input>
+    </ion-item>
+    <ion-text color="danger" *ngIf="recoveryError" class="error-text">
+      {{ recoveryError }}
+    </ion-text>
+    <ion-text color="success" *ngIf="recoverySuccess" class="success-text">
+      {{ recoverySuccess }}
+    </ion-text>
+    <ion-button mode="ios" expand="block" type="submit" [disabled]="recoveryForm.invalid">
+      Recuperar cuenta
+      <ion-icon name="chevron-forward"></ion-icon>
+    </ion-button>
+    <ion-button mode="ios" class="fpbtn" fill="clear" (click)="navigateToLogin()">
+      Iniciar sesión
+    </ion-button>
+  </form>
+  <ion-button mode="ios" expand="block" fill="clear" (click)="navigateToSignup()">
+    ¿No tienes cuenta? Regístrate
+  </ion-button>
+</ion-content>

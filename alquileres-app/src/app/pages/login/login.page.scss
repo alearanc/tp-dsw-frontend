@@ -1,0 +1,54 @@
+ion-grid {
+    height: 80%;
+}
+
+.bgImage {
+    background-image: url('/assets/login-page-hero-photo.avif');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 90vh;
+    width: 100%;
+}
+
+
+.form-container {
+    max-width: 400px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+ion-item {
+    --padding-start: 0;
+    --inner-padding-end: 0;
+    --inner-padding-start: 0;
+    --padding-end: 0;
+}
+
+ion-button {
+    margin-top: 20px;
+}
+
+ion-input{
+    border: 1px solid #d4d4d4 !important;
+    border-radius: 16px;
+    padding-left: 12px !important;
+    display: flex;
+    flex-direction: row-reverse;
+    ion-icon{
+        transform: translateY(-7px);
+    }
+}
+
+ion-button{
+    --ripple-color: transparent !important;
+    --background-hover-opacity: 0 !important;
+}
+
+.fpbtn{
+    margin: 0 !important;
+    padding: 0 !important;
+    --padding-bottom: 0 !important;
+}

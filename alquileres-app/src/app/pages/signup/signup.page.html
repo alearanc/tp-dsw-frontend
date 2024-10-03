@@ -1,0 +1,66 @@
+<ion-content>
+  <ion-grid>
+    <ion-row class="ion-align-items-center">
+      <ion-col>
+      <form class="form-container" [formGroup]="signupForm" (ngSubmit)="signup()">
+        <h3>Crear cuenta</h3>
+        <ion-item lines="none">
+          <ion-input labelPlacement="floating" label="Nombre" type="text" formControlName="nombre"></ion-input>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-input labelPlacement="floating" label="Apellido" type="text" formControlName="apellido"></ion-input>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-input labelPlacement="floating" label="Email" type="email" formControlName="email"></ion-input>
+        </ion-item>
+        <ion-item class="password-item" lines="none">
+          <ion-input labelPlacement="floating" label="Contraseña" [type]="showPassword ? 'text' : 'password'" formControlName="password">
+            <ion-button fill="clear" (click)="togglePasswordVisibility()">
+              <ion-icon [name]="showPassword ? 'eye-off' : 'eye'"></ion-icon>
+            </ion-button>
+          </ion-input>
+        </ion-item>
+        <ion-item class="password-item" lines="none">
+          <ion-input labelPlacement="floating" label="Repetir contraseña" [type]="showRepeatPassword ? 'text' : 'password'" formControlName="repeatPassword">
+            <ion-button fill="clear" (click)="toggleRepeatPasswordVisibility()">
+              <ion-icon [name]="showRepeatPassword ? 'eye-off' : 'eye'"></ion-icon>
+            </ion-button>
+          </ion-input>
+        </ion-item>
+        <ion-item class="radio-item" lines="none">
+          <ion-label style="padding-left: 4px;">Tipo de Usuario:</ion-label>
+          <ion-radio-group mode="ios" formControlName="tipo_usuario">
+            <ion-item lines="none">
+              <ion-label>Huésped</ion-label>
+              <ion-radio mode="md" slot="start" value="Huesped"></ion-radio>
+            </ion-item>
+            <ion-item lines="none">
+              <ion-label>Propietario</ion-label>
+              <ion-radio mode="md" slot="start" value="Propietario"></ion-radio>
+            </ion-item>
+          </ion-radio-group>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-input labelPlacement="floating" label="Teléfono" type="text" formControlName="telefono"></ion-input>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-input labelPlacement="floating" label="Domicilio" type="text" formControlName="domicilio"></ion-input>
+        </ion-item>
+        <ion-text color="danger" *ngIf="error" class="error-text" style="margin-bottom: 0; margin-top: 16px; padding-left: 4px !important">
+          {{error}}
+        </ion-text>
+        <ion-button mode="ios" expand="block" type="submit" [disabled]="signupForm.invalid">
+          Registrarse
+          <ion-icon name="chevron-forward"></ion-icon>
+        </ion-button>
+      </form>
+      <ion-button mode="ios" expand="block" fill="clear" (click)="navigateToLogin()">
+        ¿Ya tienes cuenta? Iniciá sesion
+      </ion-button>
+    </ion-col>
+    <ion-col class="bgImage ion-hide-sm-down">
+      <!-- Solo tengo este col para poner la imagen de fondo -->
+    </ion-col>
+  </ion-row>
+</ion-grid>
+</ion-content>
