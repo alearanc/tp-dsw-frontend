@@ -72,6 +72,10 @@ export class HeaderComponent implements OnInit {
     });
     await popover.present();
   }
+
+  async navigateToHome() {
+    this.router.navigateForward(['/home']);
+  }
 }
 
 @Component({
@@ -87,6 +91,6 @@ export class PopoverContentComponent {
 
   async navigateToProfile() {
     await this.popoverController.dismiss();
-    this.router.navigateForward(['/']);
+    this.router.navigateForward(['/dashboard']);
   }
 }
