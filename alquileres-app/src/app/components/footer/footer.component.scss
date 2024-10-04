@@ -1,0 +1,27 @@
+.footer-container{
+    background-color: #000;
+    width: 100%;
+    color: #fff;
+    margin-top: 24px;
+    padding: 40px 0;
+    @media screen and (max-width: 1028px){
+        display: none;
+    }
+}
+.footer-wrapper{
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+ul,li { list-style-type: none;
+    list-style-position:inside;
+    margin:10px 0;
+    padding:0;
+    color: #888;
+}
+
+a{
+    color: #888;
+}

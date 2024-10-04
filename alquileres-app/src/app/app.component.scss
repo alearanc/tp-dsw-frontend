@@ -1,5 +1,16 @@
+.content-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Asegura que el contenedor ocupe la altura de la pantalla */
+}
+
+app-header {
+    flex-shrink: 0; /* Header no se encoge */
+    width: 100%;
+    z-index: 100;
+}
+
 ion-router-outlet {
-    margin-top: 60px;
-    display: block;
-    height: 100%;
+    flex-grow: 1; /* El contenido crece para llenar el espacio entre header y footer */
+    margin-top: 61px; /* Espacio para el header */
 }
