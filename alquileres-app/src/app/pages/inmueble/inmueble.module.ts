@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { InmueblePageRoutingModule } from './inmueble-routing.module';
 
 import { InmueblePage } from './inmueble.page';
+import { ModalContentPage } from './modal/inmueble.modal';
 
 @NgModule({
   imports: [
@@ -15,6 +16,6 @@ import { InmueblePage } from './inmueble.page';
     IonicModule,
     InmueblePageRoutingModule
   ],
-  declarations: [InmueblePage]
+  declarations: [InmueblePage, ModalContentPage],
 })
 export class InmueblePageModule {}
