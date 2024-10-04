@@ -1,0 +1,41 @@
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="5" class="heroText">
+        <div class="heroWrapper">
+          <ion-row>
+            <ion-col size="12">
+              <h1>¡Encontrá tu alojamiento ideal!</h1>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="12">
+              <h3>Con nosotros todo está resuelto, solo queda disfrutar</h3>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <app-buscador></app-buscador>
+          </ion-row>
+        </div>
+      </ion-col>
+      <ion-col size="7">
+        <div class="hero-background"></div>
+      </ion-col>
+    </ion-row>
+    <div class="recientes-container">
+      <ion-row>
+        <h2>Los mas recientes</h2>
+      </ion-row>
+      <ion-row class="recientes-collection">
+        @for (inmueble of inmuebles; track inmueble.id_inmueble){
+          //Acá irían los resultados inmuebles
+        }
+        <app-resultado-inmueble [inmuebleActual]="inmuebleTest"></app-resultado-inmueble>
+        <app-resultado-inmueble [inmuebleActual]="inmuebleTest"></app-resultado-inmueble>
+        <app-resultado-inmueble [inmuebleActual]="inmuebleTest"></app-resultado-inmueble>
+        <app-resultado-inmueble [inmuebleActual]="inmuebleTest"></app-resultado-inmueble>
+      </ion-row>
+    </div>
+  </ion-grid>
+</ion-content>
+<app-footer></app-footer>

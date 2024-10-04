@@ -1,0 +1,36 @@
+.hero-background{
+    background-image: url('/assets/login-page-hero-photo.avif');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100%;
+    width: 100%;
+}
+
+.heroText{
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+h1{
+    margin: 0;
+}
+
+h3{
+    margin-bottom: 24px;
+}
+
+.recientes-collection{
+    display: flex;
+    gap: 16px;
+}
+
+.recientes-container{
+    padding: 0 40px;
+    h2{
+        margin-top: 32px;
+        margin-bottom: 24px;
+    }
+}
