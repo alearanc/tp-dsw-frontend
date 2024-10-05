@@ -6,8 +6,7 @@ import { NoAuthGuard } from './guards/no-auth.guard';
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule),
-    canActivate: [NoAuthGuard]
+    loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule)
   },
   {
     path: 'tipo-inmueble',
@@ -44,6 +43,11 @@ const routes: Routes = [
     path: 'reset-password',
     loadChildren: () => import('./pages/reset-password/reset-password.module').then( m => m.ResetPasswordPageModule)
   },
+  {
+    path: 'home',
+    loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule)
+  },
+
 
 ];
 @NgModule({

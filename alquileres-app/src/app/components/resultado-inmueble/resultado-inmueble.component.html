@@ -1,0 +1,13 @@
+<div class="card-wrapper">
+  <img src="../../../assets/signup-page-hero-photo.jpg" width="100%">
+  <h1 class="nombre">{{inmuebleActual.titulo_inmueble}}</h1>
+  <div class="rating">
+    <app-rating [calificacionPromedio]="getCalificacionPromedio()"></app-rating>
+  </div>
+  <p class="direccion">{{inmuebleActual.direccion_inmueble}}</p>
+  <b class="precio">$ {{inmuebleActual.precio_noche}}</b>
+  <ion-button expand="full" mode="ios" (click)="navigateToInmuebleDetails(inmuebleActual.id_inmueble)">
+    Más Información
+    <ion-icon slot="end" name="chevron-forward"></ion-icon>
+  </ion-button>
+</div>
