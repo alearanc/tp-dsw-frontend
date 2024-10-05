@@ -1,7 +1,7 @@
 import Localidad from "./Localidad"
 import TipoInmueble from "./TipoInmueble"
 
-export class Inmueble {
+export default class Inmueble {
     id_inmueble!: number;
     titulo_inmueble!: string;
     descripcion_inmueble!: string;

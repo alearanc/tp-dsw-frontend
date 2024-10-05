@@ -28,12 +28,8 @@
       </ion-row>
       <ion-row class="recientes-collection">
         @for (inmueble of inmuebles; track inmueble.id_inmueble){
-          //Acá irían los resultados inmuebles
+          <app-resultado-inmueble [inmuebleActual]="inmueble"></app-resultado-inmueble>
         }
-        <app-resultado-inmueble [inmuebleActual]="inmuebleTest"></app-resultado-inmueble>
-        <app-resultado-inmueble [inmuebleActual]="inmuebleTest"></app-resultado-inmueble>
-        <app-resultado-inmueble [inmuebleActual]="inmuebleTest"></app-resultado-inmueble>
-        <app-resultado-inmueble [inmuebleActual]="inmuebleTest"></app-resultado-inmueble>
       </ion-row>
     </div>
   </ion-grid>
