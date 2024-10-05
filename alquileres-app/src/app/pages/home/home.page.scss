@@ -33,4 +33,7 @@ h3{
         margin-top: 32px;
         margin-bottom: 24px;
     }
+    @media screen and (max-width: 768px){
+        padding: 0 16px;
+    }
 }
