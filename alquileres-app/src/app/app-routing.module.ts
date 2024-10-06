@@ -13,6 +13,10 @@ const routes: Routes = [
     loadChildren: () => import('./pages/tipo-inmueble/tipo-inmueble.module').then( m => m.TipoInmueblePageModule)
   },
   {
+    path: 'inmueble',
+    loadChildren: () => import('./pages/inmueble/inmueble.module').then( m => m.InmueblePageModule)
+  },
+  {
     path: 'localidad',
     loadChildren: () => import('./pages/localidad/localidad.module').then( m => m.LocalidadPageModule)
   },
