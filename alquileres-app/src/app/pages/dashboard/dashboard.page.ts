@@ -1,6 +1,7 @@
 // dashboard.page.ts
 import { Component, OnInit } from '@angular/core';
 import { jwtDecode } from 'jwt-decode';
+import { CustomNavControllerService } from 'src/app/services/custom-router.service';
 import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
@@ -11,12 +12,16 @@ import { AuthService } from '../../services/auth/auth.service';
 export class DashboardPage implements OnInit {
   user: any;
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: CustomNavControllerService) {}
 
   ngOnInit() {
     this.user = this.authService.getUser();
     // Conseguir la informacion del user desde el token
     const info_usuario: any = jwtDecode(localStorage.getItem('authToken')!); //Esto solo nos da el id_usuario
     console.log(info_usuario.id_usuario);
+  }
+
+  navigateCeInmueble(param?: String){
+    this.router.navigateForward(['/ce-inmueble'], { queryParams: { idInmueble: param } });
   }
 }

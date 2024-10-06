@@ -1,6 +1,7 @@
 // auth.service.ts
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { jwtDecode } from 'jwt-decode';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { CustomNavControllerService } from '../custom-router.service';
@@ -15,7 +16,7 @@ export class AuthService {
   constructor(private httpClient: HttpClient, private router: CustomNavControllerService) {}
 
   signin(email: string, password: string): Observable<any> {
-    return this.httpClient.post('http://localhost:3000/persona/signin', { email, password }).pipe(
+    return this.httpClient.post('persona/signin', { email, password }).pipe(
       tap((response: any) => {
         if (response && response.token) {
           localStorage.setItem('authToken', response.token.token);
@@ -44,5 +45,10 @@ export class AuthService {
   getUser() {
     const user = localStorage.getItem('user');
     return user ? JSON.parse(user) : null;
+  }
+
+  getUserId(){
+    const ui: any = jwtDecode(localStorage.getItem('authToken')!);
+    return ui.id_usuario;
   }
 }

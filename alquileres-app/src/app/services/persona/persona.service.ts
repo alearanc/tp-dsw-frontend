@@ -11,24 +11,24 @@ export class PersonaService {
   constructor(private httpClient: HttpClient) { }
 
   getAllPersona(): Observable<Persona[]>{
-    return this.httpClient.get<Persona[]>('http://localhost:3000/persona/get');
+    return this.httpClient.get<Persona[]>('persona/get');
   }
 
   getPersonaByid_usuario(id_usuario:number): Observable<Persona>{
-    return this.httpClient.get<Persona>('http://localhost:3000/persona/get/' + id_usuario );
+    return this.httpClient.get<Persona>('persona/get/' + id_usuario );
   }
 
   addPersona(persona: Persona): Observable<Persona>{
-    return this.httpClient.post<Persona>('http://localhost:3000/persona/add',persona);
+    return this.httpClient.post<Persona>('persona/add',persona);
   }
 
   deletePersonaByid_usuario(id_usuario: number): Observable<Persona>{
-    return this.httpClient.delete<Persona>('http://localhost:3000/persona/delete/' + id_usuario );
+    return this.httpClient.delete<Persona>('persona/delete/' + id_usuario );
   }
 
   updatePersona(persona: Persona): Observable<Persona> {
     const { id_usuario, nombre, apellido, email, password, tipo_usuario, telefono, domicilio } = persona;
-    return this.httpClient.put<Persona>('http://localhost:3000/persona/update/' + id_usuario, {
+    return this.httpClient.put<Persona>('persona/update/' + id_usuario, {
       nombre,
       apellido,
       email,
@@ -40,10 +40,10 @@ export class PersonaService {
   }
 
   recoverAccount(email: string): Observable<any> {
-    return this.httpClient.post(`http://localhost:3000/persona/recover_account`, { email });
+    return this.httpClient.post(`persona/recover_account`, { email });
   }
 
   resetPassword(token: string, newPassword: string): Observable<any> {
-    return this.httpClient.post(`http://localhost:3000/persona/reset_password`, { token, newPassword });
+    return this.httpClient.post(`persona/reset_password`, { token, newPassword });
   }
 }

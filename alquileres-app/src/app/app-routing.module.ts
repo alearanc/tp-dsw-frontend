@@ -13,10 +13,6 @@ const routes: Routes = [
     loadChildren: () => import('./pages/tipo-inmueble/tipo-inmueble.module').then( m => m.TipoInmueblePageModule)
   },
   {
-    path: 'inmueble',
-    loadChildren: () => import('./pages/inmueble/inmueble.module').then( m => m.InmueblePageModule)
-  },
-  {
     path: 'localidad',
     loadChildren: () => import('./pages/localidad/localidad.module').then( m => m.LocalidadPageModule)
   },
@@ -41,15 +37,23 @@ const routes: Routes = [
   },
   {
     path: 'recovery-account',
-    loadChildren: () => import('./pages/recovery-account/recovery-account.module').then( m => m.RecoveryAccountPageModule)
+    loadChildren: () => import('./pages/recovery-account/recovery-account.module').then( m => m.RecoveryAccountPageModule),
+    canActivate: [NoAuthGuard]
   },
   {
     path: 'reset-password',
-    loadChildren: () => import('./pages/reset-password/reset-password.module').then( m => m.ResetPasswordPageModule)
+    loadChildren: () => import('./pages/reset-password/reset-password.module').then( m => m.ResetPasswordPageModule),
+    canActivate: [NoAuthGuard]
   },
   {
     path: 'home',
-    loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule)
+    loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule),
+    canActivate: [NoAuthGuard]
+  },
+  {
+    path: 'ce-inmueble',
+    loadChildren: () => import('./pages/ce-inmueble/ce-inmueble.module').then( m => m.CEInmueblePageModule),
+    canActivate: [AuthGuard]
   },
 
 

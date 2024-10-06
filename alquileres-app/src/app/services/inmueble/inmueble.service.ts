@@ -1,13 +1,13 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import Inmueble from 'src/app/models/Inmueble';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import Inmueble from 'src/app/models/Inmueble';
 
 @Injectable({
   providedIn: 'root'
 })
 export class InmuebleService {
-  private apiUrl = 'http://localhost:3000/inmueble';
+  private apiUrl = 'inmueble';
 
   constructor(private http: HttpClient) { }
 
