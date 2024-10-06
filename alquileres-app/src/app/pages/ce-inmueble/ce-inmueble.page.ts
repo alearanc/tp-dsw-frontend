@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { AlertController } from '@ionic/angular';
+import { catchError, throwError } from 'rxjs';
 import Inmueble from 'src/app/models/Inmueble';
 import Localidad from 'src/app/models/Localidad';
 import TipoInmueble from 'src/app/models/TipoInmueble';
@@ -22,8 +24,7 @@ export class CEInmueblePage implements OnInit {
   localidades: Localidad[] = [];
   inmuebleForm!: FormGroup;
 
-  constructor(private fb: FormBuilder, private tipoInmuebleService: TipoInmubeleService, private localidadService: LocalidadService, private inmuebleService: InmuebleService,
-    private authService: AuthService, private route: ActivatedRoute, private router: CustomNavControllerService
+  constructor(private fb: FormBuilder, private tipoInmuebleService: TipoInmubeleService, private localidadService: LocalidadService, private inmuebleService: InmuebleService, private authService: AuthService, private route: ActivatedRoute, private router: CustomNavControllerService, private alertController: AlertController
   ) { }
 
   ngOnInit() {
@@ -58,14 +59,36 @@ export class CEInmueblePage implements OnInit {
     console.log(this.inmuebleForm.value)
     nuevoInmueble.tipo_inmueble = this.tipoInmuebles.filter((tipo: TipoInmueble) => tipo.id_tipoinmueble !== this.inmuebleForm.controls['tipo_inmueble'].value)[0];
     if (this.inmuebleSeleccionado) {
-      this.inmuebleService.updateInmueble(this.inmuebleSeleccionado.id_inmueble, nuevoInmueble).subscribe(() => { 
+      this.inmuebleService.updateInmueble(this.inmuebleSeleccionado.id_inmueble, nuevoInmueble)
+      .pipe(
+        catchError((error: any) => {
+          this.presentAlert('Error al actualizar el inmueble: ' + error.message);
+          return throwError(error);
+        })
+      ).subscribe(() => {
         this.router.navigateForward(['/dashboard']);
       });
     } else {
-      this.inmuebleService.addInmueble(nuevoInmueble).subscribe(() => { 
+      this.inmuebleService.addInmueble(nuevoInmueble)
+      .pipe(
+        catchError((error: any) => {
+          this.presentAlert('Error al actualizar el inmueble: ' + error.message);
+          return throwError(error);
+        })
+      ).subscribe(() => {
         this.router.navigateForward(['/dashboard']);
       });
     }
+  }
+
+  async presentAlert(mensaje: string) {
+    const alert = await this.alertController.create({
+      header: 'Error',
+      message: mensaje,
+      buttons: ['Action'],
+    });
+
+    await alert.present();
   }
 
 }
