@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { AlertController, ModalController } from '@ionic/angular';
+import { OverlayEventDetail } from '@ionic/core/components';
 import Inmueble from 'src/app/models/Inmueble';
 import { InmuebleService } from 'src/app/services/inmueble/inmueble.service';
-import { OverlayEventDetail } from '@ionic/core/components';
-import { AlertController, ModalController } from '@ionic/angular';
 import { ModalContentPage } from './modal/inmueble.modal';
 
 @Component({
@@ -35,7 +35,8 @@ export class InmueblePage implements OnInit {
     return inmueble.id_inmueble!;
   }
 
-  async openModal(inmueble?: Inmueble) {
+  async openModal(inmueble?: any) {
+    console.log(inmueble)
     const modal = await this.modalController.create({
       component: ModalContentPage,
       componentProps: {
@@ -44,8 +45,8 @@ export class InmueblePage implements OnInit {
         precio_noche: inmueble ? inmueble.precio_noche : 0,
         direccion_inmueble: inmueble ? inmueble.direccion_inmueble : '',
         capacidad: inmueble ? inmueble.capacidad : 0,
-        id_tipoinmueble: inmueble ? inmueble.tipoinmueble.id_tipoinmueble : null,
-        cod_postal: inmueble ? inmueble.localidad.cod_postal : null,
+        id_tipoinmueble: inmueble ? inmueble.id_tipoinmueble : null,
+        cod_postal: inmueble ? inmueble.cod_postal : null,
         id_propietario: inmueble ? inmueble.propietario : null,
         inmueble: inmueble,
       },
@@ -54,8 +55,9 @@ export class InmueblePage implements OnInit {
     modal.onDidDismiss().then((data: any) => {
       if (data.data) {
         if (inmueble) {
-          //  Actualizar un inmueble existente
           Object.assign(inmueble, data.data);
+          inmueble.tipoinmueble = { id_tipoinmueble: data.data.id_tipoinmueble};
+          inmueble.localidad = { cod_postal: data.data.cod_postal};
           this.inmuebleService.updateInmueble(inmueble.id_inmueble!, inmueble).subscribe(() => {
             this.obtenerInmuebles();
           }); 

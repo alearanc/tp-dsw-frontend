@@ -11,19 +11,19 @@ export class TipoInmubeleService {
   constructor(private httpClient: HttpClient) { }
 
   getAllTipoInmueble(): Observable<TipoInmueble[]>{
-    return this.httpClient.get<TipoInmueble[]>('http://localhost:3000/tipoInmueble/getAll');
+    return this.httpClient.get<TipoInmueble[]>('tipoInmueble/getAll');
   }
 
   addTipoInmueble(tipoInmueble : TipoInmueble): Observable<TipoInmueble[]>{
-    return this.httpClient.post<TipoInmueble[]>('http://localhost:3000/tipoInmueble/add',tipoInmueble);
+    return this.httpClient.post<TipoInmueble[]>('tipoInmueble/add',tipoInmueble);
   }
 
   deleteTipoInmueble(idTipoInmueble : number): Observable<TipoInmueble[]>{
-    return this.httpClient.delete<TipoInmueble[]>('http://localhost:3000/tipoInmueble/delete/' + idTipoInmueble );
+    return this.httpClient.delete<TipoInmueble[]>('tipoInmueble/delete/' + idTipoInmueble );
   }
 
   updateTipoInmueble(idTipoInmueble : number, descripcion: string): Observable<TipoInmueble[]>{
-    return this.httpClient.put<TipoInmueble[]>('http://localhost:3000/tipoInmueble/update/' + idTipoInmueble, {descripcion});
+    return this.httpClient.put<TipoInmueble[]>('tipoInmueble/update/' + idTipoInmueble, {descripcion});
   }
 
   //Acá van todas las peticiones al backend

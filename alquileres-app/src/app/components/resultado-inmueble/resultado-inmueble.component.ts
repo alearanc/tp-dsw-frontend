@@ -10,6 +10,7 @@ import { CustomNavControllerService } from 'src/app/services/custom-router.servi
 export class ResultadoInmuebleComponent  implements OnInit {
   
   @Input() inmuebleActual!: Inmueble;
+  @Input() showDescripcion: boolean = false;
 
   constructor(private router: CustomNavControllerService) { }
 
