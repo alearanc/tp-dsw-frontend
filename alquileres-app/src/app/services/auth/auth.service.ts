@@ -51,4 +51,13 @@ export class AuthService {
     const ui: any = jwtDecode(localStorage.getItem('authToken')!);
     return ui.id_usuario;
   }
+
+  getUserType(): string | null {
+    const token = localStorage.getItem('authToken');
+    if (token) {
+      const decodedToken: any = jwtDecode(token);
+      return decodedToken.tipo_usuario;
+    }
+    return null;
+  }
 }

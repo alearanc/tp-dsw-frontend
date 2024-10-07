@@ -11,6 +11,7 @@ import { AuthService } from '../../services/auth/auth.service';
 })
 export class DashboardPage implements OnInit {
   user: any;
+  esPropietario: boolean = false;
 
   constructor(private authService: AuthService, private router: CustomNavControllerService) {}
 
@@ -19,6 +20,7 @@ export class DashboardPage implements OnInit {
     // Conseguir la informacion del user desde el token
     const info_usuario: any = jwtDecode(localStorage.getItem('authToken')!); //Esto solo nos da el id_usuario
     console.log(info_usuario.id_usuario);
+    this.esPropietario = this.authService.getUserType() === "Propietario";
   }
 
   navigateCeInmueble(param?: String){

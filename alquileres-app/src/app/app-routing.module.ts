@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './guards/auth.guard';
 import { NoAuthGuard } from './guards/no-auth.guard';
+import { PropietarioGuard } from './guards/propietario.guard';
 
 const routes: Routes = [
   {
@@ -53,7 +54,7 @@ const routes: Routes = [
   {
     path: 'ce-inmueble',
     loadChildren: () => import('./pages/ce-inmueble/ce-inmueble.module').then( m => m.CEInmueblePageModule),
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard, PropietarioGuard]
   },
 
 
