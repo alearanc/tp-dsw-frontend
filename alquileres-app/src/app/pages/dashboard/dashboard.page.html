@@ -8,7 +8,7 @@
       <p><strong>Apellido:</strong> {{ user?.apellido }}</p>
       <p><strong>Email:</strong> {{ user?.email }}</p>
 
-      <ion-button expand="full" mode="ios" (click)="navigateCeInmueble()">
+      <ion-button expand="full" mode="ios" (click)="navigateCeInmueble()" *ngIf="esPropietario">
         <ion-icon slot="start" name="add"></ion-icon>
         Crear nuevo Inmueble
       </ion-button>
