@@ -56,6 +56,10 @@ const routes: Routes = [
     loadChildren: () => import('./pages/ce-inmueble/ce-inmueble.module').then( m => m.CEInmueblePageModule),
     canActivate: [AuthGuard, PropietarioGuard]
   },
+  {
+    path: 'inmueble',
+    loadChildren: () => import('./pages/inmueble-details/inmueble-details.module').then( m => m.InmuebleDetailsPageModule)
+  },
 
 
 ];

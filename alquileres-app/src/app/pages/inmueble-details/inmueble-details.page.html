@@ -1,0 +1,69 @@
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12">
+        <div class="cover-image"></div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col [size]="showCalendar ? 8 : 12">
+        <ion-row style="display: flex; justify-content: space-between; align-items: center;">
+          <h1>{{inmuebleSelected?.titulo_inmueble}}</h1>
+          <app-rating [calificacionPromedio]="3"></app-rating>
+        </ion-row>
+        <ion-row>
+          <ion-col size="6">
+            <h5 class="direccion">{{inmuebleSelected?.direccion_inmueble}}</h5>
+          </ion-col>
+          <ion-col size="6">
+            <h5 class="precio ion-text-end">$ {{inmuebleSelected?.precio_noche}}</h5>
+          </ion-col>
+        </ion-row>
+        <ion-col size="12">
+          <h3>Descripcion</h3>
+          <p>{{inmuebleSelected?.descripcion_inmueble}}</p>
+          <h3>Servicios</h3>
+          <ol>
+            <li>Wifi</li>
+            <li>TV</li>
+            <li>Estacionamiento</li>
+            <li>Desayuno</li>
+          </ol>
+        </ion-col>
+        <ion-col size="12">
+          <ion-row class="ion-text-end">
+            <ion-button mode="ios" (click)="getFechasDisponibles()" [disabled]="showCalendar">
+              Seleccionar fechas
+              <ion-icon slot="end" name="chevron-forward"></ion-icon>
+            </ion-button>
+          </ion-row>
+        </ion-col>
+      </ion-col>
+      <ion-col *ngIf="showCalendar" size="4">
+        <h3>Seleccione una fecha</h3>
+        <input ngxDaterangepickerMd
+               [(ngModel)]="selected"
+               [minDate]="minDate"
+               [maxDate]="maxDate"
+               [isInvalidDate]="isInvalidDate"
+               (datesUpdated)="onDateRangeSelected($event)"
+               class="form-control">
+        <p *ngIf="selected">
+          <span *ngIf="selected.startDate.isSame(selected.endDate, 'day')">
+            Seleccionando solo día {{ selected.startDate.format('DD/MM/YYYY') }}
+          </span>
+          <span *ngIf="!selected.startDate.isSame(selected.endDate, 'day')">
+            Seleccionado desde el {{ selected.startDate.format('DD/MM/YYYY') }} al {{ selected.endDate.format('DD/MM/YYYY') }}
+          </span>
+        </p>
+        <ion-row>
+          Total ${{ calculateTotal() }}
+          <ion-button mode="ios">
+            <ion-icon slot="start" name="add"></ion-icon>
+            Reservar
+          </ion-button>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
