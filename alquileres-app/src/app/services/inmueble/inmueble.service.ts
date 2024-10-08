@@ -15,6 +15,10 @@ export class InmuebleService {
     return this.http.post<Inmueble>(`${this.apiUrl}/add`, inmueble);
   }
 
+  getInmueblesSinReservas(): Observable<Inmueble[]> {
+    return this.http.get<Inmueble[]>(`${this.apiUrl}/getInmuebleSinReservas`);
+  }
+
   getAllInmuebles(): Observable<Inmueble[]> {
     return this.http.get<Inmueble[]>(`${this.apiUrl}/get`);
   }

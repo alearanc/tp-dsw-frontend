@@ -25,7 +25,7 @@ export class ResultadoInmuebleComponent  implements OnInit {
   }
 
   navigateToInmuebleDetails(id_inmueble: number){
-    this.router.navigateForward(['/inmueble/' + id_inmueble]);
+    this.router.navigateForward(['/inmueble'], { queryParams: { id: id_inmueble }});
   }
 
 }
