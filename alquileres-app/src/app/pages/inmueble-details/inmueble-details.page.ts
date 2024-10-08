@@ -29,6 +29,7 @@ export class InmuebleDetailsPage implements OnInit {
   minDate: dayjs.Dayjs = dayjs().startOf('day');
   maxDate: dayjs.Dayjs = dayjs().add(2, 'years').endOf('day');
   disableButton: boolean = false;
+  disableReservarButton: boolean = true;
   loading: boolean = true;
 
   constructor(private inmuebleService: InmuebleService, private route: ActivatedRoute, private reservasService: ReservasService, private router: CustomNavControllerService) { }
@@ -50,6 +51,7 @@ export class InmuebleDetailsPage implements OnInit {
       this.disabledDates = reservas.reduce((acc: Date[], reserva: Reserva) => {
         return acc.concat(this.getDatesBetween(reserva.fecha_inicio.toString(), reserva.fecha_fin.toString()));
       }, []);
+      this.disabledDates.push(new Date()) // Rn que no deja reservar de hoy para hoy
     });
   }
 
@@ -83,11 +85,28 @@ export class InmuebleDetailsPage implements OnInit {
 
   onDateRangeSelected(event: any) {
     const { startDate, endDate } = event;
+    console.log(startDate.$d, endDate.$d);
+    
     if (this.isRangeInvalid(startDate, endDate)) {
       alert('El rango seleccionado contiene fechas no disponibles.');
       this.selected = { startDate: dayjs(), endDate: dayjs() }; // Reset to default
     } else {
       this.selected = { startDate, endDate };
+    
+      const today = new Date();
+      today.setHours(0, 0, 0, 0); // Reset time to midnight for accurate comparison
+    
+      const startDateObj = new Date(startDate.$d);
+      const endDateObj = new Date(endDate.$d);
+      startDateObj.setHours(0, 0, 0, 0); // Reset time to midnight for accurate comparison
+      endDateObj.setHours(0, 0, 0, 0); // Reset time to midnight for accurate comparison
+    
+      this.disableReservarButton = (startDateObj.getTime() === today.getTime() || endDateObj.getTime() === today.getTime());
+    
+      console.log(startDateObj.toLocaleDateString());
+      console.log(today.toLocaleDateString());
+      console.log(endDateObj.toLocaleDateString());
+      console.log(this.disableReservarButton);
     }
   }
 

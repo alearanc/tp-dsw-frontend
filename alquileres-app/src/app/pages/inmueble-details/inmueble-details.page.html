@@ -57,17 +57,18 @@
                   <ion-icon name="calendar-outline"></ion-icon>
         </div>
         <p *ngIf="selected">
-          <span *ngIf="selected.startDate.isSame(selected.endDate, 'day')">
+          <span *ngIf="selected.startDate.isSame(selected.endDate, 'day') && !disableReservarButton">
             Seleccionando solo día {{ selected.startDate.format('DD/MM/YYYY') }}
           </span>
-          <span *ngIf="!selected.startDate.isSame(selected.endDate, 'day')">
+          <span *ngIf="!selected.startDate.isSame(selected.endDate, 'day') && !disableReservarButton">
             Seleccionado desde el {{ selected.startDate.format('DD/MM/YYYY') }} al {{ selected.endDate.format('DD/MM/YYYY') }}
           </span>
+          <span *ngIf="disableReservarButton">Por favor seleccione una fecha válida (mayor al día de hoy)</span>
         </p>
       </div>
         <ion-row class="ion-justify-content-between ion-align-items-center">
           <span>Total <b>${{ calculateTotal() }}</b></span>
-          <ion-button mode="ios" [disabled]="!(selected.startDate && selected.endDate) || loading" (click)="reservar()">
+          <ion-button mode="ios" [disabled]="(!(selected.startDate && selected.endDate)) || loading || disableReservarButton" (click)="reservar()">
             Reservar
             <ion-icon slot="end" name="chevron-forward"></ion-icon>
           </ion-button>
