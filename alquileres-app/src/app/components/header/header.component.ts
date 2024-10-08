@@ -74,7 +74,7 @@ export class HeaderComponent implements OnInit {
   }
 
   async navigateToHome() {
-    this.router.navigateForward(['/home']);
+    this.router.navigateForward(['/']);
   }
 }
 

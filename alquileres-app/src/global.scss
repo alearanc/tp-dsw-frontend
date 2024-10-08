@@ -81,3 +81,11 @@ body {
     --ion-background-color: #ffffff;
     --ion-text-color: #000000;
 }
+
+.swal2-container::ng-deep {
+    height: 100vh !important;
+}
+
+div:where(.swal2-container).swal2-top, div:where(.swal2-container).swal2-center, div:where(.swal2-container).swal2-bottom{
+    height: 100vh !important;
+}
