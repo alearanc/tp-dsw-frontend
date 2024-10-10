@@ -1,4 +1,4 @@
-<div class="card-wrapper">
+<div class="card-wrapper" [ngStyle]="{opacity: reservaActual?.estado === 'Cancelado' ? '0.5' : '1'}">
   <img src="../../../assets/signup-page-hero-photo.jpg" width="100%">
   <h1 class="nombre">{{inmuebleActual!.titulo_inmueble}}</h1>
   <div class="rating">
@@ -29,7 +29,7 @@
       <ion-icon slot="end" [name]="inmuebleActual.habilitado ? 'eye-off' : 'eye'"></ion-icon>
     </ion-button>
   </div>
-  <div *ngIf="showReservaButton && reservaActual?.fecha_inicio" style="display: flex; width: 100%;" class="details-btn">
+  <div *ngIf="showReservaButton && reservaActual?.fecha_inicio && reservaActual?.estado !== 'Cancelado'" style="display: flex; width: 100%;" class="details-btn">
     <ion-button expand="full" style="width: 100%;" mode="ios"
       (click)="navigateToInmuebleDetails(inmuebleActual.id_inmueble, reservaActual.fecha_inicio, reservaActual.fecha_fin)">
       Detalles
@@ -39,5 +39,8 @@
       Cancelar
       <ion-icon slot="end" name="close-outline"></ion-icon>
     </ion-button>
+  </div>
+  <div class="details-btn" *ngIf="reservaActual?.estado === 'Cancelado'" style="border: 1px solid #aaa; background-color: #ddd; width: 100%; text-align: center; padding: 8px;">
+    Habías reservado del: {{reservaActual?.fecha_inicio | date:"dd/MM/yyyy"}} al {{reservaActual?.fecha_fin | date:"dd/MM/yyyy"}}
   </div>
 </div>
