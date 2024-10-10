@@ -10,6 +10,7 @@ dayjs.extend(utc);
 
 import Inmueble from 'src/app/models/Inmueble';
 import Reserva from 'src/app/models/Reserva';
+import { AuthService } from 'src/app/services/auth/auth.service';
 import { CustomNavControllerService } from 'src/app/services/custom-router.service';
 import { InmuebleService } from 'src/app/services/inmueble/inmueble.service';
 import { ReservasService } from 'src/app/services/reservas/reservas.service';
@@ -31,8 +32,9 @@ export class InmuebleDetailsPage implements OnInit {
   disableButton: boolean = false;
   disableReservarButton: boolean = true;
   loading: boolean = true;
+  idUsuario: number = this.authService.getUserId();
 
-  constructor(private inmuebleService: InmuebleService, private route: ActivatedRoute, private reservasService: ReservasService, private router: CustomNavControllerService) { }
+  constructor(private inmuebleService: InmuebleService, private route: ActivatedRoute, private reservasService: ReservasService, private router: CustomNavControllerService, private authService: AuthService) { }
 
   ngOnInit() {
     const idInmuebleActual = this.route.snapshot.queryParams['id'];
