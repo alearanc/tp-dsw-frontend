@@ -1,17 +1,40 @@
 <ion-content>
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>Dashboard</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
+  <ion-grid fixed>
+    <ion-row style="display: flex; flex-direction: column; gap: 8px;" class="info-user">
+      <h1>Mi perfil</h1>
       <p><strong>Nombre:</strong> {{ user?.nombre }}</p>
       <p><strong>Apellido:</strong> {{ user?.apellido }}</p>
       <p><strong>Email:</strong> {{ user?.email }}</p>
-
+    </ion-row>
+    <ion-row>
+      <div class="list-container">
+        <ion-row>
+          <h2>Mis reservas</h2>
+        </ion-row>
+        <ion-row class="list-collection">
+          @for (reserva of reservas; track reserva.fecha_inicio){
+            <app-resultado-inmueble [inmuebleActual]="reserva.inmueble" [fechaReserva]="reserva.fecha_inicio"></app-resultado-inmueble>
+          }
+        </ion-row>
+      </div>
+    </ion-row>
+    <ion-row>
+      <div class="list-container">
+        <ion-row>
+          <h2>Mis inmuebles</h2>
+        </ion-row>
+        <ion-row class="list-collection">
+          @for (inmueble of inmuebles; track inmueble.id_inmueble){
+            <app-resultado-inmueble [inmuebleActual]="inmueble" [showEditButtons]="true"></app-resultado-inmueble>
+          }
+        </ion-row>
+      </div>
+    </ion-row>
+    <ion-row size="12" class="ion-justify-content-center" style="padding-top: 24px;">
       <ion-button expand="full" mode="ios" (click)="navigateCeInmueble()" *ngIf="esPropietario">
-        <ion-icon slot="start" name="add"></ion-icon>
+        <ion-icon slot="end" name="add"></ion-icon>
         Crear nuevo Inmueble
       </ion-button>
-    </ion-card-content>
-  </ion-card>
+    </ion-row>
+  </ion-grid>
 </ion-content>

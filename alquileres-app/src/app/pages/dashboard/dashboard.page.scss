@@ -5,3 +5,28 @@ ion-button{
     --background-activated: #222;
     --background-hover: #111;
 }
+
+.list-collection{
+    display: flex;
+    gap: 16px;
+}
+
+.list-container{
+    h2{
+        margin-top: 32px;
+        margin-bottom: 24px;
+    }
+    @media screen and (max-width: 768px){
+        padding: 0 16px;
+    }
+}
+
+p{
+    margin: 0;
+}
+
+.info-user{
+    @media screen and (max-width: 768px){
+        padding: 0 16px;
+    }
+}

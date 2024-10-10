@@ -32,11 +32,14 @@
         </ion-col>
         <ion-col size="12">
           <ion-row class="ion-justify-content-end">
-            <ion-button mode="ios" (click)="getFechasDisponibles()" [disabled]="showCalendar || disableButton || loading">
+            <ion-button mode="ios" (click)="getFechasDisponibles()" [disabled]="showCalendar || disableButton || loading || this.inmuebleSelected?.id_propietario === this.idUsuario">
               {{loading ? "Cargando" : disableButton ? "Reservado" : "Seleccionar fechas"}}
               <ion-icon slot="end" [name]="disableButton ? 'checkmark' : 'chevron-forward'" *ngIf="!loading"></ion-icon>
               <ion-spinner *ngIf="loading" name="lines"></ion-spinner>
             </ion-button>
+          </ion-row>
+          <ion-row *ngIf="this.inmuebleSelected?.id_propietario === this.idUsuario" class="ion-justify-content-end">
+            Este inmueble te pertenece *
           </ion-row>
         </ion-col>
       </ion-col>

@@ -11,6 +11,8 @@ export default class Inmueble {
     tipo_inmueble!: TipoInmueble;
     localidad!: Localidad;
     propietario!: number;
+    habilitado!: Boolean;
+    id_propietario!: number;
     
     constructor(titulo_inmueble: string, descripcion_inmueble: string, precio_noche: number, direccion_inmueble: string, capacidad: number, tipoinmueble: TipoInmueble, localidad: Localidad, propietario: number) {
         this.titulo_inmueble = titulo_inmueble;
@@ -21,5 +23,6 @@ export default class Inmueble {
         this.tipo_inmueble = tipoinmueble;
         this.localidad = localidad;
         this.propietario = propietario;
+        this.habilitado = true;
     }
 }

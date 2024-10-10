@@ -42,7 +42,7 @@ img { grid-area: 1 / 1 / 2 / 3; }
 .direccion { grid-area: 3 / 1 / 4 / 2; }
 .precio { grid-area: 3 / 2 / 4 / 3; }
 .descripcion{ grid-area: 4 / 1 / 5 / 3; }
-ion-button { grid-area: 5 / 1 / 5 / 3; }
+.details-btn { grid-area: 5 / 1 / 5 / 3; }
 
 ion-button{
     --border-radious: 0px !important;
