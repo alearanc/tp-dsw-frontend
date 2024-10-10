@@ -130,6 +130,7 @@ export class InmuebleDetailsPage implements OnInit {
         this.disableButton = true;
         Swal.fire({
           title: 'Reserva realizada',
+          confirmButtonColor: '#000',
           text: 'Se ha reservado para el día desde ' + this.selected.startDate.format('DD/MM/YYYY') + ' hasta ' + this.selected.endDate.format('DD/MM/YYYY') + ' por un total de $' + this.calculateTotal() + ' en ' + this.inmuebleSelected.direccion_inmueble,
           icon: 'success',
           confirmButtonText: 'Continuar'
