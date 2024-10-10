@@ -16,8 +16,11 @@ import { AuthService } from '../../services/auth/auth.service';
 export class DashboardPage implements OnInit {
   user: any;
   reservas: Reserva[] = [];
+  reservasPasadas: Reserva[] = [];
+  reservasCanceladas: Reserva[] = [];
   inmuebles: Inmueble[] = [];
   esPropietario: boolean = false;
+  tab: string = 'futuras';
 
   constructor(private authService: AuthService, private router: CustomNavControllerService, private reservaService: ReservasService, private inmuebleService: InmuebleService) {}
 
@@ -27,11 +30,34 @@ export class DashboardPage implements OnInit {
     const info_usuario: any = jwtDecode(localStorage.getItem('authToken')!); //Esto solo nos da el id_usuario
     console.log(info_usuario.id_usuario);
     this.esPropietario = this.authService.getUserType() === "Propietario";
+    this.getMisReservas();
+    this.getMisReservasPasadas();
+    this.getMisReservasCanceladas();
+    this.inmuebleService.getMisInmuebles().subscribe((inmuebles: Inmueble[]) => {
+      this.inmuebles = inmuebles;
+    });
+  }
+
+  reloadReservas(){
+    this.getMisReservas();
+    this.getMisReservasCanceladas();
+  }
+
+  getMisReservas(){
     this.reservaService.getReservas().subscribe((reservas: Reserva[]) => {
       this.reservas = reservas;
     });
-    this.inmuebleService.getMisInmuebles().subscribe((inmuebles: Inmueble[]) => {
-      this.inmuebles = inmuebles;
+  }
+
+  getMisReservasPasadas(){
+    this.reservaService.getReservasPasadas().subscribe((reservas: Reserva[]) => {
+      this.reservasPasadas = reservas;
+    });
+  }
+
+  getMisReservasCanceladas(){
+    this.reservaService.getReservasCanceladas().subscribe((reservas: Reserva[]) => {
+      this.reservasCanceladas = reservas;
     });
   }
 

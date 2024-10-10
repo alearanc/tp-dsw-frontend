@@ -1,26 +1,43 @@
 <div class="card-wrapper">
   <img src="../../../assets/signup-page-hero-photo.jpg" width="100%">
-  <h1 class="nombre">{{inmuebleActual.titulo_inmueble}}</h1>
+  <h1 class="nombre">{{inmuebleActual!.titulo_inmueble}}</h1>
   <div class="rating">
     <app-rating [calificacionPromedio]="getCalificacionPromedio()"></app-rating>
   </div>
   <p class="direccion">{{inmuebleActual.direccion_inmueble}}</p>
   <b class="precio">$ {{inmuebleActual.precio_noche}}</b>
   <p class="descripcion" *ngIf="showDescripcion">{{inmuebleActual.descripcion_inmueble}}</p>
-  <ion-button *ngIf="!showEditButtons" [disabled]="showDescripcion || fechaReserva" expand="full" mode="ios" class="details-btn"
+  <p class="descripcion" *ngIf="showFechaVisita">Alojado el día: {{reservaActual?.fecha_inicio | date:"dd/MM/yyyy"}}</p>
+  <ion-button *ngIf="!showEditButtons && !showReservaButton && !showReservaPasadaButtons" [disabled]="showDescripcion || reservaActual?.fecha_inicio" expand="full" mode="ios" class="details-btn"
     (click)="navigateToInmuebleDetails(inmuebleActual.id_inmueble)">
-    {{fechaReserva ? "Reservado el día " + (fechaReserva | date:"dd/MM/yyyy") : "Más Información"}}
+    {{reservaActual?.fecha_inicio ? "Reservado el día " + (reservaActual?.fecha_inicio | date:"dd/MM/yyyy") : "Más Información"}}
     <ion-icon slot="end" name="chevron-forward"></ion-icon>
   </ion-button>
+  <ion-button *ngIf="showReservaPasadaButtons" [disabled]="reservaActual?.valoracion" expand="full" mode="ios" class="details-btn"
+    (click)="calificarEstadia()">
+    Calificar estadía
+    <ion-icon slot="end" name="star-outline"></ion-icon>
+  </ion-button>
   <div *ngIf="showEditButtons" style="display: flex; width: 100%;" class="details-btn">
-    <ion-button [disabled]="showDescripcion || fechaReserva || !inmuebleActual.habilitado" expand="full" style="width: 100%;" mode="ios"
+    <ion-button [disabled]="showDescripcion || reservaActual?.fecha_inicio || !inmuebleActual.habilitado" expand="full" style="width: 100%;" mode="ios"
       (click)="navigateToEditInmueble()">
       Editar
       <ion-icon slot="end" name="create"></ion-icon>
     </ion-button>
-    <ion-button [disabled]="showDescripcion || fechaReserva" expand="full" style="width: 100%;" mode="ios" (click)="toggleVisibilidad()">
+    <ion-button [disabled]="showDescripcion || reservaActual?.fecha_inicio" expand="full" style="width: 100%;" mode="ios" (click)="toggleVisibilidad()">
       {{inmuebleActual.habilitado ? "Deshabilitar" : "Habilitar"}}
       <ion-icon slot="end" [name]="inmuebleActual.habilitado ? 'eye-off' : 'eye'"></ion-icon>
+    </ion-button>
+  </div>
+  <div *ngIf="showReservaButton && reservaActual?.fecha_inicio" style="display: flex; width: 100%;" class="details-btn">
+    <ion-button expand="full" style="width: 100%;" mode="ios"
+      (click)="navigateToInmuebleDetails(inmuebleActual.id_inmueble, reservaActual.fecha_inicio, reservaActual.fecha_fin)">
+      Detalles
+      <ion-icon slot="end" name="calendar-outline"></ion-icon>
+    </ion-button>
+    <ion-button expand="full" style="width: 100%;" mode="ios" (click)="cancelarReserva()">
+      Cancelar
+      <ion-icon slot="end" name="close-outline"></ion-icon>
     </ion-button>
   </div>
 </div>

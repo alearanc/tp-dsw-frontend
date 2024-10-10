@@ -25,4 +25,16 @@ export class ReservasService {
   getReservas(): Observable<Reserva[]> {
     return this.http.get<Reserva[]>(`reserva/getReservas`);
   }
+
+  getReservasPasadas(): Observable<Reserva[]> {
+    return this.http.get<Reserva[]>(`reserva/getReservasPasadas`);
+  }
+
+  getReservasCanceladas(): Observable<Reserva[]> {
+    return this.http.get<Reserva[]>(`reserva/getReservasCanceladas`);
+  }
+
+  cancelarReserva(reserva: Reserva): Observable<any> {
+    return this.http.put(`reserva/cancelarReserva`, reserva);
+  }
 }

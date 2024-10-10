@@ -3,10 +3,12 @@ import { ActivatedRoute } from '@angular/router';
 import { addDays, parseISO } from 'date-fns';
 import * as dayjs from 'dayjs';
 import isoWeek from 'dayjs/plugin/isoWeek';
+import timezone from 'dayjs/plugin/timezone';
 import utc from 'dayjs/plugin/utc';
 
 dayjs.extend(isoWeek);
 dayjs.extend(utc);
+dayjs.extend(timezone);
 
 import Inmueble from 'src/app/models/Inmueble';
 import Reserva from 'src/app/models/Reserva';
@@ -33,28 +35,53 @@ export class InmuebleDetailsPage implements OnInit {
   disableReservarButton: boolean = true;
   loading: boolean = true;
   idUsuario: number = this.authService.getUserId();
+  fechaInicio?: dayjs.Dayjs;
+  fechaFin?: dayjs.Dayjs;
 
   constructor(private inmuebleService: InmuebleService, private route: ActivatedRoute, private reservasService: ReservasService, private router: CustomNavControllerService, private authService: AuthService) { }
 
   ngOnInit() {
     const idInmuebleActual = this.route.snapshot.queryParams['id'];
+    if (!idInmuebleActual) this.router.navigateRoot(['/']);
+    const fechaInicio = this.route.snapshot.queryParams['fechaInicio']
+    const fechaFin = this.route.snapshot.queryParams['fechaFin']
+    this.fechaInicio = fechaInicio ? dayjs(fechaInicio).tz('UTC') : undefined;
+    this.fechaFin = fechaFin ? dayjs(fechaFin).tz('UTC') : undefined;
     this.inmuebleService.getInmueble(idInmuebleActual).subscribe((inmueble) => {
       this.inmuebleSelected = inmueble;
     });
-    this.reservasService.checkReservaFutura(idInmuebleActual).subscribe((res: any) => {
-      this.loading = false;
-      if (res.hasReservation == true) { this.disableButton = true }
-    })
+    if (this.idUsuario) {
+      this.reservasService.checkReservaFutura(idInmuebleActual).subscribe((res: any) => {
+        this.loading = false;
+        if (res.hasReservation == true) { this.disableButton = true }
+      })
+    } else {
+      this.loading = false
+    }
   }
 
   getFechasDisponibles() {
-    this.showCalendar = true;
-    this.reservasService.getReservasByInmueble(this.inmuebleSelected.id_inmueble).subscribe((reservas: Reserva[]) => {
-      this.disabledDates = reservas.reduce((acc: Date[], reserva: Reserva) => {
-        return acc.concat(this.getDatesBetween(reserva.fecha_inicio.toString(), reserva.fecha_fin.toString()));
-      }, []);
-      this.disabledDates.push(new Date()) // Rn que no deja reservar de hoy para hoy
-    });
+    if (this.idUsuario) {
+      this.showCalendar = true;
+      this.reservasService.getReservasByInmueble(this.inmuebleSelected.id_inmueble).subscribe((reservas: Reserva[]) => {
+        this.disabledDates = reservas.reduce((acc: Date[], reserva: Reserva) => {
+          return acc.concat(this.getDatesBetween(reserva.fecha_inicio.toString(), reserva.fecha_fin.toString()));
+        }, []);
+        this.disabledDates.push(new Date()) // Rn que no deja reservar de hoy para hoy
+      });
+    } else {
+      Swal.fire({
+        title: 'Inicia sesión para reservar',
+        confirmButtonColor: '#000',
+        text: 'Debes iniciar sesión para poder reservar un inmueble.',
+        icon: 'info',
+        confirmButtonText: 'Iniciar sesión'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.router.navigateRoot(['/login']); // Redirige al login
+        }
+      });
+    }
   }
 
   getDatesBetween(startDate: string, endDate: string): Date[] {
@@ -88,23 +115,23 @@ export class InmuebleDetailsPage implements OnInit {
   onDateRangeSelected(event: any) {
     const { startDate, endDate } = event;
     console.log(startDate.$d, endDate.$d);
-    
+
     if (this.isRangeInvalid(startDate, endDate)) {
       alert('El rango seleccionado contiene fechas no disponibles.');
-      this.selected = { startDate: dayjs(), endDate: dayjs() }; // Reset to default
+      this.selected = { startDate: dayjs(), endDate: dayjs() };
     } else {
       this.selected = { startDate, endDate };
-    
+
       const today = new Date();
-      today.setHours(0, 0, 0, 0); // Reset time to midnight for accurate comparison
-    
+      today.setHours(0, 0, 0, 0);
+
       const startDateObj = new Date(startDate.$d);
       const endDateObj = new Date(endDate.$d);
-      startDateObj.setHours(0, 0, 0, 0); // Reset time to midnight for accurate comparison
-      endDateObj.setHours(0, 0, 0, 0); // Reset time to midnight for accurate comparison
-    
+      startDateObj.setHours(0, 0, 0, 0);
+      endDateObj.setHours(0, 0, 0, 0);
+
       this.disableReservarButton = (startDateObj.getTime() === today.getTime() || endDateObj.getTime() === today.getTime());
-    
+
       console.log(startDateObj.toLocaleDateString());
       console.log(today.toLocaleDateString());
       console.log(endDateObj.toLocaleDateString());
@@ -113,7 +140,7 @@ export class InmuebleDetailsPage implements OnInit {
   }
 
   calculateTotal(): number {
-    const days = this.selected.endDate.diff(this.selected.startDate, 'day') + 1; // +1 to include the start date
+    const days = this.selected.endDate.diff(this.selected.startDate, 'day') + 1;
     return days * this.inmuebleSelected.precio_noche;
   }
 
