@@ -1,0 +1,130 @@
+.container {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  text-align: center;
+  font-size: 28px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.error-message {
+  color: #d9534f;
+  background-color: #f2dede;
+  padding: 10px;
+  border: 1px solid #ebccd1;
+  border-radius: 5px;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin-bottom: 5px;
+}
+
+li {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  height: 40px;
+  padding: 5px;
+  margin-bottom: 5px;
+  display: flex;
+  justify-content:space-between;
+  align-items: center;
+  border-radius: 5px;
+}
+
+li:hover {
+  background-color: #f0f0f0;
+}
+
+button {
+  background-color: #007bff;
+  border: none;
+  color: white;
+  padding: 10px 12px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+p {
+  text-align: center;
+  color: #666;
+}
+
+label {
+  font-weight: bold;
+  margin-right: 10px;
+  color: #333;
+}
+
+select {
+  padding: 5px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+select:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+h3 {
+  color: #007bff;
+  margin-bottom: 10px;
+}
+
+.select-button-container {
+  display: flex;
+  align-items: center; /* Centra el select y el botón verticalmente */
+  gap: 10px; /* Espacio entre select y botón */
+  margin-bottom: 20px;
+}
+
+select {
+  flex: 1;
+  padding: 5px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+button {
+  white-space: nowrap; /* Evita que el texto del botón se corte */
+}
+
+option:disabled {
+  color: #aaa;
+  background-color: #f5f5f5;
+}
+
+/* Media query para pantallas pequeñas */
+@media (max-width: 800px) {
+  .select-button-container {
+    flex-direction: column; /* Pone el botón debajo del select en pantallas pequeñas */
+    align-items: stretch;   /* Asegura que ambos elementos ocupen todo el ancho disponible */
+  }
+
+  button {
+    width: 100%; /* Botón ocupará todo el ancho disponible en pantallas pequeñas */
+  }
+}
+

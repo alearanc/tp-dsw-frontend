@@ -58,7 +58,7 @@ export class ServicioPage implements OnInit {
   }
 
 
-  async deleteTipoInmueble(servicio: Servicio){
+  async deleteServicio(servicio: Servicio){
       const alert = await this.alertController.create({
         header: 'Eliminar ' + servicio.descripcion_servicio + '?',
         message: 'Esta accion no puede deshacerse.',
