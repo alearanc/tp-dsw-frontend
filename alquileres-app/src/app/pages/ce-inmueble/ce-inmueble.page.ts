@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { AlertController } from '@ionic/angular';
@@ -24,7 +24,7 @@ export class CEInmueblePage implements OnInit {
   localidades: Localidad[] = [];
   inmuebleForm!: FormGroup;
 
-  constructor(private fb: FormBuilder, private tipoInmuebleService: TipoInmubeleService, private localidadService: LocalidadService, private inmuebleService: InmuebleService, private authService: AuthService, private route: ActivatedRoute, private router: CustomNavControllerService, private alertController: AlertController
+  constructor(private cdr: ChangeDetectorRef, private fb: FormBuilder, private tipoInmuebleService: TipoInmubeleService, private localidadService: LocalidadService, private inmuebleService: InmuebleService, private authService: AuthService, private route: ActivatedRoute, private router: CustomNavControllerService, private alertController: AlertController
   ) { }
 
   ngOnInit() {
@@ -42,6 +42,7 @@ export class CEInmueblePage implements OnInit {
       this.inmuebleService.getInmueble(idInmuebleActual).subscribe((inmueble: Inmueble) => {
         this.inmuebleSeleccionado = inmueble;
         this.inmuebleForm.patchValue(inmueble);
+        this.cdr.detectChanges();
       });
     }
     this.tipoInmuebleService.getAllTipoInmueble().subscribe((tiposInmuebles: TipoInmueble[]) => {
@@ -56,7 +57,7 @@ export class CEInmueblePage implements OnInit {
     let nuevoInmueble: Inmueble = this.inmuebleForm.value;
     nuevoInmueble.propietario = this.authService.getUserId();
     nuevoInmueble.localidad = this.localidades.filter((localidad: Localidad) => localidad.cod_postal !== this.inmuebleForm.controls['localidad'].value)[0];
-    console.log(this.inmuebleForm.value)
+    console.log(nuevoInmueble)
     nuevoInmueble.tipo_inmueble = this.tipoInmuebles.filter((tipo: TipoInmueble) => tipo.id_tipoinmueble !== this.inmuebleForm.controls['tipo_inmueble'].value)[0];
     if (this.inmuebleSeleccionado) {
       this.inmuebleService.updateInmueble(this.inmuebleSeleccionado.id_inmueble, nuevoInmueble)
@@ -75,8 +76,10 @@ export class CEInmueblePage implements OnInit {
           this.presentAlert('Error al actualizar el inmueble: ' + error.message);
           return throwError(error);
         })
-      ).subscribe(() => {
-        this.router.navigateForward(['/dashboard']);
+      ).subscribe((inmueble: Inmueble) => {
+        this.inmuebleSeleccionado = inmueble;
+        this.router.navigateRoot(['/ce-inmueble'], { queryParams: { idInmueble: inmueble.id_inmueble }});
+        this.inmuebleForm.markAsPristine();
       });
     }
   }

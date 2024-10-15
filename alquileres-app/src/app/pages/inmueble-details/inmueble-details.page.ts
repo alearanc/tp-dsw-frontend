@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { addDays, parseISO } from 'date-fns';
 import * as dayjs from 'dayjs';
 import isoWeek from 'dayjs/plugin/isoWeek';
 import timezone from 'dayjs/plugin/timezone';
 import utc from 'dayjs/plugin/utc';
+import FotoInmueble from 'src/app/models/FotoInmueble';
 
 dayjs.extend(isoWeek);
 dayjs.extend(utc);
@@ -14,6 +15,7 @@ import Inmueble from 'src/app/models/Inmueble';
 import Reserva from 'src/app/models/Reserva';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { CustomNavControllerService } from 'src/app/services/custom-router.service';
+import { FotosInmuebleService } from 'src/app/services/fotos-inmueble.service';
 import { InmuebleService } from 'src/app/services/inmueble/inmueble.service';
 import { ReservasService } from 'src/app/services/reservas/reservas.service';
 import Swal from 'sweetalert2';
@@ -37,8 +39,9 @@ export class InmuebleDetailsPage implements OnInit {
   idUsuario: number = this.authService.getUserId();
   fechaInicio?: dayjs.Dayjs;
   fechaFin?: dayjs.Dayjs;
+  coverPhoto: string = "./assets/no-cover.jpg";
 
-  constructor(private inmuebleService: InmuebleService, private route: ActivatedRoute, private reservasService: ReservasService, private router: CustomNavControllerService, private authService: AuthService) { }
+  constructor(private cdr: ChangeDetectorRef, private inmuebleService: InmuebleService, private route: ActivatedRoute, private reservasService: ReservasService, private router: CustomNavControllerService, private authService: AuthService, private fotoInmuebleService: FotosInmuebleService) { }
 
   ngOnInit() {
     const idInmuebleActual = this.route.snapshot.queryParams['id'];
@@ -58,6 +61,19 @@ export class InmuebleDetailsPage implements OnInit {
     } else {
       this.loading = false
     }
+    this.loadCoverPhoto();
+  }
+
+  loadCoverPhoto() {
+    const inmuebleId = this.route.snapshot.queryParams['id'];
+    this.fotoInmuebleService.getAllPhotosByInmueble(inmuebleId).subscribe((fotos: FotoInmueble[]) => {
+      if (fotos.length !== 0) {
+        const encodedUrl = encodeURIComponent(fotos[0].urlFoto);
+        this.coverPhoto = `http://localhost:3000/photos/${encodedUrl}`;
+        console.log(this.coverPhoto);
+        this.cdr.detectChanges(); // Forzar la detección de cambios
+      }
+    });
   }
 
   getFechasDisponibles() {

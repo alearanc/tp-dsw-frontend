@@ -1,17 +1,19 @@
 // custom-components.module.ts
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
+import { BuscadorComponent } from './buscador/buscador.component';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent, PopoverContentComponent } from './header/header.component';
-import { BuscadorComponent } from './buscador/buscador.component';
-import { ReactiveFormsModule } from '@angular/forms';
-import { ResultadoInmuebleComponent } from './resultado-inmueble/resultado-inmueble.component';
+import { PhotoElementComponent } from './photo-element/photo-element.component';
+import { PhotosComponentComponent } from './photos-component/photos-component.component';
 import { RatingComponent } from './rating/rating.component';
+import { ResultadoInmuebleComponent } from './resultado-inmueble/resultado-inmueble.component';
 
 @NgModule({
-  declarations: [HeaderComponent, PopoverContentComponent, FooterComponent, BuscadorComponent, ResultadoInmuebleComponent, RatingComponent],
+  declarations: [HeaderComponent, PopoverContentComponent, FooterComponent, BuscadorComponent, ResultadoInmuebleComponent, RatingComponent, PhotoElementComponent, PhotosComponentComponent],
   imports: [CommonModule, IonicModule.forRoot(), ReactiveFormsModule],
-  exports: [HeaderComponent, PopoverContentComponent, FooterComponent, BuscadorComponent, ResultadoInmuebleComponent, RatingComponent]
+  exports: [HeaderComponent, PopoverContentComponent, FooterComponent, BuscadorComponent, ResultadoInmuebleComponent, RatingComponent, PhotoElementComponent, PhotosComponentComponent]
 })
 export class CustomComponentsModule {}
