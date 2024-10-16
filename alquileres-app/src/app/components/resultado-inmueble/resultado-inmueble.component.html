@@ -1,5 +1,9 @@
 <div class="card-wrapper" [ngStyle]="{opacity: reservaActual?.estado === 'Cancelado' ? '0.5' : '1'}">
-  <img src="../../../assets/signup-page-hero-photo.jpg" width="100%">
+  <div class="img" style="height: 200px; width: auto;">
+    <picture>
+      <img [src]="$fotosSubidas() ? 'http://localhost:3000/photos/' + $fotosSubidas()![0].urlFoto : coverPhoto">
+    </picture>
+  </div>
   <h1 class="nombre">{{inmuebleActual!.titulo_inmueble}}</h1>
   <div class="rating">
     <app-rating [calificacionPromedio]="getCalificacionPromedio()"></app-rating>

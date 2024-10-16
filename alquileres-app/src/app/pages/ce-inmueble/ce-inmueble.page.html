@@ -57,12 +57,14 @@
         </form>
       </ion-col>
       <ion-col sizeMd="4" size="12">
-        <h3>Servicios e imágenes</h3>
-        Acá van los componentes vp y fotos
+        <div *ngIf="inmuebleSeleccionado">
+          <h3>Imágenes</h3>
+          <app-photos-component [inmuebleId]="inmuebleSeleccionado.id_inmueble"></app-photos-component>
+        </div>
       </ion-col>
       <ion-col sizeMd="4" size="12">
         <h3>Vista previa</h3>
-        <app-resultado-inmueble [inmuebleActual]="inmuebleForm.value" [showDescripcion]="true"></app-resultado-inmueble>
+        <app-resultado-inmueble [inmuebleActual]="inmuebleSeleccionado ? inmuebleSeleccionado : inmuebleForm.value" [showDescripcion]="true"></app-resultado-inmueble>
       </ion-col>
 </ion-row>
 </ion-grid>
