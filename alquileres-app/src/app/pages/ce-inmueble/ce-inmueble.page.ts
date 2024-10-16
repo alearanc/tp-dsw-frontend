@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { AlertController } from '@ionic/angular';
@@ -8,6 +8,7 @@ import Localidad from 'src/app/models/Localidad';
 import TipoInmueble from 'src/app/models/TipoInmueble';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { CustomNavControllerService } from 'src/app/services/custom-router.service';
+import { FotosInmuebleService } from 'src/app/services/fotos-inmueble.service';
 import { InmuebleService } from 'src/app/services/inmueble/inmueble.service';
 import { LocalidadService } from 'src/app/services/localidad/localidad.service';
 import { TipoInmubeleService } from 'src/app/services/tipo-inmueble/tipo-inmubele.service';
@@ -17,15 +18,19 @@ import { TipoInmubeleService } from 'src/app/services/tipo-inmueble/tipo-inmubel
   templateUrl: './ce-inmueble.page.html',
   styleUrls: ['./ce-inmueble.page.scss'],
 })
-export class CEInmueblePage implements OnInit {
+export class CEInmueblePage implements OnInit, OnDestroy {
 
   inmuebleSeleccionado!: Inmueble;
   tipoInmuebles: TipoInmueble[] = [];
   localidades: Localidad[] = [];
   inmuebleForm!: FormGroup;
 
-  constructor(private cdr: ChangeDetectorRef, private fb: FormBuilder, private tipoInmuebleService: TipoInmubeleService, private localidadService: LocalidadService, private inmuebleService: InmuebleService, private authService: AuthService, private route: ActivatedRoute, private router: CustomNavControllerService, private alertController: AlertController
+  constructor(private cdr: ChangeDetectorRef, private fb: FormBuilder, private tipoInmuebleService: TipoInmubeleService, private localidadService: LocalidadService, private inmuebleService: InmuebleService, private authService: AuthService, private route: ActivatedRoute, private router: CustomNavControllerService, private alertController: AlertController, private fotoInmuebleService: FotosInmuebleService
   ) { }
+
+  ngOnDestroy(): void {
+      this.fotoInmuebleService.updateFotosSubidas(null);
+  }
 
   ngOnInit() {
     this.inmuebleForm = this.fb.group({

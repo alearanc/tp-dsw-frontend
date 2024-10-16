@@ -25,6 +25,7 @@ export class ResultadoInmuebleComponent  implements OnChanges {
   @Input() fechaReserva!: Date;
   @Output() reservaCancelada: EventEmitter<void> = new EventEmitter();
   coverPhoto: string = "./assets/no-cover.jpg";
+  $fotosSubidas = this.fotoInmuebleService.fotosSubidas;
 
   constructor(private cdr: ChangeDetectorRef, private router: CustomNavControllerService, private inmuebleService: InmuebleService, private reservaService: ReservasService, private fotoInmuebleService: FotosInmuebleService) { }
 

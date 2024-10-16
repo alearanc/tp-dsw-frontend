@@ -45,6 +45,7 @@ export class PhotosComponentComponent  implements OnInit {
       this.fotosInmuebleService.uploadPhotos(this.inmuebleId, files).subscribe({
         next: (response: FotoInmueble[]) => {
           console.log('Fotos subidas correctamente', response);
+          this.fotosInmuebleService.updateFotosSubidas(response);
           this.existingPhotos = response;
           this.uploadingImages = this.uploadingImages.filter(img => !images.includes(img));
         },
@@ -61,6 +62,7 @@ export class PhotosComponentComponent  implements OnInit {
   loadExistingPhotos(inmuebleId: number) {
     this.inmuebleId = inmuebleId;
     this.fotosInmuebleService.getAllPhotosByInmueble(this.inmuebleId).subscribe((photos: FotoInmueble[]) => {
+      this.fotosInmuebleService.updateFotosSubidas(photos);
       this.existingPhotos = photos;
       console.log(photos)
     });
@@ -82,6 +84,7 @@ export class PhotosComponentComponent  implements OnInit {
         next: () => {
           console.log('Foto eliminada correctamente');
           this.existingPhotos = this.existingPhotos.filter(photo => photo.id_fotoInmueble !== photoId);
+          this.fotosInmuebleService.updateFotosSubidas(this.existingPhotos.length > 0 ? this.existingPhotos : null);
         },
         error: (err) => {
           console.error('Error al eliminar la foto:', err);

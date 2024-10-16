@@ -1,7 +1,7 @@
 <div class="card-wrapper" [ngStyle]="{opacity: reservaActual?.estado === 'Cancelado' ? '0.5' : '1'}">
   <div class="img" style="height: 200px; width: auto;">
     <picture>
-      <img [src]="coverPhoto">
+      <img [src]="$fotosSubidas() ? 'http://localhost:3000/photos/' + $fotosSubidas()![0].urlFoto : coverPhoto">
     </picture>
   </div>
   <h1 class="nombre">{{inmuebleActual!.titulo_inmueble}}</h1>

@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { Observable } from 'rxjs';
 import FotoInmueble from '../models/FotoInmueble';
 
@@ -7,6 +7,9 @@ import FotoInmueble from '../models/FotoInmueble';
   providedIn: 'root'
 })
 export class FotosInmuebleService {
+
+  private fotosSubidasSignal = signal<FotoInmueble[] | null>(null); // Señal
+  readonly fotosSubidas = this.fotosSubidasSignal.asReadonly(); // Señal como solo lectura
 
   constructor(private httpClient: HttpClient) { }
 
@@ -25,6 +28,10 @@ export class FotosInmuebleService {
     });
     
     return this.httpClient.post(`photos/add/${inmuebleId}`, formData);
+  }
+
+  updateFotosSubidas(fotos: FotoInmueble[] | null){
+    this.fotosSubidasSignal.update(() => fotos);
   }
 
 }
