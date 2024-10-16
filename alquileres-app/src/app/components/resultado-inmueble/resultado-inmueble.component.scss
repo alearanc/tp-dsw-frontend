@@ -1,4 +1,4 @@
-.card-wrapper{
+.card-wrapper {
     display: grid;
     grid-template-columns: auto, 1fr;
     grid-template-rows: auto repeat(3, auto);
@@ -7,44 +7,73 @@
     padding: 4px;
     border: 1px solid black;
     width: 300px;
-    @media screen and (max-width: 768px){
+
+    @media screen and (max-width: 768px) {
         width: none;
         min-width: 90vw;
     }
-    img {
-        width: 100%;
-        height: 200px;
-        object-fit: cover
-      }
 }
 
-h1,p{
+picture {
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+picture img {
+    object-fit: cover;
+    height: auto;
+    width: 100%;
+}
+
+h1,
+p {
     margin: 0;
 }
 
-.precio{
+.precio {
     text-align: end;
 }
 
-h1{
+h1 {
     font-size: 22px;
 }
 
-.rating{
+.rating {
     display: flex;
     justify-content: end;
     align-items: center;
 }
 
-img { grid-area: 1 / 1 / 2 / 3; }
-.nombre { grid-area: 2 / 1 / 3 / 2; }
-.rating { grid-area: 2 / 2 / 3 / 3; }
-.direccion { grid-area: 3 / 1 / 4 / 2; }
-.precio { grid-area: 3 / 2 / 4 / 3; }
-.descripcion{ grid-area: 4 / 1 / 5 / 3; }
-ion-button { grid-area: 5 / 1 / 5 / 3; }
+.img {
+    grid-area: 1 / 1 / 2 / 3;
+}
 
-ion-button{
+.nombre {
+    grid-area: 2 / 1 / 3 / 2;
+}
+
+.rating {
+    grid-area: 2 / 2 / 3 / 3;
+}
+
+.direccion {
+    grid-area: 3 / 1 / 4 / 2;
+}
+
+.precio {
+    grid-area: 3 / 2 / 4 / 3;
+}
+
+.descripcion {
+    grid-area: 4 / 1 / 5 / 3;
+}
+
+.details-btn {
+    grid-area: 5 / 1 / 5 / 3;
+}
+
+ion-button {
     --border-radious: 0px !important;
     --box-shadow: none !important;
     --background: #000;
@@ -52,6 +81,6 @@ ion-button{
     --background-hover: #111;
 }
 
-.descripcion{
+.descripcion {
     word-break: break-all;
 }

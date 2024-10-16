@@ -27,11 +27,18 @@
     "@capacitor/keyboard": "6.0.1",
     "@capacitor/status-bar": "6.0.0",
     "@ionic/angular": "^8.0.0",
+    "date-fns": "2.16.1",
+    "dayjs": "^1.11.13",
     "ionicons": "^7.0.0",
     "jwt-decode": "^4.0.0",
+    "ngx-daterangepicker-material": "^6.0.4",
     "rxjs": "~7.8.0",
+    "sweetalert2": "^11.14.2",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.2"
+  },
+  "_comentarios": {
+    "07/10/24@gastonalt": "No cambiar versión de date-fns si no se desea recursar el año que viene."
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^18.0.0",

@@ -48,7 +48,19 @@ export class AuthService {
   }
 
   getUserId(){
-    const ui: any = jwtDecode(localStorage.getItem('authToken')!);
-    return ui.id_usuario;
+    const item = localStorage.getItem('authToken');
+    if(item){
+      const ui: any = jwtDecode(item);
+      return ui.id_usuario;
+    }
+  }
+
+  getUserType(): string | null {
+    const token = localStorage.getItem('authToken');
+    if (token) {
+      const decodedToken: any = jwtDecode(token);
+      return decodedToken.tipo_usuario;
+    }
+    return null;
   }
 }

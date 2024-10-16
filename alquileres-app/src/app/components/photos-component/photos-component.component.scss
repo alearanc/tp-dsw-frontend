@@ -1,0 +1,28 @@
+.container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 60px);
+    gap: 10px;
+}
+
+ion-button{
+    --background: #000;
+    --border-style: 1px solid #000;
+    --border-width: 0px;
+    --color: #fff;
+    --border-radius: 0;
+    --box-shadow: none;
+    --padding: 0;
+    --margin: 0;
+}
+
+.image {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+}
+
+.skeleton {
+    width: 60px;
+    height: 60px;
+    background-color: #e0e0e0;
+}

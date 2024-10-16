@@ -1,20 +1,20 @@
 // custom-components.module.ts
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
+import { BuscadorComponent } from './buscador/buscador.component';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent, PopoverContentComponent } from './header/header.component';
-
-import { BuscadorComponent } from './buscador/buscador.component';
-import { ReactiveFormsModule } from '@angular/forms';
-import { ResultadoInmuebleComponent } from './resultado-inmueble/resultado-inmueble.component';
+import { PhotoElementComponent } from './photo-element/photo-element.component';
+import { PhotosComponentComponent } from './photos-component/photos-component.component';
 import { RatingComponent } from './rating/rating.component';
-import { InmuebleServicioComponent } from './inmueble-servicio/inmueble-servicio.component'
-import { FormsModule } from '@angular/forms';
+import { ResultadoInmuebleComponent } from './resultado-inmueble/resultado-inmueble.component';
+import { InmuebleServicioComponent } from './inmueble-servicio/inmueble-servicio.component';
 
 @NgModule({
-  declarations: [HeaderComponent, PopoverContentComponent, FooterComponent, BuscadorComponent, ResultadoInmuebleComponent, RatingComponent, InmuebleServicioComponent],
-  imports: [CommonModule, IonicModule.forRoot(), ReactiveFormsModule, FormsModule],
-  exports: [HeaderComponent, PopoverContentComponent, FooterComponent, BuscadorComponent, ResultadoInmuebleComponent, RatingComponent, InmuebleServicioComponent]
+  declarations: [HeaderComponent, PopoverContentComponent, FooterComponent, BuscadorComponent, ResultadoInmuebleComponent, RatingComponent, PhotoElementComponent, PhotosComponentComponent, InmuebleServicioComponent],
+  imports: [CommonModule, IonicModule.forRoot(), ReactiveFormsModule],
+  exports: [HeaderComponent, PopoverContentComponent, FooterComponent, BuscadorComponent, ResultadoInmuebleComponent, RatingComponent, PhotoElementComponent, PhotosComponentComponent, InmuebleServicioComponent]
 })
 export class CustomComponentsModule {}

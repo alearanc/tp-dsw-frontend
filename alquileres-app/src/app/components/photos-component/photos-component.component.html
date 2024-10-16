@@ -1,0 +1,16 @@
+<div class="container">
+  <ion-button expand="full" mode="ios" (click)="file.click()">
+    <ion-icon slot="icon-only" name="add"></ion-icon>
+  </ion-button>
+  @for(ph of existingPhotos; track ph.id_fotoInmueble){
+    <app-photo-element [imagen]="ph" (delete)="deletePhoto($event)"></app-photo-element>
+  }
+</div>
+
+<input
+  type="file"
+  id="file-upload"
+  style="display: none"
+  (change)="setImage($event)"
+  #file
+/>

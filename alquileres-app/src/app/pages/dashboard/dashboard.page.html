@@ -1,17 +1,86 @@
 <ion-content>
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>Dashboard</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
+  <ion-grid fixed>
+    <ion-row style="display: flex; flex-direction: column; gap: 8px;" class="info-user">
+      <h1>Mi perfil</h1>
       <p><strong>Nombre:</strong> {{ user?.nombre }}</p>
       <p><strong>Apellido:</strong> {{ user?.apellido }}</p>
       <p><strong>Email:</strong> {{ user?.email }}</p>
+    </ion-row>
+    <ion-row>
+      <h2>Mis reservas</h2>
+    </ion-row>
+    <ion-segment style="margin-bottom: 24px;" mode="md" [(ngModel)]="tab">
+      <ion-segment-button value="futuras">
+        <ion-label>Futuras</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="canceladas">
+        <ion-label>Canceladas</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="pasadas">
+        <ion-label>Pasadas</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+    <div [ngSwitch]="tab">
+      <ion-row *ngSwitchCase="'futuras'">
+        <div class="list-container">
+          <ion-row class="list-collection">
+            @for (reserva of reservas; track reserva.fecha_inicio){
+            <app-resultado-inmueble [inmuebleActual]="reserva.inmueble" [reservaActual]="reserva"
+              [showReservaButton]="true" (reservaCancelada)="reloadReservas()"></app-resultado-inmueble>
+            }
+            @if(reservas.length === 0){
+              <p style="height: 380px; width:100%; display: flex; align-items: center; justify-content: center;">Aún no tienes reservas futuras.</p>
+            }
+          </ion-row>
+        </div>
+      </ion-row>
 
-      <ion-button expand="full" mode="ios" (click)="navigateCeInmueble()">
-        <ion-icon slot="start" name="add"></ion-icon>
+      <ion-row *ngSwitchCase="'canceladas'">
+        <div class="list-container">
+          <ion-row class="list-collection">
+            @for (reserva of reservasCanceladas; track reserva.fecha_inicio){
+            <app-resultado-inmueble [inmuebleActual]="reserva.inmueble" [reservaActual]="reserva"
+              [showReservaButton]="true" (reservaCancelada)="getMisReservas()"></app-resultado-inmueble>
+            }
+            @if(reservasCanceladas.length === 0){
+              <p style="height: 380px; width:100%; display: flex; align-items: center; justify-content: center;">No tienes reservas canceladas.</p>
+            }
+          </ion-row>
+        </div>
+      </ion-row>
+
+      <ion-row *ngSwitchCase="'pasadas'">
+        <div class="list-container">
+          <ion-row class="list-collection">
+            @for (reserva of reservasPasadas; track reserva.fecha_inicio){
+            <app-resultado-inmueble [inmuebleActual]="reserva.inmueble" [reservaActual]="reserva"
+              [showReservaPasadaButtons]="true" [showFechaVisita]="true"></app-resultado-inmueble>
+            }
+            @if(reservasPasadas.length === 0){
+              <p style="height: 380px; width:100%; display: flex; align-items: center; justify-content: center;">Aún no tienes reservas pasadas.</p>
+            }
+          </ion-row>
+        </div>
+      </ion-row>
+    </div>
+    <ion-row *ngIf="esPropietario">
+      <div class="list-container">
+        <ion-row>
+          <h2>Mis inmuebles</h2>
+        </ion-row>
+        <ion-row class="list-collection">
+          @for (inmueble of inmuebles; track inmueble.id_inmueble){
+          <app-resultado-inmueble [inmuebleActual]="inmueble" [showEditButtons]="true"></app-resultado-inmueble>
+          }
+        </ion-row>
+      </div>
+    </ion-row>
+    <ion-row size="12" class="ion-justify-content-center" style="padding-top: 24px;">
+      <ion-button expand="full" mode="ios" (click)="navigateCeInmueble()" *ngIf="esPropietario">
+        <ion-icon slot="end" name="add"></ion-icon>
         Crear nuevo Inmueble
       </ion-button>
-    </ion-card-content>
-  </ion-card>
+    </ion-row>
+  </ion-grid>
+  <app-footer></app-footer>
 </ion-content>
