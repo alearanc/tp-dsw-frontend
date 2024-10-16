@@ -10,10 +10,11 @@ import { PhotoElementComponent } from './photo-element/photo-element.component';
 import { PhotosComponentComponent } from './photos-component/photos-component.component';
 import { RatingComponent } from './rating/rating.component';
 import { ResultadoInmuebleComponent } from './resultado-inmueble/resultado-inmueble.component';
+import { InmuebleServicioComponent } from './inmueble-servicio/inmueble-servicio.component';
 
 @NgModule({
-  declarations: [HeaderComponent, PopoverContentComponent, FooterComponent, BuscadorComponent, ResultadoInmuebleComponent, RatingComponent, PhotoElementComponent, PhotosComponentComponent],
+  declarations: [HeaderComponent, PopoverContentComponent, FooterComponent, BuscadorComponent, ResultadoInmuebleComponent, RatingComponent, PhotoElementComponent, PhotosComponentComponent, InmuebleServicioComponent],
   imports: [CommonModule, IonicModule.forRoot(), ReactiveFormsModule],
-  exports: [HeaderComponent, PopoverContentComponent, FooterComponent, BuscadorComponent, ResultadoInmuebleComponent, RatingComponent, PhotoElementComponent, PhotosComponentComponent]
+  exports: [HeaderComponent, PopoverContentComponent, FooterComponent, BuscadorComponent, ResultadoInmuebleComponent, RatingComponent, PhotoElementComponent, PhotosComponentComponent, InmuebleServicioComponent]
 })
 export class CustomComponentsModule {}
