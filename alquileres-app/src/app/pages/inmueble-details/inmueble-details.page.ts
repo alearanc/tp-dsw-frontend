@@ -12,10 +12,12 @@ dayjs.extend(utc);
 dayjs.extend(timezone);
 
 import Inmueble from 'src/app/models/Inmueble';
+import InmuebleServicio from 'src/app/models/inmuebleServicio';
 import Reserva from 'src/app/models/Reserva';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { CustomNavControllerService } from 'src/app/services/custom-router.service';
 import { FotosInmuebleService } from 'src/app/services/fotos-inmueble.service';
+import { InmuebleServicioService } from 'src/app/services/inmueble-servicio/inmueble-servicio.service';
 import { InmuebleService } from 'src/app/services/inmueble/inmueble.service';
 import { ReservasService } from 'src/app/services/reservas/reservas.service';
 import Swal from 'sweetalert2';
@@ -39,9 +41,10 @@ export class InmuebleDetailsPage implements OnInit {
   idUsuario: number = this.authService.getUserId();
   fechaInicio?: dayjs.Dayjs;
   fechaFin?: dayjs.Dayjs;
+  serviciosInmueble: InmuebleServicio[] = [];
   coverPhoto: string = "./assets/no-cover.jpg";
 
-  constructor(private cdr: ChangeDetectorRef, private inmuebleService: InmuebleService, private route: ActivatedRoute, private reservasService: ReservasService, private router: CustomNavControllerService, private authService: AuthService, private fotoInmuebleService: FotosInmuebleService) { }
+  constructor(private inmuebleServicioService: InmuebleServicioService,private cdr: ChangeDetectorRef, private inmuebleService: InmuebleService, private route: ActivatedRoute, private reservasService: ReservasService, private router: CustomNavControllerService, private authService: AuthService, private fotoInmuebleService: FotosInmuebleService) { }
 
   ngOnInit() {
     const idInmuebleActual = this.route.snapshot.queryParams['id'];
@@ -52,6 +55,9 @@ export class InmuebleDetailsPage implements OnInit {
     this.fechaFin = fechaFin ? dayjs(fechaFin).tz('UTC') : undefined;
     this.inmuebleService.getInmueble(idInmuebleActual).subscribe((inmueble) => {
       this.inmuebleSelected = inmueble;
+    });
+    this.inmuebleServicioService.getServiciosByInmuebleId(idInmuebleActual).subscribe((servicios: InmuebleServicio[]) => {
+      this.serviciosInmueble = servicios;
     });
     if (this.idUsuario) {
       this.reservasService.checkReservaFutura(idInmuebleActual).subscribe((res: any) => {

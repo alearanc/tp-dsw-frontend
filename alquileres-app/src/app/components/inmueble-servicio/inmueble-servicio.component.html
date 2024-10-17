@@ -24,12 +24,14 @@
     <h3>Agregar Servicio</h3>
     <label for="id_servicio">Selecciona un servicio: </label>
     <div class="select-button-container">
-      <select [(ngModel)]="newInmuebleServicio.id_servicio" id="id_servicio">
-        <option *ngFor="let servicio of allServicios" [value]="servicio.id_servicio" [disabled]="isServicioSelected(servicio.id_servicio)">
+      <ion-select id="id_servicio" interface="popover" mode="ios" [formControl]="servicio">
+        @for(servicio of allServicios; track servicio.id_servicio){
+        <ion-select-option [value]="servicio.id_servicio" [disabled]="isServicioSelected(servicio.id_servicio)">
           {{ servicio.descripcion_servicio }}
-        </option>
-      </select>
-      <button (click)="addInmuebleServicio()">Agregar Servicio</button>
+        </ion-select-option>
+        }
+      </ion-select>
+      <ion-button (click)="addInmuebleServicio()">Agregar Servicio</ion-button>
     </div>
   </div>
 </div>

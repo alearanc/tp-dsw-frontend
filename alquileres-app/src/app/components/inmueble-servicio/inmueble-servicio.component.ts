@@ -1,8 +1,9 @@
 import { Component, Input, OnInit, Output } from '@angular/core';
-import { InmuebleServicioService } from 'src/app/services/inmueble-servicio/inmueble-servicio.service';
-import { ServicioService } from 'src/app/services/servicio/servicio.service';
+import { FormControl } from '@angular/forms';
 import InmuebleServicio from 'src/app/models/inmuebleServicio';
 import Servicio from 'src/app/models/Servicio';
+import { InmuebleServicioService } from 'src/app/services/inmueble-servicio/inmueble-servicio.service';
+import { ServicioService } from 'src/app/services/servicio/servicio.service';
 
 @Component({
   selector: 'app-inmueble-servicio',
@@ -11,14 +12,12 @@ import Servicio from 'src/app/models/Servicio';
 })
 export class InmuebleServicioComponent implements OnInit {
 
-  //@Input() id_inmueble?: number
-  //@Output() serviciosInmueble: InmuebleServicio[] = [];
-  id_inmueble: number = 1;
-  id_servicio: number = 0
-  serviciosInmueble: InmuebleServicio[] = [];  // Servicios actuales del inmueble
+  @Input() id_inmueble!: number;
+  @Output() serviciosInmueble: InmuebleServicio[] = [];
+  id_servicio!: number;
   allServicios: Servicio[] = [];  // Lista de todos los servicios disponibles
-  newInmuebleServicio: InmuebleServicio = { id_inmueble: this.id_inmueble, id_servicio: this.id_servicio };  // Objeto para agregar una nueva relación
   mensajeError: string | null = null;
+  servicio = new FormControl();
 
   constructor(private inmuebleServicioService: InmuebleServicioService, private servicioService: ServicioService) {}
 
@@ -60,21 +59,13 @@ export class InmuebleServicioComponent implements OnInit {
   }
 
   addInmuebleServicio(): void {
-    if (this.newInmuebleServicio.id_servicio > 0) {
-      //console.log(this.newInmuebleServicio)
-      this.mensajeError= ''
-      let originalObject = this.newInmuebleServicio
-
-      this.newInmuebleServicio.id_inmueble = Number(originalObject.id_inmueble);
-      this.newInmuebleServicio.id_servicio = Number(originalObject.id_servicio);
-      //console.log(this.newInmuebleServicio);
-
-
-      this.inmuebleServicioService.addInmuebleServicio([this.newInmuebleServicio])
+    const newInmuebleServicio: InmuebleServicio = { id_inmueble: this.id_inmueble, id_servicio: this.servicio.value }; 
+    if (newInmuebleServicio.id_servicio > 0) {
+      this.mensajeError= '';
+      this.inmuebleServicioService.addInmuebleServicio([newInmuebleServicio])
         .subscribe({
           next: () => {
             this.getServicios();  // Actualizar la lista de servicios
-            this.newInmuebleServicio = { id_inmueble: this.id_inmueble, id_servicio: 0 };  // Reiniciar el formulario
           },
           error: (err) => {
             console.error('Error al agregar el servicio al inmueble', err);
