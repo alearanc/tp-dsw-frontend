@@ -60,6 +60,14 @@ const routes: Routes = [
     path: 'inmueble',
     loadChildren: () => import('./pages/inmueble-details/inmueble-details.module').then( m => m.InmuebleDetailsPageModule)
   },
+  {
+    path: 'categories',
+    loadChildren: () => import('./pages/categories/categories.module').then( m => m.CategoriesPageModule)
+  },
+  {
+    path: 'search',
+    loadChildren: () => import('./pages/search/search.module').then( m => m.SearchPageModule)
+  },
 
 
 ];
