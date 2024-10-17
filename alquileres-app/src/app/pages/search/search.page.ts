@@ -26,6 +26,12 @@ export class SearchPage implements OnInit {
           this.inmueblesEncontrados = inmuebles;
         });
       }
+      if (params['criteria']) {
+        this.inmuebleService.searchInmuebles(params['criteria']).subscribe(inmuebles => {
+          console.log(inmuebles)
+          this.inmueblesEncontrados = inmuebles;
+        });
+      }
     });
   }
 
