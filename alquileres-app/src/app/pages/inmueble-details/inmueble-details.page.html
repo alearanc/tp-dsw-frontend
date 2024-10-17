@@ -26,10 +26,9 @@
           <p>{{inmuebleSelected?.descripcion_inmueble}}</p>
           <h3>Servicios</h3>
           <ol>
-            <li>Wifi</li>
-            <li>TV</li>
-            <li>Estacionamiento</li>
-            <li>Desayuno</li>
+            @for(servicio of serviciosInmueble; track servicio.id_servicio){
+            <li>{{servicio.servicio?.descripcion_servicio}}</li>
+            }
           </ol>
         </ion-col>
         <ion-col size="12">
