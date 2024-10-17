@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap');
+
+.container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background-color: #000;
+    color: #fff;
+    aspect-ratio: 3 / 2;
+    font-family: 'Roboto Slab', sans-serif;
+    font-size: 20pt;
+    padding: 8px;
+    text-align: center;
+}
+
+:host{
+    width: 100%;
+}

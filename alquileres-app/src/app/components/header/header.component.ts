@@ -56,8 +56,8 @@ export class HeaderComponent implements OnInit {
     return `${nombre.charAt(0)}${apellido.charAt(0)}`.toUpperCase();
   }
 
-  navigateToLogin(){
-    this.router.navigateForward(['/login']);
+  navigateTo(path: string, queryParams: any = {}) {
+    this.router.navigateRoot([path], { queryParams });
   }
 
   async presentPopover(ev: any) {
@@ -71,10 +71,6 @@ export class HeaderComponent implements OnInit {
       }
     });
     await popover.present();
-  }
-
-  async navigateToHome() {
-    this.router.navigateRoot(['/']);
   }
 }
 
@@ -91,6 +87,6 @@ export class PopoverContentComponent {
 
   async navigateToProfile() {
     await this.popoverController.dismiss();
-    this.router.navigateForward(['/dashboard']);
+    this.router.navigateRoot(['/dashboard']);
   }
 }

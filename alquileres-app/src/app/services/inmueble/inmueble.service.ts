@@ -23,6 +23,18 @@ export class InmuebleService {
     return this.http.get<Inmueble[]>(`${this.apiUrl}/getInmuebleSinReservas`);
   }
 
+  getInmueblesByLocalidad(idLocalidad: number): Observable<Inmueble[]> {
+    return this.http.get<Inmueble[]>(`${this.apiUrl}/getByLocalidad/${idLocalidad}`);
+  }
+
+  getInmueblesByTipoInmueble(idTipoInmueble: number): Observable<Inmueble[]> {
+    return this.http.get<Inmueble[]>(`${this.apiUrl}/getByTipoInmueble/${idTipoInmueble}`);
+  }
+
+  searchInmuebles(criteria: string): Observable<Inmueble[]> {
+    return this.http.get<Inmueble[]>(`${this.apiUrl}/search/${criteria}`);
+  }
+
   getAllInmuebles(): Observable<Inmueble[]> {
     return this.http.get<Inmueble[]>(`${this.apiUrl}/get`);
   }

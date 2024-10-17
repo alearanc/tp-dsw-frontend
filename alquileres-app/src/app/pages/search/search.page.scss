@@ -1,0 +1,15 @@
+.recientes-collection{
+    display: flex;
+    gap: 16px;
+}
+
+.recientes-container{
+    padding: 0 40px;
+    h2{
+        margin-top: 32px;
+        margin-bottom: 24px;
+    }
+    @media screen and (max-width: 768px){
+        padding: 0 16px;
+    }
+}

@@ -17,7 +17,7 @@ export class BuscadorComponent  implements OnInit {
 
   buscar(event: any) {
     event.preventDefault();
-    this.router.navigateForward(['/home'], { queryParams: { sc: this.busqueda.value } });
+    this.router.navigateForward(['/search'], { queryParams: { criteria: this.busqueda.value } });
   }
 
 }
