@@ -48,3 +48,15 @@ ion-button[fill="outline"] {
     font-weight: bold;
     margin-right: 10px;
 }
+
+@media(max-width: 991px) {
+    .desktop-menu {
+        display: none;
+    }
+}
+
+@media(min-width: 992px) {
+    .mobile-menu {
+        display: none;
+    }
+}
