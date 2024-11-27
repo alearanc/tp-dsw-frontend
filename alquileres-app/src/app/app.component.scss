@@ -6,8 +6,11 @@
 
 app-header {
     flex-shrink: 0; /* Header no se encoge */
-    width: 100%;
-    z-index: 100;
+}
+
+h1 {
+    text-align: center;
+    cursor: pointer;
 }
 
 ion-router-outlet {

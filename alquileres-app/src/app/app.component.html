@@ -1,4 +1,24 @@
 <ion-app>
+  <ion-menu menuId="1" contentId="main-content" class="sidebar-menu">
+      <ion-toolbar>
+        <h1 (click)="navigateTo('/')">AlquileresApp</h1>
+        <ion-buttons slot="end">
+          <ion-menu-button menu="1">
+            <ion-icon name="close"></ion-icon>
+          </ion-menu-button>
+        </ion-buttons>
+      </ion-toolbar>
+    <ion-content>
+      <ion-list>
+        <ion-item button *ngFor="let item of menuItems" (click)="navigateTo(item.path, item.queryParams)">
+          <ion-label>
+            {{ item.label }}
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+
   <div class="ion-page" id="main-content">
     <app-header></app-header>
     <ion-router-outlet>
