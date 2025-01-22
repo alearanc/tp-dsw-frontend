@@ -21,7 +21,7 @@
       
           <ion-item lines="none">
             <ion-textarea type="text" [autoGrow]="true" labelPlacement="floating" label="Descripción del Inmueble" mode="ios"
-              formControlName="descripcion_inmueble"></ion-textarea>
+              formControlName="descripcion_inmueble" [counter]="true" maxlength="200" [counterFormatter]="ccf"></ion-textarea>
           </ion-item>
       
           <ion-item lines="none">

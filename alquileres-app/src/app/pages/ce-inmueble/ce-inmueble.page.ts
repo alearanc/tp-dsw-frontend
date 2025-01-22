@@ -28,6 +28,10 @@ export class CEInmueblePage implements OnInit, OnDestroy {
   constructor(private cdr: ChangeDetectorRef, private fb: FormBuilder, private tipoInmuebleService: TipoInmubeleService, private localidadService: LocalidadService, private inmuebleService: InmuebleService, private authService: AuthService, private route: ActivatedRoute, private router: CustomNavControllerService, private alertController: AlertController, private fotoInmuebleService: FotosInmuebleService
   ) { }
 
+  ccf(inputLength: number, maxLength: number) {
+    return `${maxLength - inputLength} caracteres restantes.`;
+  }
+
   ngOnDestroy(): void {
       this.fotoInmuebleService.updateFotosSubidas(null);
   }
