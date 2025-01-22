@@ -19,7 +19,7 @@ import { InmuebleDetailsPage } from './inmueble-details.page';
     CustomComponentsModule,
     NgxDaterangepickerMd.forRoot({
       format: 'DD/MM/YYYY',
-    })
+    }),
   ],
   declarations: [InmuebleDetailsPage],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

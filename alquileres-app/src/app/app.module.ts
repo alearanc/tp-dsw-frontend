@@ -15,7 +15,6 @@ import { CustomNavControllerService } from './services/custom-router.service';
 @NgModule({
   declarations: [AppComponent],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule, CustomComponentsModule, ReactiveFormsModule, NgxDaterangepickerMd.forRoot(), RouterLink, RouterModule, RouterOutlet],
-  
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     CustomNavControllerService,

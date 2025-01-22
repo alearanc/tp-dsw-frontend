@@ -1,11 +1,21 @@
 <ion-content>
+  <div 
+  *ngIf="isFullscreen" 
+  class="fullscreen-modal" 
+  (click)="closeFullscreen()">
+  <img [src]="fullscreenPhoto" alt="Foto en pantalla completa" class="fullscreen-image">
+  </div>
   <ion-grid fixed>
-    <ion-row>
-      <ion-col size="12" style="height: 400px;">
-        <picture>
-          <img [src]="coverPhoto">
-        </picture>
-      </ion-col>
+    <ion-row style="cursor: pointer;">
+      <swiper-container 
+      navigation="true" 
+      pagination="true" 
+      loop="true" 
+      style="width: 100%; height: 400px;">
+      <swiper-slide *ngFor="let photo of coverPhotos" (click)="abrirFotoFS(photo)">
+        <img [src]="photo" alt="Foto de inmueble" style="width: 100%; height: 100%; object-fit: cover;">
+      </swiper-slide>
+    </swiper-container>
     </ion-row>
     <ion-row>
       <ion-col sizeXs="12" [sizeMd]="showCalendar ? 8 : 12" class="leftcard">

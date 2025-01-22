@@ -42,7 +42,9 @@ export class InmuebleDetailsPage implements OnInit {
   fechaInicio?: dayjs.Dayjs;
   fechaFin?: dayjs.Dayjs;
   serviciosInmueble: InmuebleServicio[] = [];
-  coverPhoto: string = "./assets/no-cover.jpg";
+  coverPhotos: string[] = ["./assets/no-cover.jpg"];
+  isFullscreen: boolean = false;
+  fullscreenPhoto: string = '';
 
   constructor(private inmuebleServicioService: InmuebleServicioService,private cdr: ChangeDetectorRef, private inmuebleService: InmuebleService, private route: ActivatedRoute, private reservasService: ReservasService, private router: CustomNavControllerService, private authService: AuthService, private fotoInmuebleService: FotosInmuebleService) { }
 
@@ -70,14 +72,26 @@ export class InmuebleDetailsPage implements OnInit {
     this.loadCoverPhoto();
   }
 
+  abrirFotoFS(photo: string): void {
+    this.fullscreenPhoto = photo;
+    this.isFullscreen = true;
+  }
+
+  closeFullscreen(): void {
+    this.isFullscreen = false;
+    this.fullscreenPhoto = '';
+  }
+
   loadCoverPhoto() {
     const inmuebleId = this.route.snapshot.queryParams['id'];
     this.fotoInmuebleService.getAllPhotosByInmueble(inmuebleId).subscribe((fotos: FotoInmueble[]) => {
       if (fotos.length !== 0) {
-        const encodedUrl = encodeURIComponent(fotos[0].urlFoto);
-        this.coverPhoto = `http://localhost:3000/photos/${encodedUrl}`;
-        console.log(this.coverPhoto);
-        this.cdr.detectChanges(); // Forzar la detección de cambios
+        this.coverPhotos = fotos.map((foto) => {
+          const encodedUrl = encodeURIComponent(foto.urlFoto);
+          return `http://localhost:3000/photos/${encodedUrl}`;
+        });
+        console.log(this.coverPhotos); // Lista de URLs de fotos
+        this.cdr.detectChanges(); // Forzar detección de cambios si es necesario
       }
     });
   }
