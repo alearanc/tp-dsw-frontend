@@ -1,0 +1,18 @@
+<div class="recientes-container">
+  <ion-row>
+    <h2>Los mas recientes</h2>
+  </ion-row>
+  <ion-row class="recientes-collection">
+    @if(inmuebles.length === 0 && !sinResultados){
+      @for (i of [1,2,3,4,5]; track i){
+        <ion-skeleton-text style="width: 300px; height: 380px" [animated]="true"></ion-skeleton-text>
+      }
+    }
+    @if(sinResultados){
+      <h1>No hay inmuebles cargados actualmente.</h1>
+    }
+    @for (inmueble of inmuebles; track inmueble.id_inmueble){
+      <app-resultado-inmueble [inmuebleActual]="inmueble"></app-resultado-inmueble>
+    }
+  </ion-row>
+</div>
