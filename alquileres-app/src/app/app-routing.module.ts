@@ -68,6 +68,12 @@ const routes: Routes = [
     path: 'search',
     loadChildren: () => import('./pages/search/search.module').then( m => m.SearchPageModule)
   },
+  {
+    path: 'manage-inmuebles',
+    loadChildren: () => import('./pages/manage-inmuebles/manage-inmuebles.module').then( m => m.ManageInmueblesPageModule),
+    canActivate: [AuthGuard, PropietarioGuard]
+  },
+
 
 
 ];

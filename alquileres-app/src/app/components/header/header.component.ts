@@ -98,4 +98,9 @@ export class PopoverContentComponent {
     await this.popoverController.dismiss();
     this.router.navigateRoot(['/dashboard']);
   }
+
+  async manageInmuebles(){
+    await this.popoverController.dismiss();
+    this.router.navigateRoot(['/manage-inmuebles']);
+  }
 }

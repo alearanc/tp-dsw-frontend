@@ -80,7 +80,7 @@ export class ResultadoInmuebleComponent  implements OnChanges {
         const encodedUrl = encodeURIComponent(fotos[0].urlFoto);
         this.coverPhoto = `http://localhost:3000/photos/${encodedUrl}`;
         console.log(this.coverPhoto);
-        this.cdr.detectChanges(); // Forzar la detección de cambios
+        this.cdr.detectChanges(); // Forzamos la detección de cambios, no se si esto está tan bueno igual.
       }
     });
   }
@@ -95,9 +95,12 @@ export class ResultadoInmuebleComponent  implements OnChanges {
       text: "Estas por cancelar la reserva de este inmueble.",
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#000',
-      cancelButtonColor: '#d33',
-      confirmButtonText: '¡Sí, cancelar reserva!'
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#555',
+      confirmButtonText: 'Cancelar reserva',
+      cancelButtonText: "Salir",
+      reverseButtons: true,
+      focusCancel: true
     }).then((result) => {
       if (result.isConfirmed) {
         this.reservaService.cancelarReserva(this.reservaActual).subscribe((inmueble: Inmueble) => {
