@@ -3,7 +3,7 @@ import { AlertController } from '@ionic/angular';
 import FotoInmueble from 'src/app/models/FotoInmueble';
 import Inmueble from 'src/app/models/Inmueble';
 import { FotosInmuebleService } from 'src/app/services/fotos-inmueble.service';
-import { InmuebleService } from 'src/app/services/inmueble.service';
+import { InmuebleService } from 'src/app/services/inmueble/inmueble.service';
 
 @Component({
   selector: 'app-foto-inmueble',
@@ -25,7 +25,7 @@ export class FotoInmueblePage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.inmuebleService.getAllInmueble().subscribe((inmuebles: Inmueble[])=>this.inmuebles = inmuebles)
+    this.inmuebleService.getAllInmuebles().subscribe((inmuebles: Inmueble[])=>this.inmuebles = inmuebles)
   }
 
   onInmuebleChange(event: any) {
