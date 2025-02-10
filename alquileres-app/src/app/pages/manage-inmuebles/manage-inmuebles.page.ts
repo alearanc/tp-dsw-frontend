@@ -89,6 +89,7 @@ export class ManageInmueblesPage implements OnInit{
         this.reservasService.cancelarReserva(reserva).subscribe(() => {
           this.reservasService.getReservasByInmueble(this.inmuebleSeleccionado.id_inmueble).subscribe((reservas: Reserva[]) => {
             this.reservas = reservas;
+            this.reservasFiltradas = this.reservas;
           });
         })
       }});

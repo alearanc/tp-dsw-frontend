@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, Output } 
 import FotoInmueble from 'src/app/models/FotoInmueble';
 import Inmueble from 'src/app/models/Inmueble';
 import Reserva from 'src/app/models/Reserva';
+import { AuthService } from 'src/app/services/auth/auth.service';
 import { CustomNavControllerService } from 'src/app/services/custom-router.service';
 import { FotosInmuebleService } from 'src/app/services/fotos-inmueble.service';
 import { InmuebleService } from 'src/app/services/inmueble/inmueble.service';
@@ -27,7 +28,14 @@ export class ResultadoInmuebleComponent  implements OnChanges {
   coverPhoto: string = "./assets/no-cover.jpg";
   $fotosSubidas = this.fotoInmuebleService.fotosSubidas;
 
-  constructor(private cdr: ChangeDetectorRef, private router: CustomNavControllerService, private inmuebleService: InmuebleService, private reservaService: ReservasService, private fotoInmuebleService: FotosInmuebleService) { }
+  constructor(
+    private cdr: ChangeDetectorRef,
+    private router: CustomNavControllerService,
+    private inmuebleService: InmuebleService,
+    private reservaService: ReservasService,
+    private fotoInmuebleService: FotosInmuebleService,
+    private authService: AuthService
+  ) { }
 
   ngOnChanges() {
     if(this.inmuebleActual.id_inmueble){
@@ -103,7 +111,13 @@ export class ResultadoInmuebleComponent  implements OnChanges {
       focusCancel: true
     }).then((result) => {
       if (result.isConfirmed) {
-        this.reservaService.cancelarReserva(this.reservaActual).subscribe((inmueble: Inmueble) => {
+        let reserva: any = this.reservaActual;
+        if (!reserva.huesped) {
+          reserva.huesped = {}; // Asegúrate de que huesped esté definido
+        }
+        reserva.huesped.id_usuario = this.authService.getUserId();
+        reserva.huesped.email = this.authService.getUser().email;
+        this.reservaService.cancelarReserva(reserva).subscribe((inmueble: Inmueble) => {
           this.reservaCancelada.emit();
         });
       }
