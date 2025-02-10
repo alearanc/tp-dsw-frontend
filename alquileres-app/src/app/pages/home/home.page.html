@@ -1,7 +1,9 @@
 <ion-content>
   <ion-grid>
     <app-hero-buscador></app-hero-buscador>
-    <app-hero-registrarse></app-hero-registrarse>
+    @if(!authService.isAuthenticated()){
+      <app-hero-registrarse></app-hero-registrarse>
+    }
     <app-listado-inmuebles-recientes></app-listado-inmuebles-recientes>
   </ion-grid>
   <app-footer></app-footer>
