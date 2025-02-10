@@ -14,6 +14,10 @@ export class LocalidadService {
     return this.httpClient.get<Localidad[]>('localidad/getAll');
   }
 
+  getLocalidad(cod_postal: number): Observable<Localidad>{
+    return this.httpClient.get<Localidad>('localidad/get/' + cod_postal);
+  }
+
   addLocalidad(localidad : Localidad): Observable<Localidad[]>{
     return this.httpClient.post<Localidad[]>('localidad/add',localidad);
   }
@@ -25,6 +29,4 @@ export class LocalidadService {
   updateLocalidad(cod_postal : number, nombre: string): Observable<Localidad[]>{
     return this.httpClient.put<Localidad[]>('localidad/update/' + cod_postal, {nombre});
   }
-
-  //Acá van todas las peticiones al backend
 }
