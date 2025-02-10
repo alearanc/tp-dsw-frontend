@@ -9,7 +9,7 @@
       }
     }
     @if(sinResultados){
-      <h1>No hay inmuebles cargados actualmente.</h1>
+      <h1>No hay propiedades cargadas actualmente.</h1>
     }
     @for (inmueble of inmuebles; track inmueble.id_inmueble){
       <app-resultado-inmueble [inmuebleActual]="inmueble"></app-resultado-inmueble>

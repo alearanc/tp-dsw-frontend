@@ -66,7 +66,7 @@
     <ion-row *ngIf="esPropietario">
       <div class="list-container">
         <ion-row>
-          <h2>Mis inmuebles</h2>
+          <h2>Mis propiedades</h2>
         </ion-row>
         <ion-row class="list-collection">
           @for (inmueble of inmuebles; track inmueble.id_inmueble){
@@ -78,7 +78,7 @@
     <ion-row size="12" class="ion-justify-content-center" style="padding-top: 24px;">
       <ion-button expand="full" mode="ios" (click)="navigateCeInmueble()" *ngIf="esPropietario">
         <ion-icon slot="end" name="add"></ion-icon>
-        Crear nuevo Inmueble
+        Publicar propiedad
       </ion-button>
     </ion-row>
   </ion-grid>
