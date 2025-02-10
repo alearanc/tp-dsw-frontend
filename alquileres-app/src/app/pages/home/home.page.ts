@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -6,11 +7,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage{
-
-  isLoading = true;
-
-  onImageLoad(): void {
-    this.isLoading = false;
-  }
-
+  constructor(protected authService: AuthService) {}
 }

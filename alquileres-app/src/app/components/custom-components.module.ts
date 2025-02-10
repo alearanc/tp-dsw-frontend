@@ -13,6 +13,8 @@ import { PhotosComponentComponent } from './photos-component/photos-component.co
 import { RatingComponent } from './rating/rating.component';
 import { ResultadoInmuebleComponent } from './resultado-inmueble/resultado-inmueble.component';
 import { ListadoInmueblesRecientesComponent } from './listado-inmuebles-recientes/listado-inmuebles-recientes.component';
+import { HeroRegistrarseComponent } from './hero-registrarse/hero-registrarse.component';
+import { HeroBuscadorComponent } from './hero-buscador/hero-buscador.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { ListadoInmueblesRecientesComponent } from './listado-inmuebles-reciente
     PhotosComponentComponent,
     InmuebleServicioComponent,
     LinkComponent,
-    ListadoInmueblesRecientesComponent
+    ListadoInmueblesRecientesComponent,
+    HeroRegistrarseComponent,
+    HeroBuscadorComponent
   ],
   imports: [CommonModule, IonicModule.forRoot(), ReactiveFormsModule],
   exports: [
@@ -40,7 +44,9 @@ import { ListadoInmueblesRecientesComponent } from './listado-inmuebles-reciente
     PhotosComponentComponent,
     InmuebleServicioComponent,
     LinkComponent,
-    ListadoInmueblesRecientesComponent
+    ListadoInmueblesRecientesComponent,
+    HeroRegistrarseComponent,
+    HeroBuscadorComponent
   ]
 })
 export class CustomComponentsModule {}
