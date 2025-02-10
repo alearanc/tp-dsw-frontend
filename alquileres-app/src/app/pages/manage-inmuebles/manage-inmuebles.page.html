@@ -1,0 +1,55 @@
+<ion-content>
+  <ion-grid fixed>
+    <h1>Mis inmuebles</h1>
+    <h2>Seleccione un inmueble</h2>
+    @if(inmuebles.length == 0){
+      <div class="sinInmuebles">
+        <h1>Usted no tiene inmuebles disponibles. <span (click)="navigateAddInmuebles()">Agregue inmuebles</span> para comenzar</h1>
+      </div>
+    }
+    <ion-item>
+      <ion-label position="float">Buscar</ion-label>
+      <ion-input
+        type="text"
+        [(ngModel)]="searchQuery"
+        (ionInput)="filterItems($event)"
+        (keydown)="handleKeyDown($event)"
+        (click)="filterItems($event)"
+        placeholder="Ingrese el nombre del inmueble"
+      ></ion-input>
+      <ion-icon name="search-outline" slot="end"></ion-icon>
+    </ion-item>
+  
+    <ion-list *ngIf="filteredInmuebles.length > 0">
+      <ion-item *ngFor="let inmueble of filteredInmuebles" (click)="selectItem(inmueble)">
+        {{ inmueble.titulo_inmueble }}
+      </ion-item>
+    </ion-list>
+
+    <div class="calendario-filtro" (click)="calendar.click()" *ngIf="inmuebleSeleccionado">
+      <label for="calendario">Filtrar por fecha</label>
+      <input ngxDaterangepickerMd
+        #calendar
+        id="calendario"
+        [(ngModel)]="selected"
+        [maxDate]="maxDate"
+        [isInvalidDate]="isInvalidDate"
+        (datesUpdated)="onDateRangeSelected($event)"
+        [locale]="{applyLabel: 'Seleccionar', separator: ' hasta '}"
+        class="form-control">
+        @if(!fechaSeleccionada){
+          <ion-icon name="calendar-outline"></ion-icon>
+        }@else {
+          <ion-icon name="close" (click)="limpiarFechas()"></ion-icon>
+        }
+    </div>
+
+    <ion-list *ngIf="reservasFiltradas.length > 0">
+      <h5>Reservas en {{inmuebleSeleccionado.titulo_inmueble}}{{ fechaSeleccionada ? ' para el rango de fechas entre ' + (rangoSelected.startDate.$d | date: 'dd-MM-yyyy')  + ' a ' + (rangoSelected.endDate.$d | date: 'dd-MM-yyyy')  + ':' : ':'}}</h5>
+      <ion-item *ngFor="let reserva of reservasFiltradas">
+        <ion-label>{{ reserva.huesped.nombre + ' ' + reserva.huesped.apellido + ', la fecha desde: ' + (reserva.fecha_inicio | date: 'dd-MM-yyyy') + ' hasta: ' + (reserva.fecha_fin | date: 'dd-MM-yyyy') }}</ion-label>
+        <ion-button (click)="cancelarReserva(reserva)">Cancelar</ion-button>
+      </ion-item>
+    </ion-list>
+  </ion-grid>
+</ion-content>

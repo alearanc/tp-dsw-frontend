@@ -7,6 +7,8 @@ ion-item {
 
 ion-button {
     margin-top: 20px;
+    --ripple-color: transparent !important;
+    --background-hover-opacity: 0 !important;
 }
 
 ion-input{
@@ -18,9 +20,4 @@ ion-input{
     ion-icon{
         transform: translateY(-7px);
     }
-}
-
-ion-button{
-    --ripple-color: transparent !important;
-    --background-hover-opacity: 0 !important;
 }

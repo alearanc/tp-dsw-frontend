@@ -1,0 +1,95 @@
+ion-item {
+    cursor: pointer;
+    border: 1px solid black;
+}
+
+ion-item:hover {
+    --background: #ececec !important;
+}
+
+ion-label {
+    padding-right: 8px;
+}
+
+ion-button {
+    --background: #000;
+    --border-style: 1px solid #000;
+    --border-width: 0px;
+    --color: #fff;
+    --border-radius: 0;
+    --box-shadow: none;
+    --padding: 0;
+    --margin: 0;
+}
+
+.calendario-filtro{
+    background-color: #fff;
+    margin-top: 4px;
+    border: 1px solid black;
+    display: flex;
+    flex-grow: 1;
+    label{
+        margin-bottom: 2px;
+        color: #555;
+        font-size: 14px;
+    }
+    input{
+        border: none;
+        width: 100%;
+    }
+    align-items: center;
+    gap: 16px;
+    padding: 8px;
+    ion-icon{
+        font-size: 22px;
+        color: #555;
+        padding-right: 8px;
+    }
+}
+
+.calendario-filtro:hover {
+    background-color: #ececec !important;
+    *{
+        background-color: #ececec !important;
+    }
+}
+
+::ng-deep {
+    ngx-daterangepicker-material {
+        & {
+            .btn {
+                background-color: black !important;
+                border-radius: 0 !important;
+                box-shadow: none !important;
+            }
+
+            .md-drppicker.shown {
+                transform: translate(-427px, 12px) !important;
+                display: flex !important;
+                align-items: end !important;
+                gap: 8px !important;
+            }
+
+            td.active {
+                background-color: black !important;
+                color: white !important;
+            }
+        }
+    }
+}
+
+.sinInmuebles{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    font-size: 24px;
+    color: #555;
+    margin-top: 20%;
+    span{
+        text-decoration: underline;
+        cursor: pointer;
+        //add link color
+        color: #007bff;
+    }
+}
