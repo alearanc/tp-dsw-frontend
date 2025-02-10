@@ -1,10 +1,10 @@
 <ion-content>
   <ion-grid fixed>
-    <h1>Mis inmuebles</h1>
-    <h2>Seleccione un inmueble</h2>
+    <h1>Mis propiedades</h1>
+    <h2>Seleccione una propiedad</h2>
     @if(inmuebles.length == 0){
       <div class="sinInmuebles">
-        <h1>Usted no tiene inmuebles disponibles. <span (click)="navigateAddInmuebles()">Agregue inmuebles</span> para comenzar</h1>
+        <h1>Usted no tiene propiedades disponibles. <span (click)="navigateAddInmuebles()">Agregue inmuebles</span> para comenzar</h1>
       </div>
     }
     <ion-item>
@@ -15,7 +15,7 @@
         (ionInput)="filterItems($event)"
         (keydown)="handleKeyDown($event)"
         (click)="filterItems($event)"
-        placeholder="Ingrese el nombre del inmueble"
+        placeholder="Ingrese el nombre de la propiedad"
       ></ion-input>
       <ion-icon name="search-outline" slot="end"></ion-icon>
     </ion-item>

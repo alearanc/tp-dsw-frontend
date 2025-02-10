@@ -13,7 +13,7 @@
       loop="true" 
       style="width: 100%; height: 400px;">
       <swiper-slide *ngFor="let photo of coverPhotos" (click)="abrirFotoFS(photo)">
-        <img [src]="photo" alt="Foto de inmueble" style="width: 100%; height: 100%; object-fit: cover;">
+        <img [src]="photo" alt="Foto de la propiedad" style="width: 100%; height: 100%; object-fit: cover;">
       </swiper-slide>
     </swiper-container>
     </ion-row>
@@ -50,7 +50,7 @@
             </ion-button>
           </ion-row>
           <ion-row *ngIf="this.inmuebleSelected?.id_propietario === this.idUsuario" class="ion-justify-content-end">
-            Este inmueble te pertenece *
+            Esta propiedad te pertenece *
           </ion-row>
         </ion-col>
       </ion-col>

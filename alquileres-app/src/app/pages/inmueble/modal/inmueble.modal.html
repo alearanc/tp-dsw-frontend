@@ -15,7 +15,7 @@
       label="Título"
       labelPlacement="stacked"
       type="text"
-      placeholder="Título del inmueble"
+      placeholder="Título de la propiedad"
       [(ngModel)]="titulo_inmueble"
     ></ion-input>
   </ion-item>
@@ -78,7 +78,7 @@
   </ion-item>
 
   <ion-item>
-    <ion-label>Tipo Inmueble</ion-label>
+    <ion-label>Tipo de Propiedad</ion-label>
     <ion-select [(ngModel)]="id_tipoinmueble">
       <ion-select-option *ngFor="let tipo of tiposInmueble" [value]="tipo.id_tipoinmueble">{{ tipo.descripcion }}</ion-select-option>
     </ion-select>
