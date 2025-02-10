@@ -1,0 +1,23 @@
+<ion-row>
+  <ion-col size-md="5" size-xm="12" class="heroText">
+    <div class="heroWrapper">
+      <ion-row>
+        <ion-col size="12">
+          <h1>¡Encontrá tu alojamiento ideal!</h1>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12">
+          <h3>Con nosotros todo está resuelto, solo queda disfrutar</h3>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <app-buscador></app-buscador>
+      </ion-row>
+    </div>
+  </ion-col>
+  <ion-col size="7" class="ion-hide-sm-down">
+    <img class="hero-background" (load)="onImageLoad()" [class.hidden]="isLoading" src="/assets/login-page-hero-photo.avif" [height]="isLoading ? 0 : 400"/>
+    <ion-skeleton-text style="width: 100%; height: 400px" [animated]="true" *ngIf="isLoading"></ion-skeleton-text>
+  </ion-col>
+</ion-row>
