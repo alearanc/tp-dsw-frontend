@@ -7,7 +7,7 @@ export class AppStateService {
 
   menuItems = [
     { label: 'Buscar alquileres', path: '/', queryParams: {} },
-    { label: 'Categorías', path: '/categories', queryParams: {} },
+    { label: 'Tipos de alojamiento', path: '/categories', queryParams: {} },
     { label: 'Lugares para alquilar', path: '/categories', queryParams: { localidades: true } },
   ]
 
