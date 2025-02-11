@@ -63,4 +63,13 @@ export class AuthService {
     }
     return null;
   }
+
+  isAdmin(): boolean{
+    const token = localStorage.getItem('authToken');
+    if (token) {
+      const decodedToken: any = jwtDecode(token);
+      return decodedToken.isAdmin;
+    }
+    return false;
+  }
 }

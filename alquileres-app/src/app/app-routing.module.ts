@@ -3,6 +3,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './guards/auth.guard';
 import { NoAuthGuard } from './guards/no-auth.guard';
 import { PropietarioGuard } from './guards/propietario.guard';
+import { IsAdminGuard } from './guards/is-admin.guard';
 
 const routes: Routes = [
   {
@@ -11,15 +12,18 @@ const routes: Routes = [
   },
   {
     path: 'tipo-inmueble',
-    loadChildren: () => import('./pages/tipo-inmueble/tipo-inmueble.module').then( m => m.TipoInmueblePageModule)
+    loadChildren: () => import('./pages/tipo-inmueble/tipo-inmueble.module').then( m => m.TipoInmueblePageModule),
+    canActivate: [AuthGuard, IsAdminGuard]
   },
   {
     path: 'localidad',
-    loadChildren: () => import('./pages/localidad/localidad.module').then( m => m.LocalidadPageModule)
+    loadChildren: () => import('./pages/localidad/localidad.module').then( m => m.LocalidadPageModule),
+    canActivate: [AuthGuard, IsAdminGuard]
   },
   {
     path: 'servicio',
-    loadChildren: () => import('./pages/servicio/servicio.module').then( m => m.ServicioPageModule)
+    loadChildren: () => import('./pages/servicio/servicio.module').then( m => m.ServicioPageModule),
+    canActivate: [AuthGuard, IsAdminGuard]
   },
   {
     path: 'login',
@@ -73,6 +77,12 @@ const routes: Routes = [
     loadChildren: () => import('./pages/manage-inmuebles/manage-inmuebles.module').then( m => m.ManageInmueblesPageModule),
     canActivate: [AuthGuard, PropietarioGuard]
   },
+  {
+    path: 'super-admin-menu',
+    loadChildren: () => import('./pages/super-admin-menu/super-admin-menu.module').then( m => m.SuperAdminMenuPageModule),
+    canActivate: [AuthGuard, IsAdminGuard]
+  },
+
 
 
 
