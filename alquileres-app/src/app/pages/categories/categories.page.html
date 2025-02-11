@@ -1,6 +1,6 @@
 <ion-content>
   <ion-grid fixed="">
-    <h1>{{ type === 'localidad' ? 'Localidades' : 'Categorías' }}</h1>
+    <h1>{{ type === 'localidad' ? 'Localidades' : 'Tipos de alojamiento' }}</h1>
     <ion-row>
       @if(type === 'localidad'){
       @for(localidad of localidades; track localidad.cod_postal){

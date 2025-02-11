@@ -5,7 +5,7 @@
         <form [formGroup]="inmuebleForm" (ngSubmit)="saveInmueble()">
           <h3>Crear cuenta</h3>
           <ion-item lines="none">
-            <ion-label>Tipo de Inmueble</ion-label>
+            <ion-label>Tipo de alojamiento</ion-label>
             <ion-select [value]="inmuebleSeleccionado?.tipo_inmueble?.id_tipoinmueble" interface="popover" mode="ios"
               formControlName="tipo_inmueble">
               @for(tipo of tipoInmuebles; track tipo.id_tipoinmueble){
