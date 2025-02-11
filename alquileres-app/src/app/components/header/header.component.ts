@@ -91,16 +91,12 @@ export class PopoverContentComponent {
 
   constructor(
     private router: CustomNavControllerService,
-    private popoverController: PopoverController
+    private popoverController: PopoverController,
+    protected authService: AuthService,
   ) {}
 
-  async navigateToProfile() {
+  async navigateTo(routeUrl: string) {
     await this.popoverController.dismiss();
-    this.router.navigateRoot(['/dashboard']);
-  }
-
-  async manageInmuebles(){
-    await this.popoverController.dismiss();
-    this.router.navigateRoot(['/manage-inmuebles']);
+    this.router.navigateRoot([routeUrl]);
   }
 }
