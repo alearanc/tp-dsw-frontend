@@ -1,11 +1,16 @@
 .content-wrapper {
     display: flex;
     flex-direction: column;
-    min-height: 100vh; /* Asegura que el contenedor ocupe la altura de la pantalla */
+    min-height: 100vh;
 }
 
 app-header {
-    flex-shrink: 0; /* Header no se encoge */
+    flex-shrink: 0;
+}
+
+ion-header {
+    --border-width: 0;
+    box-shadow: none;
 }
 
 h1 {
@@ -14,6 +19,5 @@ h1 {
 }
 
 ion-router-outlet {
-    flex-grow: 1; /* El contenido crece para llenar el espacio entre header y footer */
-    margin-top: 61px; /* Espacio para el header */
+    flex-grow: 1;
 }
