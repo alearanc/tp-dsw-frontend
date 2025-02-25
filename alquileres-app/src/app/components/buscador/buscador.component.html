@@ -1,7 +1,17 @@
 <form (submit)="buscar($event)">
   <ion-item lines="none">
-    <ion-input type="text" labelPlacement="floating" label="Buscar propiedades por tipo/localidad/nombre" [formControl]="busqueda">
-      <ion-button type="submit" fill="clear" style="margin-left: 24px;">
+    <ion-input
+      type="text"
+      labelPlacement="floating"
+      label="Buscar propiedades"
+      [formControl]="busqueda"
+    >
+      <ion-button
+        type="submit"
+        fill="clear"
+        style="margin-left: 24px"
+        [disabled]="!busqueda.value"
+      >
         <ion-icon name="search"></ion-icon>
       </ion-button>
     </ion-input>
