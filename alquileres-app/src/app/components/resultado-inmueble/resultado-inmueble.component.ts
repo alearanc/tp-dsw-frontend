@@ -1,4 +1,5 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 import FotoInmueble from 'src/app/models/FotoInmueble';
 import Inmueble from 'src/app/models/Inmueble';
 import Reserva from 'src/app/models/Reserva';
@@ -8,6 +9,7 @@ import { FotosInmuebleService } from 'src/app/services/fotos-inmueble.service';
 import { InmuebleService } from 'src/app/services/inmueble/inmueble.service';
 import { ReservasService } from 'src/app/services/reservas/reservas.service';
 import Swal from 'sweetalert2';
+import { CalificarModalComponent } from '../rating/calificar-modal.component';
 
 @Component({
   selector: 'app-resultado-inmueble',
@@ -34,7 +36,8 @@ export class ResultadoInmuebleComponent  implements OnChanges {
     private inmuebleService: InmuebleService,
     private reservaService: ReservasService,
     private fotoInmuebleService: FotosInmuebleService,
-    private authService: AuthService
+    private authService: AuthService,
+    private modalCtrl: ModalController
   ) { }
 
   ngOnChanges() {
@@ -43,16 +46,33 @@ export class ResultadoInmuebleComponent  implements OnChanges {
     }
   }
 
-  calificarEstadia(){
-    //lógica para calificar una estadía.
+  async calificarEstadia() {
+    const modal = await this.modalCtrl.create({
+      component: CalificarModalComponent,
+    });
+    await modal.present();
+
+    const { data } = await modal.onWillDismiss();
+    if (data) {
+      const { puntuacion } = data;
+      const reservaData = {
+        id_inmueble: this.inmuebleActual.id_inmueble,
+        fecha_inicio: this.reservaActual.fecha_inicio,
+        puntuacion,
+      };
+
+      this.reservaService.valorarReserva(reservaData).subscribe({
+        next: (reserva: Reserva) => {
+          this.reservaActual = reserva; // Actualiza la reserva localmente
+          Swal.fire('Éxito', 'Tu valoración ha sido enviada', 'success');
+        },
+        error: (err) => Swal.fire('Error', 'No se pudo enviar la valoración', 'error'),
+      });
+    }
   }
 
-  getCalificacionPromedio(){
-    //deberíamos agarrar las reservas y hacer un AVG de las calificaciones.
-    //o bien podríamos tener en nuestro inmueble un atributo "calificacionPromedio"
-    //que se actualice cada vez que se haga una reserva.
-    // return Math.random() * 5;
-    return 3;
+  getCalificacionPromedio() {
+    return this.inmuebleActual.puntuacion_promedio || 0; // Usamos el promedio del inmueble
   }
 
   navigateToInmuebleDetails(id_inmueble: number, fecha_inicio?: Date, fecha_fin?: Date){
