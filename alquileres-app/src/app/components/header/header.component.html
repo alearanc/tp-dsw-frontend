@@ -1,22 +1,35 @@
 <div class="wrapper">
-    <ion-buttons slot="start" class="mobile-menu">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    <div class="title" (click)="navigateTo('/')">
-      <p>AlquileresApp</p>
+  <ion-buttons slot="start" class="mobile-menu">
+    <ion-menu-button></ion-menu-button>
+  </ion-buttons>
+  <div class="title" (click)="navigateTo('/')">
+    <p>Escapeo</p>
+  </div>
+  <div class="buttons desktop-menu">
+    <ion-button
+      *ngFor="let item of menuItems"
+      mode="ios"
+      (click)="navigateTo(item.path, item.queryParams)"
+      fill="clear"
+    >
+      {{ item.label }}
+    </ion-button>
+  </div>
+  <ion-buttons slot="end">
+    <ion-button
+      *ngIf="!isAuthenticated"
+      mode="ios"
+      (click)="navigateTo('/login')"
+      fill="outline"
+    >
+      Iniciar sesión
+    </ion-button>
+    <div
+      *ngIf="isAuthenticated"
+      (click)="presentPopover($event)"
+      class="avatar"
+    >
+      {{ userInitials }}
     </div>
-    <div class="buttons desktop-menu">
-      <ion-button *ngFor="let item of menuItems" mode="ios" (click)="navigateTo(item.path, item.queryParams)"
-        fill="clear">
-        {{ item.label }}
-      </ion-button>
-    </div>
-    <ion-buttons slot="end">
-      <ion-button *ngIf="!isAuthenticated" mode="ios" (click)="navigateTo('/login')" fill="outline">
-        Iniciar sesión
-      </ion-button>
-      <div *ngIf="isAuthenticated" (click)="presentPopover($event)" class="avatar">
-        {{ userInitials }}
-      </div>
-    </ion-buttons>
+  </ion-buttons>
 </div>
