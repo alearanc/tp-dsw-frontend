@@ -3,9 +3,16 @@
     <div class="recientes-container">
       <h1>{{ title }}</h1>
       <ion-row class="recientes-collection">
-        @for (inmueble of inmueblesEncontrados; track inmueble.id_inmueble){
-        <app-resultado-inmueble [inmuebleActual]="inmueble"></app-resultado-inmueble>
-        }
+        @if(inmueblesEncontrados.length === 0){
+        <ion-col size="12">
+          <h3>No se encontraron inmuebles</h3>
+        </ion-col>
+        }@else { @for (inmueble of inmueblesEncontrados; track
+        inmueble.id_inmueble){
+        <app-resultado-inmueble
+          [inmuebleActual]="inmueble"
+        ></app-resultado-inmueble>
+        } }
       </ion-row>
     </div>
   </ion-grid>
