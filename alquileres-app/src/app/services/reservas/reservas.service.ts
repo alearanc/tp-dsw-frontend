@@ -37,4 +37,14 @@ export class ReservasService {
   cancelarReserva(reserva: Reserva): Observable<any> {
     return this.http.put(`reserva/cancelarReserva`, reserva);
   }
+
+  valorarReserva(data: {
+    id_inmueble: number;
+    fecha_inicio: Date;
+    puntuacion: number;
+    valoracion?: string;
+  }): Observable<Reserva> {
+    return this.http.put<Reserva>(`reserva/valorarReserva`, data);
+  }
+
 }

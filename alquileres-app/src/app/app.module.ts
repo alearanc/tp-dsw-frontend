@@ -1,6 +1,6 @@
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy, RouterLink, RouterModule, RouterOutlet } from '@angular/router';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
@@ -11,11 +11,11 @@ import { AuthInterceptor } from './auth.interceptor';
 import { CustomComponentsModule } from './components/custom-components.module';
 import { httpInterceptor } from './http.interceptor';
 import { CustomNavControllerService } from './services/custom-router.service';
+import { CalificarModalComponent } from './components/rating/calificar-modal.component';
 
 @NgModule({
-  declarations: [AppComponent],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule, CustomComponentsModule, ReactiveFormsModule, NgxDaterangepickerMd.forRoot(), RouterLink, RouterModule.forRoot([
-    // ...existing routes...
+  declarations: [AppComponent, CalificarModalComponent],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule, FormsModule, CustomComponentsModule, ReactiveFormsModule, NgxDaterangepickerMd.forRoot(), RouterLink, RouterModule.forRoot([
   ]), RouterModule, RouterOutlet],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
@@ -24,6 +24,6 @@ import { CustomNavControllerService } from './services/custom-router.service';
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
   bootstrap: [AppComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppModule { }

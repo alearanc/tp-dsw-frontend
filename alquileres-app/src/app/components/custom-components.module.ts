@@ -30,7 +30,7 @@ import { HeroBuscadorComponent } from './hero-buscador/hero-buscador.component';
     LinkComponent,
     ListadoInmueblesRecientesComponent,
     HeroRegistrarseComponent,
-    HeroBuscadorComponent
+    HeroBuscadorComponent,
   ],
   imports: [CommonModule, IonicModule.forRoot(), ReactiveFormsModule],
   exports: [
@@ -46,7 +46,7 @@ import { HeroBuscadorComponent } from './hero-buscador/hero-buscador.component';
     LinkComponent,
     ListadoInmueblesRecientesComponent,
     HeroRegistrarseComponent,
-    HeroBuscadorComponent
+    HeroBuscadorComponent,
   ]
 })
 export class CustomComponentsModule {}

@@ -13,6 +13,7 @@ export default class Inmueble {
     propietario!: number;
     habilitado!: Boolean;
     id_propietario!: number;
+    puntuacion_promedio!: number;
     
     constructor(titulo_inmueble: string, descripcion_inmueble: string, precio_noche: number, direccion_inmueble: string, capacidad: number, tipoinmueble: TipoInmueble, localidad: Localidad, propietario: number) {
         this.titulo_inmueble = titulo_inmueble;

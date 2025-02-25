@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Calificar Estadía</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()">Cerrar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <ion-item>
+    <ion-label>Puntuación</ion-label>
+    <ion-segment
+      [(ngModel)]="puntuacion"
+      (ionChange)="onPuntuacionChange($event)"
+    >
+      <ion-segment-button value="1">1</ion-segment-button>
+      <ion-segment-button value="2">2</ion-segment-button>
+      <ion-segment-button value="3">3</ion-segment-button>
+      <ion-segment-button value="4">4</ion-segment-button>
+      <ion-segment-button value="5">5</ion-segment-button>
+    </ion-segment>
+  </ion-item>
+  <ion-button expand="block" (click)="submit()" [disabled]="!puntuacion"
+    >Calificar Estadía</ion-button
+  >
+</ion-content>

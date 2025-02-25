@@ -1,34 +1,57 @@
 <ion-content>
-  <div 
-  *ngIf="isFullscreen" 
-  class="fullscreen-modal" 
-  (click)="closeFullscreen()">
-  <img [src]="fullscreenPhoto" alt="Foto en pantalla completa" class="fullscreen-image">
+  <div
+    *ngIf="isFullscreen"
+    class="fullscreen-modal"
+    (click)="closeFullscreen()"
+  >
+    <img
+      [src]="fullscreenPhoto"
+      alt="Foto en pantalla completa"
+      class="fullscreen-image"
+    />
   </div>
   <ion-grid fixed>
-    <ion-row style="cursor: pointer;">
-      <swiper-container 
-      navigation="true" 
-      pagination="true" 
-      loop="true" 
-      style="width: 100%; height: 400px;">
-      <swiper-slide *ngFor="let photo of coverPhotos" (click)="abrirFotoFS(photo)">
-        <img [src]="photo" alt="Foto de la propiedad" style="width: 100%; height: 100%; object-fit: cover;">
-      </swiper-slide>
-    </swiper-container>
+    <ion-row style="cursor: pointer">
+      <swiper-container
+        navigation="true"
+        pagination="true"
+        loop="true"
+        style="width: 100%; height: 400px"
+      >
+        <swiper-slide
+          *ngFor="let photo of coverPhotos"
+          (click)="abrirFotoFS(photo)"
+        >
+          <img
+            [src]="photo"
+            alt="Foto de la propiedad"
+            style="width: 100%; height: 100%; object-fit: cover"
+          />
+        </swiper-slide>
+      </swiper-container>
     </ion-row>
     <ion-row>
       <ion-col sizeXs="12" [sizeMd]="showCalendar ? 8 : 12" class="leftcard">
-        <ion-row style="display: flex; justify-content: space-between; align-items: center;">
+        <ion-row
+          style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+          "
+        >
           <h1>{{inmuebleSelected?.titulo_inmueble}}</h1>
-          <app-rating [calificacionPromedio]="3"></app-rating>
+          <app-rating
+            [calificacionPromedio]="inmuebleSelected?.puntuacion_promedio || 0"
+          ></app-rating>
         </ion-row>
         <ion-row>
           <ion-col size="6">
             <h5 class="direccion">{{inmuebleSelected?.direccion_inmueble}}</h5>
           </ion-col>
           <ion-col size="6">
-            <h5 class="precio ion-text-end">$ {{inmuebleSelected?.precio_noche}}</h5>
+            <h5 class="precio ion-text-end">
+              $ {{inmuebleSelected?.precio_noche}}
+            </h5>
           </ion-col>
         </ion-row>
         <ion-col size="12">
@@ -43,46 +66,73 @@
         </ion-col>
         <ion-col size="12">
           <ion-row class="ion-justify-content-end">
-            <ion-button mode="ios" (click)="getFechasDisponibles()" [disabled]="showCalendar || disableButton || loading || (this.idUsuario && this.inmuebleSelected?.id_propietario === this.idUsuario)">
-              {{loading ? "Cargando" : disableButton ? "Reservado del día " + fechaInicio?.format('DD/MM/YYYY') + " al " + fechaFin?.format('DD/MM/YYYY') : "Seleccionar fechas"}}
-              <ion-icon slot="end" [name]="disableButton ? 'checkmark' : 'chevron-forward'" *ngIf="!loading"></ion-icon>
+            <ion-button
+              mode="ios"
+              (click)="getFechasDisponibles()"
+              [disabled]="showCalendar || disableButton || loading || (this.idUsuario && this.inmuebleSelected?.id_propietario === this.idUsuario)"
+            >
+              {{loading ? "Cargando" : disableButton ? "Reservado del día " +
+              fechaInicio?.format('DD/MM/YYYY') + " al " +
+              fechaFin?.format('DD/MM/YYYY') : "Seleccionar fechas"}}
+              <ion-icon
+                slot="end"
+                [name]="disableButton ? 'checkmark' : 'chevron-forward'"
+                *ngIf="!loading"
+              ></ion-icon>
               <ion-spinner *ngIf="loading" name="lines"></ion-spinner>
             </ion-button>
           </ion-row>
-          <ion-row *ngIf="this.inmuebleSelected?.id_propietario === this.idUsuario" class="ion-justify-content-end">
+          <ion-row
+            *ngIf="this.inmuebleSelected?.id_propietario === this.idUsuario"
+            class="ion-justify-content-end"
+          >
             Esta propiedad te pertenece *
           </ion-row>
         </ion-col>
       </ion-col>
       <ion-col *ngIf="showCalendar" sizeXs="12" sizeMd="4" class="fecha_card">
         <div>
-        <h3>Seleccione una fecha</h3>
-        <div class="input-with-icon">
-          <div>
-          <input ngxDaterangepickerMd
-                  [(ngModel)]="selected"
-                  [minDate]="minDate"
-                  [maxDate]="maxDate"
-                  [isInvalidDate]="isInvalidDate"
-                  (datesUpdated)="onDateRangeSelected($event)"
-                  [locale]="{applyLabel: 'Seleccionar', separator: ' hasta '}"
-                  class="form-control">
-                  </div>
-                  <ion-icon name="calendar-outline"></ion-icon>
+          <h3>Seleccione una fecha</h3>
+          <div class="input-with-icon">
+            <div>
+              <input
+                ngxDaterangepickerMd
+                [(ngModel)]="selected"
+                [minDate]="minDate"
+                [maxDate]="maxDate"
+                [isInvalidDate]="isInvalidDate"
+                (datesUpdated)="onDateRangeSelected($event)"
+                [locale]="{applyLabel: 'Seleccionar', separator: ' hasta '}"
+                class="form-control"
+              />
+            </div>
+            <ion-icon name="calendar-outline"></ion-icon>
+          </div>
+          <p *ngIf="selected">
+            <span
+              *ngIf="selected.startDate.isSame(selected.endDate, 'day') && !disableReservarButton"
+            >
+              Seleccionando solo día {{ selected.startDate.format('DD/MM/YYYY')
+              }}
+            </span>
+            <span
+              *ngIf="!selected.startDate.isSame(selected.endDate, 'day') && !disableReservarButton"
+            >
+              Seleccionado desde el {{ selected.startDate.format('DD/MM/YYYY')
+              }} al {{ selected.endDate.format('DD/MM/YYYY') }}
+            </span>
+            <span *ngIf="disableReservarButton"
+              >Por favor seleccione una fecha válida (mayor al día de hoy)</span
+            >
+          </p>
         </div>
-        <p *ngIf="selected">
-          <span *ngIf="selected.startDate.isSame(selected.endDate, 'day') && !disableReservarButton">
-            Seleccionando solo día {{ selected.startDate.format('DD/MM/YYYY') }}
-          </span>
-          <span *ngIf="!selected.startDate.isSame(selected.endDate, 'day') && !disableReservarButton">
-            Seleccionado desde el {{ selected.startDate.format('DD/MM/YYYY') }} al {{ selected.endDate.format('DD/MM/YYYY') }}
-          </span>
-          <span *ngIf="disableReservarButton">Por favor seleccione una fecha válida (mayor al día de hoy)</span>
-        </p>
-      </div>
         <ion-row class="ion-justify-content-between ion-align-items-center">
           <span>Total <b>${{ calculateTotal() }}</b></span>
-          <ion-button mode="ios" [disabled]="(!(selected.startDate && selected.endDate)) || loading || disableReservarButton" (click)="reservar()">
+          <ion-button
+            mode="ios"
+            [disabled]="(!(selected.startDate && selected.endDate)) || loading || disableReservarButton"
+            (click)="reservar()"
+          >
             Reservar
             <ion-icon slot="end" name="chevron-forward"></ion-icon>
           </ion-button>
