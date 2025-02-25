@@ -1,0 +1,18 @@
+ion-row{
+    display: flex;
+    gap: 16px;
+}
+
+ion-col{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background-color: #000;
+    color: #fff;
+    aspect-ratio: 3 / 2;
+    font-family: 'Roboto Slab', sans-serif;
+    font-size: 20pt;
+    padding: 8px;
+    text-align: center;
+}

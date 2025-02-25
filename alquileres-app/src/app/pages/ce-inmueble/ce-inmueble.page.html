@@ -11,7 +11,6 @@
               interface="popover"
               mode="ios"
               formControlName="tipo_inmueble"
-            >
               @for(tipo of tipoInmuebles; track tipo.id_tipoinmueble){
               <ion-select-option [value]="tipo.id_tipoinmueble"
                 >{{tipo.descripcion}}</ion-select-option
