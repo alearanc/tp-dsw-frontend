@@ -31,7 +31,7 @@ export class AuthService {
     localStorage.removeItem('authToken');
     localStorage.removeItem('user');
     this.authState.next(false);
-    this.router.navigateForward(['/login']);
+    this.router.navigateRoot(['/login']);
   }
 
   isAuthenticated(): boolean {
