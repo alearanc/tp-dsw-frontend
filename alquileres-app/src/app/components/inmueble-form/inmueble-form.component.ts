@@ -2,9 +2,9 @@
 import { Component, effect, EventEmitter, input, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AlertController } from '@ionic/angular';
-import Inmueble from 'src/app/models/Inmueble';
-import Localidad from 'src/app/models/Localidad';
-import TipoInmueble from 'src/app/models/TipoInmueble';
+import { Inmueble } from 'src/app/models/Inmueble';
+import { Localidad } from 'src/app/models/Localidad';
+import { TipoInmueble } from 'src/app/models/TipoInmueble';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { CustomNavControllerService } from 'src/app/services/custom-router.service';
 import { InmuebleService } from 'src/app/services/inmueble/inmueble.service';

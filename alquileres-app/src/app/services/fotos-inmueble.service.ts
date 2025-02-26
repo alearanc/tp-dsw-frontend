@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
 import { Observable } from 'rxjs';
-import FotoInmueble from '../models/FotoInmueble';
+import { FotoInmueble } from '../models/FotoInmueble';
 
 @Injectable({
   providedIn: 'root'

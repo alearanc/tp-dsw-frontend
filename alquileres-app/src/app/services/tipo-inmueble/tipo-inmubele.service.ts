@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import TipoInmueble from '../../models/TipoInmueble';
+import { TipoInmueble } from '../../models/TipoInmueble';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +14,7 @@ export class TipoInmubeleService {
     return this.httpClient.get<TipoInmueble[]>('tipoInmueble/getAll');
   }
 
-  addTipoInmueble(tipoInmueble : TipoInmueble): Observable<TipoInmueble[]>{
+  addTipoInmueble(tipoInmueble : any): Observable<TipoInmueble[]>{
     return this.httpClient.post<TipoInmueble[]>('tipoInmueble/add',tipoInmueble);
   }
 

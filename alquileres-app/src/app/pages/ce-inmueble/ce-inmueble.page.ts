@@ -1,9 +1,9 @@
 // ce-inmueble.page.ts
 import { ChangeDetectorRef, Component, OnDestroy, OnInit, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import Inmueble from 'src/app/models/Inmueble';
-import Localidad from 'src/app/models/Localidad';
-import TipoInmueble from 'src/app/models/TipoInmueble';
+import { Inmueble } from 'src/app/models/Inmueble';
+import { Localidad } from 'src/app/models/Localidad';
+import { TipoInmueble } from 'src/app/models/TipoInmueble';
 import { CustomNavControllerService } from 'src/app/services/custom-router.service';
 import { FotosInmuebleService } from 'src/app/services/fotos-inmueble.service';
 import { InmuebleService } from 'src/app/services/inmueble/inmueble.service';

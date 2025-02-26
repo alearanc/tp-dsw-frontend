@@ -5,14 +5,9 @@ import * as dayjs from 'dayjs';
 import isoWeek from 'dayjs/plugin/isoWeek';
 import timezone from 'dayjs/plugin/timezone';
 import utc from 'dayjs/plugin/utc';
-import FotoInmueble from 'src/app/models/FotoInmueble';
-
-dayjs.extend(isoWeek);
-dayjs.extend(utc);
-dayjs.extend(timezone);
-
-import Inmueble from 'src/app/models/Inmueble';
-import InmuebleServicio from 'src/app/models/inmuebleServicio';
+import { FotoInmueble } from 'src/app/models/FotoInmueble';
+import { Inmueble } from 'src/app/models/Inmueble';
+import { InmuebleServicio } from 'src/app/models/inmuebleServicio';
 import { Reserva } from 'src/app/models/Reserva';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { CustomNavControllerService } from 'src/app/services/custom-router.service';
@@ -21,6 +16,10 @@ import { InmuebleServicioService } from 'src/app/services/inmueble-servicio/inmu
 import { InmuebleService } from 'src/app/services/inmueble/inmueble.service';
 import { ReservasService } from 'src/app/services/reservas/reservas.service';
 import Swal from 'sweetalert2';
+
+dayjs.extend(isoWeek);
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 @Component({
   selector: 'app-inmueble-details',

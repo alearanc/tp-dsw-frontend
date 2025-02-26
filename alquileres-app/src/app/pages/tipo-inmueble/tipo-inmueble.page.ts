@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import TipoInmueble from 'src/app/models/TipoInmueble';
+import { TipoInmueble } from 'src/app/models/TipoInmueble';
 import { TipoInmubeleService } from 'src/app/services/tipo-inmueble/tipo-inmubele.service';
 import { OverlayEventDetail } from '@ionic/core/components';
 import { AlertController, IonModal, ModalController } from '@ionic/angular';
@@ -44,7 +44,9 @@ export class TipoInmueblePage implements OnInit {
           })
         } else {
           //Creo un TipoInmueble
-          let nuevoTipoInmueble = new TipoInmueble(data.data.descripcion);
+          let nuevoTipoInmueble = {
+            descripcion: data.data.descripcion
+          };
           this.tipoInmuebleService.addTipoInmueble(nuevoTipoInmueble).subscribe((tiposInmueble: TipoInmueble[])=>{
             this.listaTipoInmueble = tiposInmueble;
           })

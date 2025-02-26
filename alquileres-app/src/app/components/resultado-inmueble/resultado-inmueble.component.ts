@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, effect, EventEmitter, input, Input, Output } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import FotoInmueble from 'src/app/models/FotoInmueble';
-import Inmueble from 'src/app/models/Inmueble';
+import { FotoInmueble } from 'src/app/models/FotoInmueble';
+import { Inmueble } from 'src/app/models/Inmueble';
 import { Reserva } from 'src/app/models/Reserva';
 import { TipoUsuario } from 'src/app/models/TipoUsuario.enum';
 import { AuthService } from 'src/app/services/auth/auth.service';

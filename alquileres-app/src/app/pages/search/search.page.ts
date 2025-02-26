@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import Inmueble from 'src/app/models/Inmueble';
+import { Inmueble } from 'src/app/models/Inmueble';
 import { InmuebleService } from 'src/app/services/inmueble/inmueble.service';
 import { LocalidadService } from 'src/app/services/localidad/localidad.service';
 

@@ -28,7 +28,7 @@
         @for(servicio of allServicios; track servicio.id_servicio){
         <ion-select-option
           [value]="servicio.id_servicio"
-          [disabled]="isServicioSelected(servicio.id_servicio)"
+          [disabled]="isServicioSelected(servicio.id_servicio!)"
         >
           {{ servicio.descripcion_servicio }}
         </ion-select-option>

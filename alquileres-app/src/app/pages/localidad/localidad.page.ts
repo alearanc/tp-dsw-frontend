@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import Localidad from 'src/app/models/Localidad';
+import { Localidad } from 'src/app/models/Localidad';
 import { LocalidadService } from 'src/app/services/localidad/localidad.service'; 
 import { OverlayEventDetail } from '@ionic/core/components';
 import { AlertController, IonModal, ModalController } from '@ionic/angular';
@@ -47,7 +47,7 @@ export class LocalidadPage implements OnInit {
           })
         } else {
           //Creo una Localidad
-          let nuevaLocalidad = new Localidad(parseInt(data.data.cod_postal), data.data.nombre);
+          let nuevaLocalidad = {cod_postal: parseInt(data.data.cod_postal), nombre: data.data.nombre};
           this.localidadService.addLocalidad(nuevaLocalidad).subscribe((localidades: Localidad[])=>{
           this.listaLocalidad = localidades;
           })

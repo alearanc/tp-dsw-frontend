@@ -1,7 +1,7 @@
 // dashboard.page.ts
 import { Component, OnInit } from '@angular/core';
 import { jwtDecode } from 'jwt-decode';
-import Inmueble from 'src/app/models/Inmueble';
+import { Inmueble } from 'src/app/models/Inmueble';
 import { Reserva } from 'src/app/models/Reserva';
 import { CustomNavControllerService } from 'src/app/services/custom-router.service';
 import { InmuebleService } from 'src/app/services/inmueble/inmueble.service';

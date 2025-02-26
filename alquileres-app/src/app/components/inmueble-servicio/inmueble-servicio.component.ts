@@ -1,8 +1,8 @@
 import { Component, Input, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ToastController } from '@ionic/angular';
-import InmuebleServicio from 'src/app/models/inmuebleServicio';
-import Servicio from 'src/app/models/Servicio';
+import { InmuebleServicio } from 'src/app/models/inmuebleServicio';
+import { Servicio } from 'src/app/models/Servicio';
 import { InmuebleServicioService } from 'src/app/services/inmueble-servicio/inmueble-servicio.service';
 import { ServicioService } from 'src/app/services/servicio/servicio.service';
 

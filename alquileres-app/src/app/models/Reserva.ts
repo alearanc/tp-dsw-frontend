@@ -1,5 +1,5 @@
-import Inmueble from "./Inmueble"
-import Persona from "./Persona"
+import { Inmueble } from "./Inmueble"
+import { Persona } from "./Persona"
 
 export interface Reserva{
     fecha_inicio?: Date

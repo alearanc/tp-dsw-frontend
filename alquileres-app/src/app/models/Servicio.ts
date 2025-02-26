@@ -1,8 +1,4 @@
-export default class Servicio {
-  id_servicio!: number;
+export interface Servicio {
+  id_servicio: number | undefined;
   descripcion_servicio: string;
-
-  constructor(descripcion_servicio:string){
-      this.descripcion_servicio = descripcion_servicio;
-  }
 }

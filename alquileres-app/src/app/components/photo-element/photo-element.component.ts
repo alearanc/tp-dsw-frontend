@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import FotoInmueble from 'src/app/models/FotoInmueble';
+import { FotoInmueble } from 'src/app/models/FotoInmueble';
 import Swal from 'sweetalert2';
 
 @Component({
