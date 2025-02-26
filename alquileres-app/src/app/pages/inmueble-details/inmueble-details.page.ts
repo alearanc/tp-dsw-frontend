@@ -13,7 +13,7 @@ dayjs.extend(timezone);
 
 import Inmueble from 'src/app/models/Inmueble';
 import InmuebleServicio from 'src/app/models/inmuebleServicio';
-import Reserva from 'src/app/models/Reserva';
+import { Reserva } from 'src/app/models/Reserva';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { CustomNavControllerService } from 'src/app/services/custom-router.service';
 import { FotosInmuebleService } from 'src/app/services/fotos-inmueble.service';
@@ -101,7 +101,7 @@ export class InmuebleDetailsPage implements OnInit {
       this.showCalendar = true;
       this.reservasService.getReservasByInmueble(this.inmuebleSelected.id_inmueble).subscribe((reservas: Reserva[]) => {
         this.disabledDates = reservas.reduce((acc: Date[], reserva: Reserva) => {
-          return acc.concat(this.getDatesBetween(reserva.fecha_inicio.toString(), reserva.fecha_fin.toString()));
+          return acc.concat(this.getDatesBetween(reserva.fecha_inicio!.toString(), reserva.fecha_fin!.toString()));
         }, []);
         this.disabledDates.push(new Date()) // Rn que no deja reservar de hoy para hoy
       });
@@ -182,14 +182,14 @@ export class InmuebleDetailsPage implements OnInit {
 
   reservar() {
     this.loading = true;
-    const reserva = new Reserva(
-      this.selected.startDate.toDate(),
-      this.selected.endDate.toDate(),
-      'Reservado',
-      '',
-      this.inmuebleSelected,
-      JSON.parse(localStorage.getItem('user')!)
-    );
+    const reserva: Reserva = {
+      fecha_inicio: this.selected.startDate.toDate(),
+      fecha_fin: this.selected.endDate.toDate(),
+      estado: 'Reservado',
+      observaciones: '',
+      inmueble: this.inmuebleSelected,
+      huesped: JSON.parse(localStorage.getItem('user')!),
+    };
     this.reservasService.reservar(reserva).subscribe(
       (res: any) => {
         this.disableButton = true;

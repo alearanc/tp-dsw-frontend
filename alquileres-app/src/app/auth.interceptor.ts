@@ -12,10 +12,10 @@ export function authInterceptor(req: HttpRequest<any>, next: HttpHandlerFn, auth
             if (error.status === 401) {
                 Swal.fire({
                     title: 'Sesión expirada',
-                    text: 'Tu sesión se venció, loco. Volvé a loguearte.',
+                    text: 'Su sesión ha expirado. Por favor, inicie sesión nuevamente.',
                     icon: 'warning',
                     confirmButtonColor: '#000',
-                    confirmButtonText: 'Dale'
+                    confirmButtonText: 'Confirmar'
                 }).then(() => {
                     authService.signout(); // Cierro la sesión
                 });

@@ -1,5 +1,5 @@
 // inmueble-form.component.ts
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, effect, EventEmitter, input, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AlertController } from '@ionic/angular';
 import Inmueble from 'src/app/models/Inmueble';
@@ -15,7 +15,10 @@ import { InmuebleService } from 'src/app/services/inmueble/inmueble.service';
   styleUrls: ['./inmueble-form.component.scss'],
 })
 export class InmuebleFormComponent {
-  @Input() inmuebleSeleccionado?: Inmueble;
+  // Cambio @Input() por Signal
+  inmuebleSeleccionado = input<Inmueble | undefined>();
+
+  // Mantengo los otros @Input como están por ahora
   @Input() tipoInmuebles: TipoInmueble[] = [];
   @Input() localidades: Localidad[] = [];
   @Output() onSave = new EventEmitter<Inmueble>();
@@ -29,6 +32,7 @@ export class InmuebleFormComponent {
     private router: CustomNavControllerService,
     private alertController: AlertController
   ) {
+    // Inicializo el formulario como antes
     this.inmuebleForm = this.fb.group({
       tipo_inmueble: [null, Validators.required],
       titulo_inmueble: ['', Validators.required],
@@ -37,6 +41,26 @@ export class InmuebleFormComponent {
       localidad: [null, Validators.required],
       direccion_inmueble: ['', Validators.required],
       capacidad: ['', Validators.required],
+    });
+
+    // Uso effect para reaccionar a cambios en inmuebleSeleccionado
+    effect(() => {
+      const inmueble = this.inmuebleSeleccionado();
+      if (inmueble) {
+        // Actualizo el formulario con los valores del inmueble seleccionado
+        this.inmuebleForm.patchValue({
+          tipo_inmueble: inmueble.tipo_inmueble?.id_tipoinmueble,
+          titulo_inmueble: inmueble.titulo_inmueble,
+          descripcion_inmueble: inmueble.descripcion_inmueble,
+          precio_noche: inmueble.precio_noche,
+          localidad: inmueble.localidad?.cod_postal,
+          direccion_inmueble: inmueble.direccion_inmueble,
+          capacidad: inmueble.capacidad,
+        });
+      } else {
+        // Si no hay inmueble, reseteo el formulario
+        this.inmuebleForm.reset();
+      }
     });
   }
 
@@ -57,21 +81,22 @@ export class InmuebleFormComponent {
       (tipo) => tipo.id_tipoinmueble === this.inmuebleForm.controls['tipo_inmueble'].value
     )!; // Ídem aquí
 
-    if (this.inmuebleSeleccionado) {
-      this.inmuebleService.updateInmueble(this.inmuebleSeleccionado.id_inmueble, nuevoInmueble)
-        .subscribe({
-          next: () => this.router.navigateForward(['/dashboard']),
-          error: (error) => this.presentAlert('Error al actualizar el inmueble: ' + error.message),
-        });
+    const inmuebleActual = this.inmuebleSeleccionado();
+    if (inmuebleActual) {
+      // Actualizo el inmueble existente
+      this.inmuebleService.updateInmueble(inmuebleActual.id_inmueble, nuevoInmueble).subscribe({
+        next: () => this.router.navigateForward(['/dashboard']),
+        error: (error) => this.presentAlert('Error al actualizar el inmueble: ' + error.message),
+      });
     } else {
-      this.inmuebleService.addInmueble(nuevoInmueble)
-        .subscribe({
-          next: (inmueble: Inmueble) => {
-            this.onSave.emit(inmueble);
-            this.inmuebleForm.markAsPristine();
-          },
-          error: (error) => this.presentAlert('Error al crear el inmueble: ' + error.message),
-        });
+      // Creo un nuevo inmueble
+      this.inmuebleService.addInmueble(nuevoInmueble).subscribe({
+        next: (inmueble: Inmueble) => {
+          this.onSave.emit(inmueble);
+          this.inmuebleForm.markAsPristine();
+        },
+        error: (error) => this.presentAlert('Error al crear el inmueble: ' + error.message),
+      });
     }
   }
 

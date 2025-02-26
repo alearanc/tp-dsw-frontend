@@ -3,24 +3,24 @@
     <ion-row>
       <ion-col sizeMd="4" size="12">
         <app-inmueble-form
-          [inmuebleSeleccionado]="inmuebleSeleccionado"
+          [inmuebleSeleccionado]="inmuebleSeleccionado()!"
           [tipoInmuebles]="tipoInmuebles"
           [localidades]="localidades"
           (onSave)="onInmuebleSaved($event)"
         ></app-inmueble-form>
       </ion-col>
       <ion-col sizeMd="4" size="12">
-        @if (inmuebleSeleccionado) {
+        @if (inmuebleSeleccionado()) {
         <div>
           <h3>Imágenes</h3>
           <app-photos-component
-            [inmuebleId]="inmuebleSeleccionado.id_inmueble"
+            [inmuebleId]="inmuebleSeleccionado()!.id_inmueble"
           ></app-photos-component>
         </div>
         <div>
           <h3>Servicios</h3>
           <app-inmueble-servicio
-            [id_inmueble]="inmuebleSeleccionado.id_inmueble"
+            [id_inmueble]="inmuebleSeleccionado()!.id_inmueble"
           ></app-inmueble-servicio>
         </div>
         }
@@ -28,7 +28,7 @@
       <ion-col sizeMd="4" size="12">
         <h3>Vista previa</h3>
         <app-resultado-inmueble
-          [inmuebleActual]="inmuebleSeleccionado"
+          [inmuebleActual]="inmuebleSeleccionado()!"
           [showDescripcion]="true"
         ></app-resultado-inmueble>
       </ion-col>

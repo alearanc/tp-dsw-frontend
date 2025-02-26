@@ -1,8 +1,9 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, effect, EventEmitter, input, Input, Output } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import FotoInmueble from 'src/app/models/FotoInmueble';
 import Inmueble from 'src/app/models/Inmueble';
-import Reserva from 'src/app/models/Reserva';
+import { Reserva } from 'src/app/models/Reserva';
+import { TipoUsuario } from 'src/app/models/TipoUsuario.enum';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { CustomNavControllerService } from 'src/app/services/custom-router.service';
 import { FotosInmuebleService } from 'src/app/services/fotos-inmueble.service';
@@ -16,8 +17,8 @@ import { CalificarModalComponent } from '../rating/calificar-modal.component';
   templateUrl: './resultado-inmueble.component.html',
   styleUrls: ['./resultado-inmueble.component.scss'],
 })
-export class ResultadoInmuebleComponent implements OnChanges {
-  @Input() inmuebleActual?: Inmueble;
+export class ResultadoInmuebleComponent {
+  inmuebleActual = input<Inmueble | undefined>();
   @Input() reservaActual?: Reserva;
   @Input() showDescripcion: boolean = false;
   @Input() showFechaVisita: boolean = false;
@@ -38,12 +39,13 @@ export class ResultadoInmuebleComponent implements OnChanges {
     private fotoInmuebleService: FotosInmuebleService,
     private authService: AuthService,
     private modalCtrl: ModalController
-  ) {}
-
-  ngOnChanges() {
-    if (this.inmuebleActual?.id_inmueble) {
-      this.loadCoverPhoto();
-    }
+  ) {
+    effect(() => {
+      const inmueble = this.inmuebleActual();
+      if (inmueble?.id_inmueble) {
+        this.loadCoverPhoto();
+      }
+    });
   }
 
   async calificarEstadia() {
@@ -51,10 +53,10 @@ export class ResultadoInmuebleComponent implements OnChanges {
     await modal.present();
 
     const { data } = await modal.onWillDismiss();
-    if (data?.puntuacion) {
+    if (data?.puntuacion && this.inmuebleActual() && this.reservaActual?.fecha_inicio) {
       const reservaData = {
-        id_inmueble: this.inmuebleActual!.id_inmueble,
-        fecha_inicio: this.reservaActual!.fecha_inicio,
+        id_inmueble: this.inmuebleActual()!.id_inmueble,
+        fecha_inicio: this.reservaActual.fecha_inicio, // Ya verificamos que existe
         puntuacion: data.puntuacion,
       };
       this.reservaService.valorarReserva(reservaData).subscribe({
@@ -68,7 +70,7 @@ export class ResultadoInmuebleComponent implements OnChanges {
   }
 
   getCalificacionPromedio(): number {
-    return this.inmuebleActual?.puntuacion_promedio || 0;
+    return this.inmuebleActual()?.puntuacion_promedio || 0;
   }
 
   navigateToInmuebleDetails(idInmueble: number, fechaInicio?: Date, fechaFin?: Date) {
@@ -81,9 +83,12 @@ export class ResultadoInmuebleComponent implements OnChanges {
   }
 
   toggleVisibilidad() {
+    const inmueble = this.inmuebleActual();
+    if (!inmueble) return;
+
     Swal.fire({
       title: '¿Estás seguro?',
-      text: `Estás por ${this.inmuebleActual!.habilitado ? 'ocultar' : 'mostrar'} este inmueble para los huéspedes.`,
+      text: `Estás por ${inmueble.habilitado ? 'ocultar' : 'mostrar'} este inmueble para los huéspedes.`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#000',
@@ -91,15 +96,18 @@ export class ResultadoInmuebleComponent implements OnChanges {
       confirmButtonText: '¡Sí, cambiar visibilidad!',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.inmuebleService.toggleVisibilidad(this.inmuebleActual!).subscribe((inmueble: Inmueble) => {
-          this.inmuebleActual = inmueble;
+        this.inmuebleService.toggleVisibilidad(inmueble).subscribe((updatedInmueble: Inmueble) => {
+          this.cdr.detectChanges();
         });
       }
     });
   }
 
   loadCoverPhoto() {
-    this.fotoInmuebleService.getAllPhotosByInmueble(this.inmuebleActual!.id_inmueble).subscribe((fotos: FotoInmueble[]) => {
+    const inmueble = this.inmuebleActual();
+    if (!inmueble?.id_inmueble) return;
+
+    this.fotoInmuebleService.getAllPhotosByInmueble(inmueble.id_inmueble).subscribe((fotos: FotoInmueble[]) => {
       if (fotos.length > 0) {
         this.coverPhoto = `http://localhost:3000/photos/${encodeURIComponent(fotos[0].urlFoto)}`;
         this.cdr.detectChanges();
@@ -108,10 +116,15 @@ export class ResultadoInmuebleComponent implements OnChanges {
   }
 
   navigateToEditInmueble() {
-    this.router.navigateRoot(['/ce-inmueble'], { queryParams: { idInmueble: this.inmuebleActual!.id_inmueble } });
+    const inmueble = this.inmuebleActual();
+    if (inmueble?.id_inmueble) {
+      this.router.navigateRoot(['/ce-inmueble'], { queryParams: { idInmueble: inmueble.id_inmueble } });
+    }
   }
 
   cancelarReserva() {
+    if (!this.reservaActual) return;
+
     Swal.fire({
       title: '¿Estás seguro?',
       text: 'Estás por cancelar la reserva de este inmueble.',
@@ -125,14 +138,26 @@ export class ResultadoInmuebleComponent implements OnChanges {
       focusCancel: true,
     }).then((result) => {
       if (result.isConfirmed) {
-        let reserva: any = this.reservaActual;
-        if (!reserva.huesped) {
-          reserva.huesped = {}; // Asegúrate de que huesped esté definido
-        }
-        reserva.huesped.id_usuario = this.authService.getUserId();
-        reserva.huesped.email = this.authService.getUser().email;
-        this.reservaService.cancelarReserva(reserva).subscribe(() => {
-          this.reservaCancelada.emit();
+        const usuario = this.authService.getUser();
+        const reserva: Reserva = {
+          ...this.reservaActual!, // Uso ! porque ya verifiqué que no es undefined
+          huesped: {
+            id_usuario: this.authService.getUserId(),
+            email: usuario.email,
+            nombre: usuario.nombre || 'Usuario',
+            apellido: usuario.apellido || 'Desconocido',
+            password: usuario.password || '',
+            tipo_usuario: usuario.tipo_usuario || TipoUsuario.Huesped,
+            telefono: usuario.telefono || 'No especificado',
+            domicilio: usuario.domicilio || 'No especificado',
+          },
+        };
+        this.reservaService.cancelarReserva(reserva).subscribe({
+          next: () => {
+            this.reservaCancelada.emit();
+            Swal.fire('Éxito', 'La reserva fue cancelada', 'success');
+          },
+          error: () => Swal.fire('Error', 'No se pudo cancelar la reserva', 'error'),
         });
       }
     });

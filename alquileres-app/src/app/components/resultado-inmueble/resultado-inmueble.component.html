@@ -1,5 +1,6 @@
+<!-- resultado-inmueble.component.html -->
 <div
-  *ngIf="inmuebleActual"
+  *ngIf="inmuebleActual()"
   class="card-wrapper"
   [ngStyle]="{ opacity: reservaActual?.estado === 'Cancelado' ? '0.5' : '1' }"
 >
@@ -14,14 +15,14 @@
       />
     </picture>
   </div>
-  <h1 class="nombre">{{ inmuebleActual.titulo_inmueble }}</h1>
+  <h1 class="nombre">{{ inmuebleActual()!.titulo_inmueble }}</h1>
   <div class="rating">
     <app-rating [calificacionPromedio]="getCalificacionPromedio()"></app-rating>
   </div>
-  <p class="direccion">{{ inmuebleActual.direccion_inmueble }}</p>
-  <b class="precio">$ {{ inmuebleActual.precio_noche }}</b>
+  <p class="direccion">{{ inmuebleActual()!.direccion_inmueble }}</p>
+  <b class="precio">$ {{ inmuebleActual()!.precio_noche }}</b>
   <p class="descripcion" *ngIf="showDescripcion">
-    {{ inmuebleActual.descripcion_inmueble }}
+    {{ inmuebleActual()!.descripcion_inmueble }}
   </p>
   <p class="descripcion" *ngIf="showFechaVisita">
     Alojado el día: {{ reservaActual?.fecha_inicio | date : "dd/MM/yyyy" }}
@@ -33,7 +34,7 @@
     expand="full"
     mode="ios"
     class="details-btn"
-    (click)="navigateToInmuebleDetails(inmuebleActual.id_inmueble)"
+    (click)="navigateToInmuebleDetails(inmuebleActual()!.id_inmueble)"
   >
     {{
       reservaActual?.fecha_inicio
@@ -61,7 +62,7 @@
       [disabled]="
         showDescripcion ||
         !!reservaActual?.fecha_inicio ||
-        !inmuebleActual.habilitado
+        !inmuebleActual()!.habilitado
       "
       expand="full"
       mode="ios"
@@ -76,10 +77,10 @@
       mode="ios"
       (click)="toggleVisibilidad()"
     >
-      {{ inmuebleActual.habilitado ? "Deshabilitar" : "Habilitar" }}
+      {{ inmuebleActual()!.habilitado ? "Deshabilitar" : "Habilitar" }}
       <ion-icon
         slot="end"
-        [name]="inmuebleActual.habilitado ? 'eye-off' : 'eye'"
+        [name]="inmuebleActual()!.habilitado ? 'eye-off' : 'eye'"
       ></ion-icon>
     </ion-button>
   </div>
@@ -97,9 +98,9 @@
       mode="ios"
       (click)="
         navigateToInmuebleDetails(
-          inmuebleActual.id_inmueble,
-          reservaActual!.fecha_inicio,
-          reservaActual!.fecha_fin
+          inmuebleActual()!.id_inmueble,
+          reservaActual?.fecha_inicio,
+          reservaActual?.fecha_fin
         )
       "
     >
@@ -121,6 +122,6 @@
     {{ reservaActual?.fecha_fin | date : "dd/MM/yyyy" }}
   </div>
 </div>
-<div *ngIf="!inmuebleActual">
+<div *ngIf="!inmuebleActual()">
   <p>No hay datos para mostrar todavía.</p>
 </div>

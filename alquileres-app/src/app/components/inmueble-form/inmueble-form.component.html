@@ -3,7 +3,7 @@
   <ion-item lines="none">
     <ion-label>Tipo de Propiedad</ion-label>
     <ion-select
-      [value]="inmuebleSeleccionado?.tipo_inmueble?.id_tipoinmueble"
+      [value]="inmuebleSeleccionado()?.tipo_inmueble?.id_tipoinmueble"
       interface="popover"
       mode="ios"
       formControlName="tipo_inmueble"
@@ -53,7 +53,7 @@
   <ion-item lines="none">
     <ion-label>Localidad</ion-label>
     <ion-select
-      [value]="inmuebleSeleccionado?.localidad?.cod_postal"
+      [value]="inmuebleSeleccionado()?.localidad?.cod_postal"
       interface="popover"
       mode="ios"
       formControlName="localidad"
@@ -92,10 +92,10 @@
     mode="ios"
     [disabled]="!inmuebleForm.dirty || !inmuebleForm.valid"
   >
-    {{ inmuebleSeleccionado ? "Guardar cambios" : "Publicar propiedad" }}
+    {{ inmuebleSeleccionado() ? "Guardar cambios" : "Publicar propiedad" }}
     <ion-icon
       slot="end"
-      [name]="inmuebleSeleccionado ? 'save' : 'add'"
+      [name]="inmuebleSeleccionado() ? 'save' : 'add'"
     ></ion-icon>
   </ion-button>
 </form>

@@ -1,5 +1,5 @@
 // ce-inmueble.page.ts
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import Inmueble from 'src/app/models/Inmueble';
 import Localidad from 'src/app/models/Localidad';
@@ -16,7 +16,7 @@ import { TipoInmubeleService } from 'src/app/services/tipo-inmueble/tipo-inmubel
   styleUrls: ['./ce-inmueble.page.scss'],
 })
 export class CEInmueblePage implements OnInit, OnDestroy {
-  inmuebleSeleccionado?: Inmueble;
+  inmuebleSeleccionado = signal<Inmueble | null>(null);
   tipoInmuebles: TipoInmueble[] = [];
   localidades: Localidad[] = [];
 
@@ -34,8 +34,8 @@ export class CEInmueblePage implements OnInit, OnDestroy {
     const idInmuebleActual = this.route.snapshot.queryParams['idInmueble'];
     if (idInmuebleActual) {
       this.inmuebleService.getInmueble(idInmuebleActual).subscribe((inmueble: Inmueble) => {
-        this.inmuebleSeleccionado = inmueble;
-        this.cdr.detectChanges();
+        this.inmuebleSeleccionado.set(inmueble);
+        console.log(inmueble)
       });
     }
     this.tipoInmuebleService.getAllTipoInmueble().subscribe((tipos) => {
@@ -51,7 +51,7 @@ export class CEInmueblePage implements OnInit, OnDestroy {
   }
 
   onInmuebleSaved(inmueble: Inmueble) {
-    this.inmuebleSeleccionado = inmueble;
+    this.inmuebleSeleccionado.set(inmueble);
     this.router.navigateRoot(['/ce-inmueble'], { queryParams: { idInmueble: inmueble.id_inmueble } });
   }
 }

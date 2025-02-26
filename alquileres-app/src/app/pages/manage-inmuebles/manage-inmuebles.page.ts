@@ -6,7 +6,7 @@ import isoWeek from 'dayjs/plugin/isoWeek';
 import timezone from 'dayjs/plugin/timezone';
 import utc from 'dayjs/plugin/utc';
 import Inmueble from 'src/app/models/Inmueble';
-import Reserva from 'src/app/models/Reserva';
+import { Reserva } from 'src/app/models/Reserva';
 import { InmuebleService } from 'src/app/services/inmueble/inmueble.service';
 import { ReservasService } from 'src/app/services/reservas/reservas.service';
 import Swal from 'sweetalert2';
