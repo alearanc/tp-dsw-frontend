@@ -25,6 +25,4 @@ export class TipoInmubeleService {
   updateTipoInmueble(idTipoInmueble : number, descripcion: string): Observable<TipoInmueble[]>{
     return this.httpClient.put<TipoInmueble[]>('tipoInmueble/update/' + idTipoInmueble, {descripcion});
   }
-
-  //Acá van todas las peticiones al backend
 }

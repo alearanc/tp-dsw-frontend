@@ -75,6 +75,7 @@ export class ManageInmueblesPage implements OnInit{
   cancelarReserva(reserva: Reserva) {
     Swal.fire({
       title: '¿Estás seguro?',
+      heightAuto: false,
       text: "Estas por cancelar la reserva de este inmueble.",
       icon: 'warning',
       showCancelButton: true,

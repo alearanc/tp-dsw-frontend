@@ -75,6 +75,7 @@ export class PhotosComponentComponent  implements OnInit {
       title: '¿Estás seguro?',
       text: 'No podrás revertir esta acción',
       icon: 'warning',
+      heightAuto: false,
       showCancelButton: true,
       confirmButtonColor: '#000',
       cancelButtonColor: '#d33',

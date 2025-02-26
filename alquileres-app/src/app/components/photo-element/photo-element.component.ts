@@ -20,6 +20,7 @@ export class PhotoElementComponent {
       imageUrl: "http://localhost:3000/photos/" + this.imagen.urlFoto,
       showCloseButton: true,
       showConfirmButton: false,
+      heightAuto: false,
     });
   }
 

@@ -14,6 +14,7 @@ export function authInterceptor(req: HttpRequest<any>, next: HttpHandlerFn, auth
                     title: 'Sesión expirada',
                     text: 'Su sesión ha expirado. Por favor, inicie sesión nuevamente.',
                     icon: 'warning',
+                    heightAuto: false,
                     confirmButtonColor: '#000',
                     confirmButtonText: 'Confirmar'
                 }).then(() => {
