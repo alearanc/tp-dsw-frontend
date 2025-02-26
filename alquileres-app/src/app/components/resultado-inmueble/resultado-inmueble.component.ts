@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, effect, EventEmitter, input, Input, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, computed, effect, EventEmitter, input, Input, Output, signal } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { FotoInmueble } from 'src/app/models/FotoInmueble';
 import { Inmueble } from 'src/app/models/Inmueble';
@@ -28,7 +28,30 @@ export class ResultadoInmuebleComponent {
   @Input() fechaReserva?: Date;
   @Output() reservaCancelada = new EventEmitter<void>();
 
-  coverPhoto: string = './assets/no-cover.jpg';
+  // Signal para las fotos específicas del inmueble
+  private fotos = signal<FotoInmueble[] | null>(null);
+
+  // coverPhoto como Signal computado
+  coverPhoto = computed(() => {
+    const fotosSubidas = this.$fotosSubidas();
+    const fotosLocal = this.fotos();
+    const inmueble = this.inmuebleActual();
+
+    if (!inmueble?.id_inmueble) return './assets/no-cover.jpg';
+
+    // Priorizo fotosSubidas si coincidenn cn el inmueble
+    if (fotosSubidas && fotosSubidas.length > 0 && fotosSubidas[0].inmuebleId === inmueble.id_inmueble) {
+      return `http://localhost:3000/photos/${encodeURIComponent(fotosSubidas[0].urlFoto)}`;
+    }
+
+    // Luego uso las fotos csrgadas localmente
+    if (fotosLocal && fotosLocal.length > 0) {
+      return `http://localhost:3000/photos/${encodeURIComponent(fotosLocal[0].urlFoto)}`;
+    }
+
+    return './assets/no-cover.jpg';
+  });
+
   $fotosSubidas = this.fotoInmuebleService.fotosSubidas;
 
   constructor(
@@ -43,8 +66,17 @@ export class ResultadoInmuebleComponent {
     effect(() => {
       const inmueble = this.inmuebleActual();
       if (inmueble?.id_inmueble) {
-        this.loadCoverPhoto();
+        this.loadInitialPhotos(inmueble.id_inmueble);
+      } else {
+        this.fotos.set(null);
       }
+    });
+  }
+
+  // Cargo las fotos iniciales
+  private loadInitialPhotos(idInmueble: number) {
+    this.fotoInmuebleService.getAllPhotosByInmueble(idInmueble).subscribe((fotos: FotoInmueble[]) => {
+      this.fotos.set(fotos);
     });
   }
 
@@ -56,7 +88,7 @@ export class ResultadoInmuebleComponent {
     if (data?.puntuacion && this.inmuebleActual() && this.reservaActual?.fecha_inicio) {
       const reservaData = {
         id_inmueble: this.inmuebleActual()!.id_inmueble,
-        fecha_inicio: this.reservaActual.fecha_inicio, // Ya verificamos que existe
+        fecha_inicio: this.reservaActual.fecha_inicio,
         puntuacion: data.puntuacion,
       };
       this.reservaService.valorarReserva(reservaData).subscribe({
@@ -100,18 +132,6 @@ export class ResultadoInmuebleComponent {
         this.inmuebleService.toggleVisibilidad(inmueble).subscribe((updatedInmueble: Inmueble) => {
           this.cdr.detectChanges();
         });
-      }
-    });
-  }
-
-  loadCoverPhoto() {
-    const inmueble = this.inmuebleActual();
-    if (!inmueble?.id_inmueble) return;
-
-    this.fotoInmuebleService.getAllPhotosByInmueble(inmueble.id_inmueble).subscribe((fotos: FotoInmueble[]) => {
-      if (fotos.length > 0) {
-        this.coverPhoto = `http://localhost:3000/photos/${encodeURIComponent(fotos[0].urlFoto)}`;
-        this.cdr.detectChanges();
       }
     });
   }

@@ -1,4 +1,3 @@
-<!-- resultado-inmueble.component.html -->
 <div
   *ngIf="inmuebleActual()"
   class="card-wrapper"
@@ -6,13 +5,7 @@
 >
   <div class="img" style="height: 200px; width: auto">
     <picture>
-      <img
-        [src]="
-          $fotosSubidas() && $fotosSubidas()!.length > 0
-            ? 'http://localhost:3000/photos/' + $fotosSubidas()![0].urlFoto
-            : coverPhoto
-        "
-      />
+      <img [src]="coverPhoto()" />
     </picture>
   </div>
   <h1 class="nombre">{{ inmuebleActual()!.titulo_inmueble }}</h1>
@@ -99,8 +92,8 @@
       (click)="
         navigateToInmuebleDetails(
           inmuebleActual()!.id_inmueble,
-          reservaActual?.fecha_inicio,
-          reservaActual?.fecha_fin
+          reservaActual!.fecha_inicio,
+          reservaActual!.fecha_fin
         )
       "
     >
