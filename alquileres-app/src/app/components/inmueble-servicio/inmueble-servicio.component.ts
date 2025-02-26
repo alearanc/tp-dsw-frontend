@@ -51,7 +51,6 @@ export class InmuebleServicioComponent implements OnInit {
             id_servicio: item.id_servicio,
             descripcion_servicio: item.servicio ? item.servicio.descripcion_servicio : 'Servicio no disponible'
           }));
-          //console.log('Servicios procesados:', this.serviciosInmueble);
 
         },
         error: (err) => {

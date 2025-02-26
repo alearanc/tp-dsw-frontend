@@ -90,7 +90,6 @@ export class InmuebleDetailsPage implements OnInit {
           const encodedUrl = encodeURIComponent(foto.urlFoto);
           return `http://localhost:3000/photos/${encodedUrl}`;
         });
-        console.log(this.coverPhotos); // Lista de URLs de fotos
         this.cdr.detectChanges(); // Forzar detección de cambios si es necesario
       }
     });
@@ -150,7 +149,6 @@ export class InmuebleDetailsPage implements OnInit {
 
   onDateRangeSelected(event: any) {
     const { startDate, endDate } = event;
-    console.log(startDate.$d, endDate.$d);
 
     if (this.isRangeInvalid(startDate, endDate)) {
       alert('El rango seleccionado contiene fechas no disponibles.');
@@ -167,11 +165,6 @@ export class InmuebleDetailsPage implements OnInit {
       endDateObj.setHours(0, 0, 0, 0);
 
       this.disableReservarButton = (startDateObj.getTime() === today.getTime() || endDateObj.getTime() === today.getTime());
-
-      console.log(startDateObj.toLocaleDateString());
-      console.log(today.toLocaleDateString());
-      console.log(endDateObj.toLocaleDateString());
-      console.log(this.disableReservarButton);
     }
   }
 

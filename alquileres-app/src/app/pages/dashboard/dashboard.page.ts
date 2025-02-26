@@ -28,7 +28,6 @@ export class DashboardPage implements OnInit {
     this.user = this.authService.getUser();
     // Conseguir la informacion del user desde el token
     const info_usuario: any = jwtDecode(localStorage.getItem('authToken')!); //Esto solo nos da el id_usuario
-    console.log(info_usuario.id_usuario);
     this.esPropietario = this.authService.getUserType() === "Propietario";
     this.getMisReservas();
     this.getMisReservasPasadas();

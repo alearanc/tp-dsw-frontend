@@ -51,8 +51,6 @@ export class FotoInmueblePage implements OnInit {
       const files = this.selectedImages.map(image => image.file);
       this.fotosInmuebleService.uploadPhotos(this.selectedInmuebleId, files).subscribe({
         next: (response) => {
-          console.log('Fotos subidas correctamente', response);
-          // Manejar la respuesta del servidor, e.g., recargar la lista de fotos
           this.selectedImages = [];
           this.loadExistingPhotos();
         },

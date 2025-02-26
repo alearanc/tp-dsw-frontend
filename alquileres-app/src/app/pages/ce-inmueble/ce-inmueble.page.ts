@@ -35,7 +35,6 @@ export class CEInmueblePage implements OnInit, OnDestroy {
     if (idInmuebleActual) {
       this.inmuebleService.getInmueble(idInmuebleActual).subscribe((inmueble: Inmueble) => {
         this.inmuebleSeleccionado.set(inmueble);
-        console.log(inmueble)
       });
     }
     this.tipoInmuebleService.getAllTipoInmueble().subscribe((tipos) => {

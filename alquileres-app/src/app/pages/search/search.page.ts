@@ -38,7 +38,6 @@ export class SearchPage implements OnInit {
       }
       if (params['criteria']) {
         this.inmuebleService.searchInmuebles(params['criteria']).subscribe(inmuebles => {
-          console.log(inmuebles)
           this.inmueblesEncontrados = inmuebles;
         });
       }

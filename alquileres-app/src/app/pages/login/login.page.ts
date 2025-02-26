@@ -30,7 +30,6 @@ export class LoginPage implements OnInit {
       const { email, password } = this.loginForm.value;
       this.authService.signin(email, password).subscribe(
         (response) => {
-          console.log('Login successful');
           this.router.navigateRoot(['/dashboard']);
         },
         (error) => {

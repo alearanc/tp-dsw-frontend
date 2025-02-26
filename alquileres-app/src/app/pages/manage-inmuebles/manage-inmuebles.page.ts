@@ -101,7 +101,6 @@ export class ManageInmueblesPage implements OnInit{
 
   onDateRangeSelected(event: any) {
     const { startDate, endDate } = event;
-    console.log(startDate.$d, endDate.$d);
     this.rangoSelected = event;
   
     if (this.isRangeInvalid(startDate, endDate)) {

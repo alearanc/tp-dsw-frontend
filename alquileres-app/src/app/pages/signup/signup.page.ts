@@ -38,7 +38,6 @@ export class SignupPage implements OnInit {
   signup() {
     if (this.signupForm.valid) {
       const formData = this.signupForm.value;
-      console.log('Form Data:', formData);
       this.personaService.addPersona(formData).pipe(
         catchError((error) => {
           this.error = error.error;

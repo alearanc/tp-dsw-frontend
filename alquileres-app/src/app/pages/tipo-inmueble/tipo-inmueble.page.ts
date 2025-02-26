@@ -22,7 +22,6 @@ export class TipoInmueblePage implements OnInit {
   ngOnInit() {
     this.tipoInmuebleService.getAllTipoInmueble().subscribe((tiposInmueble: TipoInmueble[])=>{
       this.listaTipoInmueble = tiposInmueble;
-      console.log(this.listaTipoInmueble);
     })
   }
 
@@ -70,7 +69,6 @@ export class TipoInmueblePage implements OnInit {
             handler: () => {
               this.tipoInmuebleService.deleteTipoInmueble(tipoInmueble.id_tipoinmueble).subscribe((tiposInmueble: TipoInmueble[])=>{
                 this.listaTipoInmueble = tiposInmueble;
-                console.log(this.listaTipoInmueble);
               })
             },
           },

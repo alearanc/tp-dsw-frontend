@@ -36,7 +36,6 @@ export class InmueblePage implements OnInit {
   }
 
   async openModal(inmueble?: any) {
-    console.log(inmueble)
     const modal = await this.modalController.create({
       component: ModalContentPage,
       componentProps: {

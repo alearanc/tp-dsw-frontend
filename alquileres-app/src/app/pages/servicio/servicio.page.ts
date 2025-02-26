@@ -23,7 +23,6 @@ export class ServicioPage implements OnInit {
   ngOnInit() {
       this.servicioService.getAllServicio().subscribe((servicios: Servicio[])=>{
       this.listaServicio = servicios;
-      //console.log(this.listaServicio);
     })
   }
 
@@ -39,7 +38,6 @@ export class ServicioPage implements OnInit {
     modal.onDidDismiss().then((data: any) => {
       if (data.data) {
         if (servicio) {
-          //Actualizo un Servicio
           servicio.descripcion_servicio = data.data.descripcion_servicio;
           this.servicioService.updateServicio(servicio.id_servicio, servicio.descripcion_servicio).subscribe((servicios: Servicio[])=>{
             this.listaServicio = servicios;
@@ -71,7 +69,6 @@ export class ServicioPage implements OnInit {
             handler: () => {
               this.servicioService.deleteServicio(servicio.id_servicio).subscribe((servicios: Servicio[])=>{
                 this.listaServicio = servicios;
-                //console.log(this.listaServicio);
               })
             },
           },

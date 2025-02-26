@@ -23,7 +23,6 @@ export class LocalidadPage implements OnInit {
   ngOnInit() {
       this.localidadService.getAllLocalidad().subscribe((localidad: Localidad[])=>{
       this.listaLocalidad = localidad;
-      console.log(this.listaLocalidad);
     })
   }
 
@@ -73,7 +72,6 @@ export class LocalidadPage implements OnInit {
             handler: () => {
               this.localidadService.deleteLocalidad(localidad.cod_postal).subscribe((localidades: Localidad[])=>{
                 this.listaLocalidad = localidades;
-                console.log(this.listaLocalidad);
               })
             },
           },

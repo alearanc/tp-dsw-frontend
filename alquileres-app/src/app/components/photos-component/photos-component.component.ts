@@ -39,12 +39,10 @@ export class PhotosComponentComponent  implements OnInit {
   }
 
   uploadImage(images: { file: File; url: string }[]) {
-    console.log(this.inmuebleId)
     if (this.inmuebleId && images.length > 0) {
       const files = images.map(image => image.file);
       this.fotosInmuebleService.uploadPhotos(this.inmuebleId, files).subscribe({
         next: (response: FotoInmueble[]) => {
-          console.log('Fotos subidas correctamente', response);
           this.fotosInmuebleService.updateFotosSubidas(response);
           this.existingPhotos = response;
           this.uploadingImages = this.uploadingImages.filter(img => !images.includes(img));
@@ -69,7 +67,6 @@ export class PhotosComponentComponent  implements OnInit {
     this.fotosInmuebleService.getAllPhotosByInmueble(this.inmuebleId).subscribe((photos: FotoInmueble[]) => {
       this.fotosInmuebleService.updateFotosSubidas(photos);
       this.existingPhotos = photos;
-      console.log(photos)
     });
   }
 
@@ -87,7 +84,6 @@ export class PhotosComponentComponent  implements OnInit {
       if (result.isConfirmed) {
       this.fotosInmuebleService.deletePhotoById(photoId).subscribe({
         next: () => {
-          console.log('Foto eliminada correctamente');
           this.existingPhotos = this.existingPhotos.filter(photo => photo.id_fotoInmueble !== photoId);
           this.fotosInmuebleService.updateFotosSubidas(this.existingPhotos.length > 0 ? this.existingPhotos : null);
             this.toastController.create({
