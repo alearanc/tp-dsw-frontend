@@ -1,66 +1,30 @@
-$breakpoint-desktop: 992px;
+@import "../../../theme/variables.scss";
 
 .wrapper {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 16px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
 }
 
 .title {
-    width: fit-content;
-    cursor: pointer;
-
-    p {
-        font-size: 24px;
-    }
+  font-size: 24px;
+  color: #000;
+  text-decoration: none;
 }
 
 .buttons {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 ion-button {
-    --border-radius: 16px !important;
-    --color: #000;
+  --border-radius: 16px;
+  --color: #000;
 }
 
 ion-button[fill="outline"] {
-    --box-shadow: none !important;
-    --border-color: #000 !important;
-    --background-activated: #000 !important;
-    --background-hover: #fff;
-}
-
-.avatar {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background-color: gray;
-    color: white;
-    font-size: 1.2em;
-    margin-left: 10px;
-    cursor: pointer;
-}
-
-.desktop-menu {
-    display:flex;
-
-    @media (max-width: $breakpoint-desktop) {
-        display:none;
-    }
-}
-
-
-.mobile-menu {
-    display: flex;
-
-    @media (min-width: $breakpoint-desktop) {
-        display: none;
-    }
+  --border-color: #000;
+  --background-hover: #fff;
 }

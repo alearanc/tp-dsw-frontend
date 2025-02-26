@@ -1,37 +1,42 @@
 <div class="container">
-  <h1>Servicios de la propiedad</h1>
-
-  <!-- Mostrar mensaje de error si existe -->
   <div *ngIf="mensajeError" class="error-message">
     {{ mensajeError }}
   </div>
-
-  <!-- Lista de servicios del inmueble -->
   <div *ngIf="serviciosInmueble.length > 0">
     <ul>
       <li *ngFor="let servicio of serviciosInmueble">
         {{ servicio.descripcion_servicio }}
-        <ion-button (click)="deleteInmuebleServicio(servicio.id_servicio)" color="danger"><ion-icon name="trash"></ion-icon></ion-button>
+        <ion-button (click)="deleteInmuebleServicio(servicio.id_servicio)"
+          ><ion-icon name="trash"></ion-icon
+        ></ion-button>
       </li>
     </ul>
   </div>
   <div *ngIf="serviciosInmueble.length === 0">
     <p>No hay servicios asociados a esta propiedad.</p>
   </div>
-
-  <!-- Formulario para agregar un servicio al inmueble -->
   <div>
-    <h3>Agregar Servicio</h3>
-    <label for="id_servicio">Selecciona un servicio: </label>
+    <label for="id_servicio">Agregar un servicio: </label>
     <div class="select-button-container">
-      <ion-select id="id_servicio" interface="popover" mode="ios" [formControl]="servicio">
+      <ion-select
+        id="id_servicio"
+        interface="popover"
+        placeholder="Seleccione un servicio"
+        mode="ios"
+        [formControl]="servicio"
+      >
         @for(servicio of allServicios; track servicio.id_servicio){
-        <ion-select-option [value]="servicio.id_servicio" [disabled]="isServicioSelected(servicio.id_servicio)">
+        <ion-select-option
+          [value]="servicio.id_servicio"
+          [disabled]="isServicioSelected(servicio.id_servicio)"
+        >
           {{ servicio.descripcion_servicio }}
         </ion-select-option>
         }
       </ion-select>
-      <ion-button (click)="addInmuebleServicio()">Agregar Servicio</ion-button>
+      <ion-button (click)="addInmuebleServicio()"
+        ><ion-icon slot="icon-only" name="add"></ion-icon
+      ></ion-button>
     </div>
   </div>
 </div>

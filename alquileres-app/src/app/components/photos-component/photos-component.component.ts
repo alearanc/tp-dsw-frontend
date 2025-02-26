@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ToastController } from '@ionic/angular';
 import FotoInmueble from 'src/app/models/FotoInmueble';
 import { FotosInmuebleService } from 'src/app/services/fotos-inmueble.service';
 import Swal from 'sweetalert2';
@@ -19,7 +19,7 @@ export class PhotosComponentComponent  implements OnInit {
 
   constructor(
     private fotosInmuebleService: FotosInmuebleService,
-    private alertController: AlertController
+    private toastController: ToastController
   ) { }
 
   ngOnInit() {
@@ -48,6 +48,11 @@ export class PhotosComponentComponent  implements OnInit {
           this.fotosInmuebleService.updateFotosSubidas(response);
           this.existingPhotos = response;
           this.uploadingImages = this.uploadingImages.filter(img => !images.includes(img));
+            this.toastController.create({
+              message: 'Cambios guardados con éxito',
+              duration: 2000,
+              position: 'bottom'
+            }).then(toast => toast.present());
         },
         error: (err) => {
           console.error('Error al subir las fotos:', err);
@@ -85,6 +90,11 @@ export class PhotosComponentComponent  implements OnInit {
           console.log('Foto eliminada correctamente');
           this.existingPhotos = this.existingPhotos.filter(photo => photo.id_fotoInmueble !== photoId);
           this.fotosInmuebleService.updateFotosSubidas(this.existingPhotos.length > 0 ? this.existingPhotos : null);
+            this.toastController.create({
+              message: 'Cambios guardados con éxito',
+              duration: 2000,
+              position: 'bottom'
+            }).then(toast => toast.present());
         },
         error: (err) => {
           console.error('Error al eliminar la foto:', err);

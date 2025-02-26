@@ -1,45 +1,32 @@
-ion-item {
-    --padding-start: 0;
-    --inner-padding-end: 0;
-    --inner-padding-start: 0;
-    --padding-end: 0;
-}
-
-ion-button {
-    margin-top: 20px;
+// inmueble-form.component.scss
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 ion-item {
-    border: 1px solid #d4d4d4 !important;
-    border-radius: 16px;
-    padding-left: 12px !important;
-    display: flex;
-    flex-direction: row-reverse;
+  --padding-start: 12px;
+  --inner-padding-end: 0;
+  --border-width: 1px;
+  --border-color: #d4d4d4;
+  --border-radius: 16px;
+  display: flex;
+  flex-direction: row-reverse;
 
-    ion-icon {
-        transform: translateY(-7px);
-    }
+  ion-icon {
+    transform: translateY(-7px);
+  }
 }
 
-ion-select{
-    height: 56px;
+ion-select {
+  height: 56px;
 }
 
 ion-button {
-    --ripple-color: transparent !important;
-    --background-hover-opacity: 0 !important;
-}
-
-ion-button{
-    --border-radious: 0px !important;
-    --box-shadow: none !important;
-    --background: #000;
-    --background-activated: #222;
-    --background-hover: #111;
-}
-
-form{
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
+  margin-top: 20px;
+  --background: #000;
+  --background-activated: #222;
+  --background-hover: #111;
+  --ripple-color: transparent;
 }

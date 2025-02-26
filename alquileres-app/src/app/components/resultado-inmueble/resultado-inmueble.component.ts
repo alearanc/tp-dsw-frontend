@@ -16,18 +16,18 @@ import { CalificarModalComponent } from '../rating/calificar-modal.component';
   templateUrl: './resultado-inmueble.component.html',
   styleUrls: ['./resultado-inmueble.component.scss'],
 })
-export class ResultadoInmuebleComponent  implements OnChanges {
-  
-  @Input() inmuebleActual!: Inmueble;
-  @Input() reservaActual!: Reserva;
+export class ResultadoInmuebleComponent implements OnChanges {
+  @Input() inmuebleActual?: Inmueble;
+  @Input() reservaActual?: Reserva;
   @Input() showDescripcion: boolean = false;
   @Input() showFechaVisita: boolean = false;
   @Input() showReservaButton: boolean = false;
   @Input() showReservaPasadaButtons: boolean = false;
-  @Input() showEditButtons!: boolean;
-  @Input() fechaReserva!: Date;
-  @Output() reservaCancelada: EventEmitter<void> = new EventEmitter();
-  coverPhoto: string = "./assets/no-cover.jpg";
+  @Input() showEditButtons: boolean = false;
+  @Input() fechaReserva?: Date;
+  @Output() reservaCancelada = new EventEmitter<void>();
+
+  coverPhoto: string = './assets/no-cover.jpg';
   $fotosSubidas = this.fotoInmuebleService.fotosSubidas;
 
   constructor(
@@ -38,63 +38,60 @@ export class ResultadoInmuebleComponent  implements OnChanges {
     private fotoInmuebleService: FotosInmuebleService,
     private authService: AuthService,
     private modalCtrl: ModalController
-  ) { }
+  ) {}
 
   ngOnChanges() {
-    if(this.inmuebleActual.id_inmueble){
+    if (this.inmuebleActual?.id_inmueble) {
       this.loadCoverPhoto();
     }
   }
 
   async calificarEstadia() {
-    const modal = await this.modalCtrl.create({
-      component: CalificarModalComponent,
-    });
+    const modal = await this.modalCtrl.create({ component: CalificarModalComponent });
     await modal.present();
 
     const { data } = await modal.onWillDismiss();
-    if (data) {
-      const { puntuacion } = data;
+    if (data?.puntuacion) {
       const reservaData = {
-        id_inmueble: this.inmuebleActual.id_inmueble,
-        fecha_inicio: this.reservaActual.fecha_inicio,
-        puntuacion,
+        id_inmueble: this.inmuebleActual!.id_inmueble,
+        fecha_inicio: this.reservaActual!.fecha_inicio,
+        puntuacion: data.puntuacion,
       };
-
       this.reservaService.valorarReserva(reservaData).subscribe({
         next: (reserva: Reserva) => {
-          this.reservaActual = reserva; // Actualiza la reserva localmente
+          this.reservaActual = reserva;
           Swal.fire('Éxito', 'Tu valoración ha sido enviada', 'success');
         },
-        error: (err) => Swal.fire('Error', 'No se pudo enviar la valoración', 'error'),
+        error: () => Swal.fire('Error', 'No se pudo enviar la valoración', 'error'),
       });
     }
   }
 
-  getCalificacionPromedio() {
-    return this.inmuebleActual.puntuacion_promedio || 0; // Usamos el promedio del inmueble
+  getCalificacionPromedio(): number {
+    return this.inmuebleActual?.puntuacion_promedio || 0;
   }
 
-  navigateToInmuebleDetails(id_inmueble: number, fecha_inicio?: Date, fecha_fin?: Date){
-    if(fecha_inicio){
-      this.router.navigateRoot(['/inmueble'], { queryParams: { id: id_inmueble, fechaInicio: fecha_inicio, fechaFin: fecha_fin} });
-    }else{
-      this.router.navigateRoot(['/inmueble'], { queryParams: { id: id_inmueble }});
+  navigateToInmuebleDetails(idInmueble: number, fechaInicio?: Date, fechaFin?: Date) {
+    const queryParams: any = { id: idInmueble };
+    if (fechaInicio) {
+      queryParams.fechaInicio = fechaInicio;
+      queryParams.fechaFin = fechaFin;
     }
+    this.router.navigateRoot(['/inmueble'], { queryParams });
   }
-  
-  toggleVisibilidad(){
+
+  toggleVisibilidad() {
     Swal.fire({
       title: '¿Estás seguro?',
-      text: "Estas por" + (this.inmuebleActual.habilitado ? " ocultar" : " mostrar") + " este inmueble para los huéspedes.",
+      text: `Estás por ${this.inmuebleActual!.habilitado ? 'ocultar' : 'mostrar'} este inmueble para los huéspedes.`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#000',
       cancelButtonColor: '#d33',
-      confirmButtonText: '¡Sí, cambiar visibilidad!'
+      confirmButtonText: '¡Sí, cambiar visibilidad!',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.inmuebleService.toggleVisibilidad(this.inmuebleActual).subscribe((inmueble: Inmueble) => {
+        this.inmuebleService.toggleVisibilidad(this.inmuebleActual!).subscribe((inmueble: Inmueble) => {
           this.inmuebleActual = inmueble;
         });
       }
@@ -102,33 +99,30 @@ export class ResultadoInmuebleComponent  implements OnChanges {
   }
 
   loadCoverPhoto() {
-    const inmuebleId = this.inmuebleActual.id_inmueble;
-    this.fotoInmuebleService.getAllPhotosByInmueble(inmuebleId).subscribe((fotos: FotoInmueble[]) => {
-      if (fotos.length !== 0) {
-        const encodedUrl = encodeURIComponent(fotos[0].urlFoto);
-        this.coverPhoto = `http://localhost:3000/photos/${encodedUrl}`;
-        console.log(this.coverPhoto);
-        this.cdr.detectChanges(); // Forzamos la detección de cambios, no se si esto está tan bueno igual.
+    this.fotoInmuebleService.getAllPhotosByInmueble(this.inmuebleActual!.id_inmueble).subscribe((fotos: FotoInmueble[]) => {
+      if (fotos.length > 0) {
+        this.coverPhoto = `http://localhost:3000/photos/${encodeURIComponent(fotos[0].urlFoto)}`;
+        this.cdr.detectChanges();
       }
     });
   }
-  
-  navigateToEditInmueble(){
-    this.router.navigateRoot(['/ce-inmueble'], { queryParams: { idInmueble: this.inmuebleActual.id_inmueble }});
+
+  navigateToEditInmueble() {
+    this.router.navigateRoot(['/ce-inmueble'], { queryParams: { idInmueble: this.inmuebleActual!.id_inmueble } });
   }
 
-  cancelarReserva(){
+  cancelarReserva() {
     Swal.fire({
       title: '¿Estás seguro?',
-      text: "Estas por cancelar la reserva de este inmueble.",
+      text: 'Estás por cancelar la reserva de este inmueble.',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#d33',
       cancelButtonColor: '#555',
       confirmButtonText: 'Cancelar reserva',
-      cancelButtonText: "Salir",
+      cancelButtonText: 'Salir',
       reverseButtons: true,
-      focusCancel: true
+      focusCancel: true,
     }).then((result) => {
       if (result.isConfirmed) {
         let reserva: any = this.reservaActual;
@@ -137,13 +131,10 @@ export class ResultadoInmuebleComponent  implements OnChanges {
         }
         reserva.huesped.id_usuario = this.authService.getUserId();
         reserva.huesped.email = this.authService.getUser().email;
-        this.reservaService.cancelarReserva(reserva).subscribe((inmueble: Inmueble) => {
+        this.reservaService.cancelarReserva(reserva).subscribe(() => {
           this.reservaCancelada.emit();
         });
       }
     });
   }
-
-
-
 }

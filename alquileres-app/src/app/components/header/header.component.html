@@ -1,15 +1,14 @@
 <div class="wrapper">
-  <ion-buttons slot="start" class="mobile-menu">
+  <ion-buttons slot="start" class="ion-hide-md-up">
     <ion-menu-button></ion-menu-button>
   </ion-buttons>
-  <div class="title" (click)="navigateTo('/')">
-    <p>Escapeo</p>
-  </div>
-  <div class="buttons desktop-menu">
+  <a class="title" [routerLink]="'/'">Escapeo</a>
+  <div class="buttons ion-hide-md-down">
     <ion-button
       *ngFor="let item of menuItems"
       mode="ios"
-      (click)="navigateTo(item.path, item.queryParams)"
+      [routerLink]="item.path"
+      [queryParams]="item.queryParams"
       fill="clear"
     >
       {{ item.label }}
@@ -19,17 +18,15 @@
     <ion-button
       *ngIf="!isAuthenticated"
       mode="ios"
-      (click)="navigateTo('/login')"
+      [routerLink]="'/login'"
       fill="outline"
     >
       Iniciar sesión
     </ion-button>
-    <div
+    <app-avatar
       *ngIf="isAuthenticated"
-      (click)="presentPopover($event)"
-      class="avatar"
-    >
-      {{ userInitials }}
-    </div>
+      [initials]="userInitials"
+      (onClick)="presentPopover($event)"
+    ></app-avatar>
   </ion-buttons>
 </div>

@@ -1,9 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
-import { CustomNavControllerService } from 'src/app/services/custom-router.service';
 import { AuthService } from '../../services/auth/auth.service';
 import { AppStateService } from 'src/app/services/appstate/app-state.service';
+import { PopoverContentComponent } from './popover-content.component';
 
 @Component({
   selector: 'app-header',
@@ -21,8 +21,7 @@ export class HeaderComponent implements OnInit {
   constructor(
     private appSate: AppStateService,
     private authService: AuthService,
-    private popoverController: PopoverController,
-    private router: CustomNavControllerService
+    private popoverController: PopoverController
   ) {}
 
   ngOnInit() {
@@ -59,10 +58,6 @@ export class HeaderComponent implements OnInit {
     return `${nombre.charAt(0)}${apellido.charAt(0)}`.toUpperCase();
   }
 
-  navigateTo(path: string, queryParams: any = {}) {
-    this.router.navigateRoot([path], { queryParams });
-  }
-
   async presentPopover(ev: any) {
     const popover = await this.popoverController.create({
       component: PopoverContentComponent,
@@ -77,26 +72,5 @@ export class HeaderComponent implements OnInit {
       },
     });
     await popover.present();
-  }
-}
-
-@Component({
-  selector: 'app-popover-content',
-  templateUrl: './popover-content.component.html',
-  styleUrls: ['./header.component.scss'],
-})
-export class PopoverContentComponent {
-  @Input() userFullName: string = '';
-  @Input() signout!: () => void;
-
-  constructor(
-    private router: CustomNavControllerService,
-    private popoverController: PopoverController,
-    protected authService: AuthService,
-  ) {}
-
-  async navigateTo(routeUrl: string) {
-    await this.popoverController.dismiss();
-    this.router.navigateRoot([routeUrl]);
   }
 }
