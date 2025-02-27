@@ -1,4 +1,3 @@
-// ce-inmueble.page.ts
 import { ChangeDetectorRef, Component, OnDestroy, OnInit, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Inmueble } from 'src/app/models/Inmueble';

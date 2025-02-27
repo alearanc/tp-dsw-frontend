@@ -8,8 +8,8 @@ import { FotoInmueble } from '../../models/FotoInmueble';
 })
 export class FotosInmuebleService {
 
-  private fotosSubidasSignal = signal<FotoInmueble[] | null>(null); // Señal
-  readonly fotosSubidas = this.fotosSubidasSignal.asReadonly(); // Señal como solo lectura
+  private fotosSubidasSignal = signal<FotoInmueble[] | null>(null);
+  readonly fotosSubidas = this.fotosSubidasSignal.asReadonly();
 
   constructor(private httpClient: HttpClient) { }
 

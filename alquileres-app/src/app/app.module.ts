@@ -1,4 +1,3 @@
-// app.module.ts
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA, inject } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';

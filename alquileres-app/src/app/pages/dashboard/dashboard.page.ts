@@ -1,4 +1,3 @@
-// dashboard.page.ts
 import { Component, OnInit } from '@angular/core';
 import { jwtDecode } from 'jwt-decode';
 import { Inmueble } from 'src/app/models/Inmueble';

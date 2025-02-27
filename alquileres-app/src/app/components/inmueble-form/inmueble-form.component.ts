@@ -1,4 +1,3 @@
-// inmueble-form.component.ts
 import { Component, effect, EventEmitter, input, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';

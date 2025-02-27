@@ -94,10 +94,6 @@ h3{
     height: 100vh !important;
 }
 
-div:where(.swal2-container).swal2-top, div:where(.swal2-container).swal2-center, div:where(.swal2-container).swal2-bottom{
-    // height: 100vh !important;
-}
-
 ion-button[expand="full"] {
     --border-radious: 0px !important;
     --box-shadow: none !important;
