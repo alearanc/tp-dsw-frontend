@@ -5,8 +5,7 @@ import { Inmueble } from 'src/app/models/Inmueble';
 import { Reserva } from 'src/app/models/Reserva';
 import { TipoUsuario } from 'src/app/models/TipoUsuario.enum';
 import { AuthService } from 'src/app/services/auth/auth.service';
-import { CustomNavControllerService } from 'src/app/services/custom-router.service';
-import { FotosInmuebleService } from 'src/app/services/fotos-inmueble.service';
+import { FotosInmuebleService } from 'src/app/services/fotos-inmueble/fotos-inmueble.service';
 import { InmuebleService } from 'src/app/services/inmueble/inmueble.service';
 import { ReservasService } from 'src/app/services/reservas/reservas.service';
 import Swal from 'sweetalert2';
@@ -56,7 +55,6 @@ export class ResultadoInmuebleComponent {
 
   constructor(
     private cdr: ChangeDetectorRef,
-    private router: CustomNavControllerService,
     private inmuebleService: InmuebleService,
     private reservaService: ReservasService,
     private fotoInmuebleService: FotosInmuebleService,
@@ -94,24 +92,19 @@ export class ResultadoInmuebleComponent {
       this.reservaService.valorarReserva(reservaData).subscribe({
         next: (reserva: Reserva) => {
           this.reservaActual = reserva;
-          Swal.fire('Éxito', 'Tu valoración ha sido enviada', 'success');
+          Swal.fire({
+            title: 'Éxito', text: 'Tu valoración ha sido enviada', icon: 'success', heightAuto: false
+          });
         },
-        error: () => Swal.fire('Error', 'No se pudo enviar la valoración', 'error'),
+        error: () => Swal.fire({
+          title: 'Error', text: 'No se pudo enviar la valoración', icon: 'error', heightAuto: false
+        }),
       });
     }
   }
 
   getCalificacionPromedio(): number {
     return this.inmuebleActual()?.puntuacion_promedio || 0;
-  }
-
-  navigateToInmuebleDetails(idInmueble: number, fechaInicio?: Date, fechaFin?: Date) {
-    const queryParams: any = { id: idInmueble };
-    if (fechaInicio) {
-      queryParams.fechaInicio = fechaInicio;
-      queryParams.fechaFin = fechaFin;
-    }
-    this.router.navigateRoot(['/inmueble'], { queryParams });
   }
 
   toggleVisibilidad() {
@@ -134,13 +127,6 @@ export class ResultadoInmuebleComponent {
         });
       }
     });
-  }
-
-  navigateToEditInmueble() {
-    const inmueble = this.inmuebleActual();
-    if (inmueble?.id_inmueble) {
-      this.router.navigateRoot(['/ce-inmueble'], { queryParams: { idInmueble: inmueble.id_inmueble } });
-    }
   }
 
   cancelarReserva() {
@@ -177,9 +163,9 @@ export class ResultadoInmuebleComponent {
         this.reservaService.cancelarReserva(reserva).subscribe({
           next: () => {
             this.reservaCancelada.emit();
-            Swal.fire('Éxito', 'La reserva fue cancelada', 'success');
+            Swal.fire({title:'Éxito', text: 'La reserva fue cancelada', icon: 'success', heightAuto: false});
           },
-          error: () => Swal.fire('Error', 'No se pudo cancelar la reserva', 'error'),
+          error: () => Swal.fire({title:'Error', text: 'No se pudo cancelar la reserva', icon: 'error', heightAuto: false}),
         });
       }
     });

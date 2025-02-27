@@ -27,7 +27,8 @@
     expand="full"
     mode="ios"
     class="details-btn"
-    (click)="navigateToInmuebleDetails(inmuebleActual()!.id_inmueble)"
+    [routerLink]="['/inmueble']"
+    [queryParams]="{ id: inmuebleActual()!.id_inmueble }"
   >
     {{
       reservaActual?.fecha_inicio
@@ -59,7 +60,8 @@
       "
       expand="full"
       mode="ios"
-      (click)="navigateToEditInmueble()"
+      [routerLink]="['/ce-inmueble']"
+      [queryParams]="{ idInmueble: inmuebleActual()?.id_inmueble }"
     >
       Editar
       <ion-icon slot="end" name="create"></ion-icon>
@@ -89,13 +91,12 @@
     <ion-button
       expand="full"
       mode="ios"
-      (click)="
-        navigateToInmuebleDetails(
-          inmuebleActual()!.id_inmueble,
-          reservaActual!.fecha_inicio,
-          reservaActual!.fecha_fin
-        )
-      "
+      [routerLink]="['/inmueble']"
+      [queryParams]="{
+        id: inmuebleActual()!.id_inmueble,
+        fechaInicio: reservaActual?.fecha_inicio ? reservaActual!.fecha_inicio : null,
+        fechaFin: reservaActual?.fecha_inicio ? reservaActual!.fecha_fin : null
+      }"
     >
       Detalles
       <ion-icon slot="end" name="calendar-outline"></ion-icon>

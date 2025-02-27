@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-super-admin-menu',
@@ -7,11 +6,4 @@ import { Router } from '@angular/router';
   styleUrls: ['./super-admin-menu.page.scss'],
 })
 export class SuperAdminMenuPage {
-
-  constructor(private router: Router) { }
-
-  navigateTo(urlRoute: string){
-    this.router.navigate([urlRoute]);
-  }
-
 }

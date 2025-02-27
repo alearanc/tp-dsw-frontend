@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { CustomNavControllerService } from 'src/app/services/custom-router.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-buscador',
@@ -11,13 +11,13 @@ export class BuscadorComponent  implements OnInit {
 
   busqueda = new FormControl('');
 
-  constructor(private router: CustomNavControllerService) { }
+  constructor(private router: Router) { }
 
   ngOnInit() {}
 
   buscar(event: any) {
     event.preventDefault();
-    this.router.navigateForward(['/search'], { queryParams: { criteria: this.busqueda.value } });
+    this.router.navigate(['/search'], { queryParams: { criteria: this.busqueda.value } });
   }
 
 }

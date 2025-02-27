@@ -1,9 +1,8 @@
 // login.page.ts
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NavController } from '@ionic/angular';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
-import { CustomNavControllerService } from 'src/app/services/custom-router.service';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +13,11 @@ export class LoginPage implements OnInit {
   loginForm!: FormGroup;
   showPassword = false;
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: CustomNavControllerService, private navCtrl: NavController) {}
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private router: Router,
+  ) {}
 
   error = false;
 
@@ -30,7 +33,7 @@ export class LoginPage implements OnInit {
       const { email, password } = this.loginForm.value;
       this.authService.signin(email, password).subscribe(
         (response) => {
-          this.router.navigateRoot(['/dashboard']);
+          this.router.navigate(['/dashboard']);
         },
         (error) => {
           this.error = true;
@@ -42,13 +45,5 @@ export class LoginPage implements OnInit {
 
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
-  }
-
-  navigateToSignup() {
-    this.navCtrl.navigateForward('/signup', { animated: false });
-  }
-  
-  navigateToForgotPassword() {
-    this.navCtrl.navigateForward('/recovery-account', { animated: false });
   }
 }

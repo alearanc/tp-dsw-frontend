@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { catchError, throwError } from 'rxjs';
-import { CustomNavControllerService } from 'src/app/services/custom-router.service';
 import { PersonaService } from 'src/app/services/persona/persona.service';
 
 @Component({
@@ -15,7 +14,7 @@ export class RecoveryAccountPage implements OnInit {
   recoveryError: string | null = null;
   recoverySuccess: string | null = null;
 
-  constructor(private fb: FormBuilder, private router: CustomNavControllerService, private personaService: PersonaService) { }
+  constructor(private fb: FormBuilder, private personaService: PersonaService) { }
 
   ngOnInit() {
     this.recoveryForm = this.fb.group({
@@ -36,14 +35,6 @@ export class RecoveryAccountPage implements OnInit {
         this.recoveryError = null;
       });
     }
-  }
-
-  navigateToLogin() {
-    this.router.navigateForward('/login');
-  }
-
-  navigateToSignup() {
-    this.router.navigateForward('/signup');
   }
 
 }

@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import FotoInmueble from 'src/app/models/FotoInmueble';
 import Inmueble from 'src/app/models/Inmueble';
-import { FotosInmuebleService } from 'src/app/services/fotos-inmueble.service';
+import { FotosInmuebleService } from 'src/app/services/fotos-inmueble/fotos-inmueble.service';
 import { InmuebleService } from 'src/app/services/inmueble/inmueble.service';
 
 @Component({

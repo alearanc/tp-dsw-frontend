@@ -1,12 +1,12 @@
 // inmueble-form.component.ts
 import { Component, effect, EventEmitter, input, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { Inmueble } from 'src/app/models/Inmueble';
 import { Localidad } from 'src/app/models/Localidad';
 import { TipoInmueble } from 'src/app/models/TipoInmueble';
 import { AuthService } from 'src/app/services/auth/auth.service';
-import { CustomNavControllerService } from 'src/app/services/custom-router.service';
 import { InmuebleService } from 'src/app/services/inmueble/inmueble.service';
 
 @Component({
@@ -29,7 +29,7 @@ export class InmuebleFormComponent {
     private fb: FormBuilder,
     private inmuebleService: InmuebleService,
     private authService: AuthService,
-    private router: CustomNavControllerService,
+    private router: Router,
     private alertController: AlertController
   ) {
     // Inicializo el formulario como antes
@@ -85,7 +85,7 @@ export class InmuebleFormComponent {
     if (inmuebleActual) {
       // Actualizo el inmueble existente
       this.inmuebleService.updateInmueble(inmuebleActual.id_inmueble, nuevoInmueble).subscribe({
-        next: () => this.router.navigateForward(['/dashboard']),
+        next: () => this.router.navigate(['/dashboard']),
         error: (error) => this.presentAlert('Error al actualizar el inmueble: ' + error.message),
       });
     } else {

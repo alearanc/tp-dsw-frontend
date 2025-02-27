@@ -11,7 +11,6 @@ import { AppComponent } from './app.component';
 import { authInterceptor } from './auth.interceptor';
 import { httpInterceptor } from './http.interceptor';
 import { CustomComponentsModule } from './components/custom-components.module';
-import { CustomNavControllerService } from './services/custom-router.service';
 import { CalificarModalComponent } from './components/rating/calificar-modal.component';
 import { AuthService } from './services/auth/auth.service';
 
@@ -28,7 +27,6 @@ import { AuthService } from './services/auth/auth.service';
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    CustomNavControllerService,
     AuthService, // Agrego el AuthService como provider
     provideHttpClient(
       withInterceptors([

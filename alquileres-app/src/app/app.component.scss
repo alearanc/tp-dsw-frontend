@@ -4,8 +4,8 @@
     min-height: 100vh;
 }
 
-app-header {
-    flex-shrink: 0;
+ion-router-outlet {
+    flex-grow: 1;
 }
 
 ion-header {
@@ -16,8 +16,4 @@ ion-header {
 h1 {
     text-align: center;
     cursor: pointer;
-}
-
-ion-router-outlet {
-    flex-grow: 1;
 }

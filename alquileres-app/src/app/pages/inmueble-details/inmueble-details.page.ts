@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { addDays, parseISO } from 'date-fns';
 import * as dayjs from 'dayjs';
 import isoWeek from 'dayjs/plugin/isoWeek';
@@ -10,8 +10,7 @@ import { Inmueble } from 'src/app/models/Inmueble';
 import { InmuebleServicio } from 'src/app/models/inmuebleServicio';
 import { Reserva } from 'src/app/models/Reserva';
 import { AuthService } from 'src/app/services/auth/auth.service';
-import { CustomNavControllerService } from 'src/app/services/custom-router.service';
-import { FotosInmuebleService } from 'src/app/services/fotos-inmueble.service';
+import { FotosInmuebleService } from 'src/app/services/fotos-inmueble/fotos-inmueble.service';
 import { InmuebleServicioService } from 'src/app/services/inmueble-servicio/inmueble-servicio.service';
 import { InmuebleService } from 'src/app/services/inmueble/inmueble.service';
 import { ReservasService } from 'src/app/services/reservas/reservas.service';
@@ -45,11 +44,20 @@ export class InmuebleDetailsPage implements OnInit {
   isFullscreen: boolean = false;
   fullscreenPhoto: string = '';
 
-  constructor(private inmuebleServicioService: InmuebleServicioService,private cdr: ChangeDetectorRef, private inmuebleService: InmuebleService, private route: ActivatedRoute, private reservasService: ReservasService, private router: CustomNavControllerService, private authService: AuthService, private fotoInmuebleService: FotosInmuebleService) { }
+  constructor(
+    private inmuebleServicioService: InmuebleServicioService,
+    private cdr: ChangeDetectorRef,
+    private inmuebleService: InmuebleService,
+    private route: ActivatedRoute,
+    private reservasService: ReservasService,
+    private authService: AuthService,
+    private fotoInmuebleService: FotosInmuebleService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
     const idInmuebleActual = this.route.snapshot.queryParams['id'];
-    if (!idInmuebleActual) this.router.navigateRoot(['/']);
+    if (!idInmuebleActual) this.router.navigate(['/']);
     const fechaInicio = this.route.snapshot.queryParams['fechaInicio']
     const fechaFin = this.route.snapshot.queryParams['fechaFin']
     this.fechaInicio = fechaInicio ? dayjs(fechaInicio).tz('UTC') : undefined;
@@ -113,7 +121,7 @@ export class InmuebleDetailsPage implements OnInit {
         confirmButtonText: 'Iniciar sesión'
       }).then((result) => {
         if (result.isConfirmed) {
-          this.router.navigateRoot(['/login']); // Redirige al login
+          this.router.navigate(['/login']); // Redirige al login
         }
       });
     }
@@ -195,7 +203,7 @@ export class InmuebleDetailsPage implements OnInit {
           confirmButtonText: 'Continuar'
         }).then((result) => {
           if (result.isConfirmed) {
-            this.router.navigateRoot(['/']); // Redirige al home
+            this.router.navigate(['/']); // Redirige al home
           }
         });
       },

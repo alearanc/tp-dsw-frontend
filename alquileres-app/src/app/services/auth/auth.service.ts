@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { jwtDecode } from 'jwt-decode';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { CustomNavControllerService } from '../custom-router.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +13,7 @@ export class AuthService {
   
   private authState = new BehaviorSubject<boolean>(this.isAuthenticated());
 
-  constructor(private httpClient: HttpClient, private router: CustomNavControllerService) {}
+  constructor(private httpClient: HttpClient, private router: Router) {}
 
   signin(email: string, password: string): Observable<any> {
     return this.httpClient.post('persona/signin', { email, password }).pipe(
@@ -31,7 +31,7 @@ export class AuthService {
     localStorage.removeItem('authToken');
     localStorage.removeItem('user');
     this.authState.next(false);
-    this.router.navigateRoot(['/login']);
+    this.router.navigate(['/login']);
   }
 
   isAuthenticated(): boolean {

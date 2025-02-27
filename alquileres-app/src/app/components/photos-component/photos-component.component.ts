@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ToastController } from '@ionic/angular';
 import { FotoInmueble } from 'src/app/models/FotoInmueble';
-import { FotosInmuebleService } from 'src/app/services/fotos-inmueble.service';
+import { FotosInmuebleService } from 'src/app/services/fotos-inmueble/fotos-inmueble.service';
 import Swal from 'sweetalert2';
 
 @Component({
