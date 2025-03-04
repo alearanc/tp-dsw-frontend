@@ -1,3 +1,4 @@
 ion-grid {
     padding-top: 0;
+    min-height: calc(100vh - 61px - 173px - 80px - 24px); // Para que el footer siempre quede abajo de todo :p no será lo mas elegante del mundo pero funciona
 }
