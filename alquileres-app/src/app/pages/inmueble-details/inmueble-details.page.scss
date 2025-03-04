@@ -1,108 +1,142 @@
 picture img {
-    object-fit: cover;
-    height: auto;
-    width: 100%;
+  object-fit: cover;
+  height: auto;
+  width: 100%;
 }
 
 ::ng-deep {
-    ngx-daterangepicker-material {
-        & {
-            .btn {
-                background-color: black !important;
-                border-radius: 0 !important;
-                box-shadow: none !important;
-            }
+  ngx-daterangepicker-material {
+    & {
+      .btn {
+        background-color: black !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+      }
 
-            .md-drppicker.shown {
-                transform: translate(-427px, 12px) !important;
-                display: flex !important;
-                align-items: end !important;
-                gap: 8px !important;
-            }
+      .md-drppicker.shown {
+        transform: translate(-427px, 12px) !important;
+        display: flex !important;
+        align-items: end !important;
+        gap: 8px !important;
+      }
 
-            td.active {
-                background-color: black !important;
-                color: white !important;
-            }
-        }
+      td.active {
+        background-color: black !important;
+        color: white !important;
+      }
     }
+  }
+}
+
+swiper-container {
+  position: relative;
+}
+
+.custom-swiper-button-prev,
+.custom-swiper-button-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 45px;
+  height: 45px;
+  background-color: #000000;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  cursor: pointer;
+}
+
+.custom-swiper-button-prev {
+  left: 10px;
+}
+
+.custom-swiper-button-next {
+  right: 10px;
+}
+
+.custom-swiper-button-prev ion-icon,
+.custom-swiper-button-next ion-icon {
+  color: #ffffff;
+  font-size: 20px;
 }
 
 h1,
 h3,
 h5 {
-    margin: 0;
+  margin: 0;
 }
 
 h1 {
-    margin-bottom: 16px;
+  margin-bottom: 16px;
 }
 
 ion-button {
-    --border-radius: 0px !important;
-    --box-shadow: none !important;
-    --background: #000;
-    --background-activated: #222;
-    --background-hover: #111;
+  --border-radius: 0px !important;
+  --box-shadow: none !important;
+  --background: #000;
+  --background-activated: #222;
+  --background-hover: #111;
 }
 
 .fecha_card {
-    border-radius: 8px;
-    background-color: #ddd;
-    padding: 24px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+  border-radius: 8px;
+  background-color: #ddd;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .input-with-icon {
-    position: relative;
-    display: flex;
-    align-items: center;
-    width: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
 
-    input {
-        width: 300px;
-        box-sizing: border-box;
-        border-radius: 0px;
-        border: 2px solid #000;
-        padding: 8px;
-        padding-left: 2.5rem;
-        margin-top: 8px;
-    }
+  input {
+    width: 300px;
+    box-sizing: border-box;
+    border-radius: 0px;
+    border: 2px solid #000;
+    padding: 8px;
+    padding-left: 2.5rem;
+    margin-top: 8px;
+  }
 
-    ion-icon {
-        position: absolute;
-        top: 18px;
-        left: 0.75rem;
-        color: #666;
-    }
+  ion-icon {
+    position: absolute;
+    top: 18px;
+    left: 0.75rem;
+    color: #666;
+  }
 }
 
 .leftcard {
-    padding-right: 16px;
+  padding-right: 16px;
 }
 
 .fullscreen-modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.9);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
 }
 
 .fullscreen-image {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-    cursor: pointer;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  cursor: pointer;
 }
 
 swiper-container {
-    --swiper-theme-color: #fff;
+  --swiper-theme-color: #fff;
 }
