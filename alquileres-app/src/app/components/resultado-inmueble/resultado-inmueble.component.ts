@@ -113,13 +113,14 @@ export class ResultadoInmuebleComponent {
 
     Swal.fire({
       title: '¿Estás seguro?',
-      text: `Estás por ${inmueble.habilitado ? 'ocultar' : 'mostrar'} este inmueble para los huéspedes.`,
+      text: `Esta acción ${inmueble.habilitado ? 'ocultará' : 'mostrará'} esta propiedad al público. Puedes cambiarla mas tarde.`,
       icon: 'warning',
       heightAuto: false,
       showCancelButton: true,
-      confirmButtonColor: '#000',
-      cancelButtonColor: '#d33',
-      confirmButtonText: '¡Sí, cambiar visibilidad!',
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#000',
+      confirmButtonText: `Si, ${inmueble.habilitado ? 'ocultar' : 'mostrar'}`,
+      focusCancel: true,
     }).then((result) => {
       if (result.isConfirmed) {
         this.inmuebleService.toggleVisibilidad(inmueble).subscribe((updatedInmueble: Inmueble) => {
