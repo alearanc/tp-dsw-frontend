@@ -26,7 +26,9 @@ export class CalificarModalComponent {
 
   async submit() {
     if (this.puntuacion < 1 || this.puntuacion > 5) {
-      Swal.fire('Error', 'La puntuación debe estar entre 1 y 5', 'error');
+      Swal.fire({
+        title: 'Error', text: 'La puntuación debe estar entre 1 y 5', icon: 'error', heightAuto: false
+      });
       return;
     }
     this.modalCtrl.dismiss({

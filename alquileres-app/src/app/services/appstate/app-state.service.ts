@@ -11,5 +11,4 @@ export class AppStateService {
     { label: 'Lugares para alquilar', path: '/categories', queryParams: { localidades: true } },
   ]
 
-  constructor() { }
 }

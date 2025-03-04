@@ -1,19 +1,18 @@
 <ion-app>
-  <ion-menu menuId="1" contentId="main-content" class="sidebar-menu">
-      <ion-toolbar>
-        <h1 (click)="navigateTo('/')">AlquileresApp</h1>
-        <ion-buttons slot="end">
-          <ion-menu-button menu="1">
-            <ion-icon name="close"></ion-icon>
-          </ion-menu-button>
-        </ion-buttons>
-      </ion-toolbar>
+  <!-- Menú lateral para mobile -->
+  <ion-menu #menu menuId="1" contentId="main-content" class="sidebar-menu" ion-hide-md-up>
+    <ion-toolbar>
+      <ion-title>Menú</ion-title>
+      <ion-buttons slot="end">
+        <ion-menu-button menu="1">
+          <ion-icon name="close"></ion-icon>
+        </ion-menu-button>
+      </ion-buttons>
+    </ion-toolbar>
     <ion-content>
       <ion-list>
-        <ion-item button *ngFor="let item of menuItems" (click)="navigateTo(item.path, item.queryParams)">
-          <ion-label>
-            {{ item.label }}
-          </ion-label>
+        <ion-item (click)="menu.toggle()" button *ngFor="let item of menuItems" routerLink="{{ item.path }}" [queryParams]="item.queryParams">
+          <ion-label>{{ item.label }}</ion-label>
         </ion-item>
       </ion-list>
     </ion-content>
@@ -21,11 +20,11 @@
 
   <div class="ion-page" id="main-content">
     <ion-header>
+      <!-- Menú desktop -->
       <app-header></app-header>
     </ion-header>
-    <ion-content>
-      <ion-router-outlet>
-      </ion-router-outlet>
+    <ion-content class="content-wrapper">
+      <ion-router-outlet></ion-router-outlet>
     </ion-content>
   </div>
 </ion-app>

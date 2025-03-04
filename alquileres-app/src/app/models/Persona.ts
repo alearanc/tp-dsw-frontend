@@ -1,14 +1,12 @@
 import { TipoUsuario } from "./TipoUsuario.enum";
 
-export default class Persona {
-    constructor(
-        public id_usuario: number,
-        public nombre: string,
-        public apellido: string,
-        public email: string,
-        public password: string,
-        public tipo_usuario: TipoUsuario,
-        public telefono: string,
-        public domicilio: string,
-    ) {}
+export interface Persona {
+    id_usuario: number
+    nombre: string
+    apellido: string
+    email: string
+    password: string
+    tipo_usuario: TipoUsuario
+    telefono: string
+    domicilio: string
 }

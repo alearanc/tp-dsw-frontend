@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { AlertController } from '@ionic/angular';
-import FotoInmueble from 'src/app/models/FotoInmueble';
-import { FotosInmuebleService } from 'src/app/services/fotos-inmueble.service';
+import { ToastController } from '@ionic/angular';
+import { FotoInmueble } from 'src/app/models/FotoInmueble';
+import { FotosInmuebleService } from 'src/app/services/fotos-inmueble/fotos-inmueble.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -19,7 +19,7 @@ export class PhotosComponentComponent  implements OnInit {
 
   constructor(
     private fotosInmuebleService: FotosInmuebleService,
-    private alertController: AlertController
+    private toastController: ToastController
   ) { }
 
   ngOnInit() {
@@ -39,15 +39,18 @@ export class PhotosComponentComponent  implements OnInit {
   }
 
   uploadImage(images: { file: File; url: string }[]) {
-    console.log(this.inmuebleId)
     if (this.inmuebleId && images.length > 0) {
       const files = images.map(image => image.file);
       this.fotosInmuebleService.uploadPhotos(this.inmuebleId, files).subscribe({
         next: (response: FotoInmueble[]) => {
-          console.log('Fotos subidas correctamente', response);
           this.fotosInmuebleService.updateFotosSubidas(response);
           this.existingPhotos = response;
           this.uploadingImages = this.uploadingImages.filter(img => !images.includes(img));
+            this.toastController.create({
+              message: 'Cambios guardados con éxito',
+              duration: 2000,
+              position: 'bottom'
+            }).then(toast => toast.present());
         },
         error: (err) => {
           console.error('Error al subir las fotos:', err);
@@ -64,7 +67,6 @@ export class PhotosComponentComponent  implements OnInit {
     this.fotosInmuebleService.getAllPhotosByInmueble(this.inmuebleId).subscribe((photos: FotoInmueble[]) => {
       this.fotosInmuebleService.updateFotosSubidas(photos);
       this.existingPhotos = photos;
-      console.log(photos)
     });
   }
 
@@ -73,6 +75,7 @@ export class PhotosComponentComponent  implements OnInit {
       title: '¿Estás seguro?',
       text: 'No podrás revertir esta acción',
       icon: 'warning',
+      heightAuto: false,
       showCancelButton: true,
       confirmButtonColor: '#000',
       cancelButtonColor: '#d33',
@@ -82,9 +85,13 @@ export class PhotosComponentComponent  implements OnInit {
       if (result.isConfirmed) {
       this.fotosInmuebleService.deletePhotoById(photoId).subscribe({
         next: () => {
-          console.log('Foto eliminada correctamente');
           this.existingPhotos = this.existingPhotos.filter(photo => photo.id_fotoInmueble !== photoId);
           this.fotosInmuebleService.updateFotosSubidas(this.existingPhotos.length > 0 ? this.existingPhotos : null);
+            this.toastController.create({
+              message: 'Cambios guardados con éxito',
+              duration: 2000,
+              position: 'bottom'
+            }).then(toast => toast.present());
         },
         error: (err) => {
           console.error('Error al eliminar la foto:', err);

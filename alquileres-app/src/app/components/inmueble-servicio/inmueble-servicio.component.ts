@@ -1,7 +1,8 @@
 import { Component, Input, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import InmuebleServicio from 'src/app/models/inmuebleServicio';
-import Servicio from 'src/app/models/Servicio';
+import { ToastController } from '@ionic/angular';
+import { InmuebleServicio } from 'src/app/models/inmuebleServicio';
+import { Servicio } from 'src/app/models/Servicio';
 import { InmuebleServicioService } from 'src/app/services/inmueble-servicio/inmueble-servicio.service';
 import { ServicioService } from 'src/app/services/servicio/servicio.service';
 
@@ -19,7 +20,9 @@ export class InmuebleServicioComponent implements OnInit {
   mensajeError: string | null = null;
   servicio = new FormControl();
 
-  constructor(private inmuebleServicioService: InmuebleServicioService, private servicioService: ServicioService) {}
+  constructor(private inmuebleServicioService: InmuebleServicioService, private servicioService: ServicioService,
+    private toastController: ToastController 
+  ) {}
 
   ngOnInit(): void {
     this.getServicios();  // Cargar los servicios del inmueble
@@ -48,7 +51,6 @@ export class InmuebleServicioComponent implements OnInit {
             id_servicio: item.id_servicio,
             descripcion_servicio: item.servicio ? item.servicio.descripcion_servicio : 'Servicio no disponible'
           }));
-          //console.log('Servicios procesados:', this.serviciosInmueble);
 
         },
         error: (err) => {
@@ -65,6 +67,11 @@ export class InmuebleServicioComponent implements OnInit {
       this.inmuebleServicioService.addInmuebleServicio([newInmuebleServicio])
         .subscribe({
           next: () => {
+            this.toastController.create({
+              message: 'Cambios guardados con éxito',
+              duration: 2000,
+              position: 'bottom'
+            }).then(toast => toast.present());
             this.getServicios();  // Actualizar la lista de servicios
           },
           error: (err) => {
@@ -82,6 +89,11 @@ export class InmuebleServicioComponent implements OnInit {
     this.inmuebleServicioService.deleteInmuebleServicio(this.id_inmueble, id_servicio)
       .subscribe({
         next: () => {
+          this.toastController.create({
+          message: 'Cambios guardados con éxito',
+          duration: 2000,
+          position: 'bottom'
+          }).then(toast => toast.present());
           this.getServicios();  // Actualizar la lista de servicios después de eliminar
         },
         error: (err) => {

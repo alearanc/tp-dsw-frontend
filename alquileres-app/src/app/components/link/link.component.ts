@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { CustomNavControllerService } from 'src/app/services/custom-router.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'categoria-link',
@@ -12,10 +12,10 @@ export class LinkComponent {
   @Input() idCategoria!: number;
   @Input() tipoLink!: string;
 
-  constructor(private router: CustomNavControllerService) { }
+  constructor(private router: Router) { }
 
   navigateSearchByCategoria() {
-    this.router.navigateRoot(['search'], { queryParams: { [this.tipoLink]: this.idCategoria } });
+    this.router.navigate(['search'], { queryParams: { [this.tipoLink]: this.idCategoria } });
   }
 
 }

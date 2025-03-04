@@ -5,8 +5,8 @@ import * as dayjs from 'dayjs';
 import isoWeek from 'dayjs/plugin/isoWeek';
 import timezone from 'dayjs/plugin/timezone';
 import utc from 'dayjs/plugin/utc';
-import Inmueble from 'src/app/models/Inmueble';
-import Reserva from 'src/app/models/Reserva';
+import { Inmueble } from 'src/app/models/Inmueble';
+import { Reserva } from 'src/app/models/Reserva';
 import { InmuebleService } from 'src/app/services/inmueble/inmueble.service';
 import { ReservasService } from 'src/app/services/reservas/reservas.service';
 import Swal from 'sweetalert2';
@@ -75,6 +75,7 @@ export class ManageInmueblesPage implements OnInit{
   cancelarReserva(reserva: Reserva) {
     Swal.fire({
       title: '¿Estás seguro?',
+      heightAuto: false,
       text: "Estas por cancelar la reserva de este inmueble.",
       icon: 'warning',
       showCancelButton: true,
@@ -101,7 +102,6 @@ export class ManageInmueblesPage implements OnInit{
 
   onDateRangeSelected(event: any) {
     const { startDate, endDate } = event;
-    console.log(startDate.$d, endDate.$d);
     this.rangoSelected = event;
   
     if (this.isRangeInvalid(startDate, endDate)) {

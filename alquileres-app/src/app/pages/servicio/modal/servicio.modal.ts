@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import Servicio from 'src/app/models/Servicio';
+import { Servicio } from 'src/app/models/Servicio';
 
 @Component({
   selector: 'app-modal-content',

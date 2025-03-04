@@ -1,12 +1,11 @@
-// dashboard.page.ts
 import { Component, OnInit } from '@angular/core';
 import { jwtDecode } from 'jwt-decode';
-import Inmueble from 'src/app/models/Inmueble';
-import Reserva from 'src/app/models/Reserva';
-import { CustomNavControllerService } from 'src/app/services/custom-router.service';
+import { Inmueble } from 'src/app/models/Inmueble';
+import { Reserva } from 'src/app/models/Reserva';
 import { InmuebleService } from 'src/app/services/inmueble/inmueble.service';
 import { ReservasService } from 'src/app/services/reservas/reservas.service';
 import { AuthService } from '../../services/auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -22,13 +21,12 @@ export class DashboardPage implements OnInit {
   esPropietario: boolean = false;
   tab: string = 'futuras';
 
-  constructor(private authService: AuthService, private router: CustomNavControllerService, private reservaService: ReservasService, private inmuebleService: InmuebleService) {}
+  constructor(private authService: AuthService, private router: Router, private reservaService: ReservasService, private inmuebleService: InmuebleService) {}
 
   ngOnInit() {
     this.user = this.authService.getUser();
     // Conseguir la informacion del user desde el token
     const info_usuario: any = jwtDecode(localStorage.getItem('authToken')!); //Esto solo nos da el id_usuario
-    console.log(info_usuario.id_usuario);
     this.esPropietario = this.authService.getUserType() === "Propietario";
     this.getMisReservas();
     this.getMisReservasPasadas();
@@ -62,6 +60,6 @@ export class DashboardPage implements OnInit {
   }
 
   navigateCeInmueble(param?: String){
-    this.router.navigateForward(['/ce-inmueble'], { queryParams: { idInmueble: param } });
+    this.router.navigate(['/ce-inmueble'], { queryParams: { idInmueble: param } });
   }
 }

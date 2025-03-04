@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import TipoInmueble from 'src/app/models/TipoInmueble';
+import { TipoInmueble } from 'src/app/models/TipoInmueble';
 
 @Component({
   selector: 'app-modal-content',

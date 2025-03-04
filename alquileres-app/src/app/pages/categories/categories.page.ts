@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import Localidad from 'src/app/models/Localidad';
-import TipoInmueble from 'src/app/models/TipoInmueble';
+import { Localidad } from 'src/app/models/Localidad';
+import { TipoInmueble } from 'src/app/models/TipoInmueble';
 import { LocalidadService } from 'src/app/services/localidad/localidad.service';
 import { TipoInmubeleService } from 'src/app/services/tipo-inmueble/tipo-inmubele.service';
 
@@ -42,7 +42,12 @@ export class CategoriesPage implements OnInit {
   }
 
   trackByCategoria(index: number, item: Localidad | TipoInmueble): number {
-    return item instanceof Localidad ? item.cod_postal : item.id_tipoinmueble;
+    // Si tiene cod_postal, asumimos que es Localidad
+    if ('cod_postal' in item) {
+      return (item as Localidad).cod_postal;
+    }
+    // Si no, asumimos que es TipoInmueble
+    return (item as TipoInmueble).id_tipoinmueble;
   }
 
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import Inmueble from 'src/app/models/Inmueble';
+import { Inmueble } from 'src/app/models/Inmueble';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { InmuebleService } from 'src/app/services/inmueble/inmueble.service';
 

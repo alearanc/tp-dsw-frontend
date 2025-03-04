@@ -1,10 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import Servicio from 'src/app/models/Servicio';
+import { Servicio } from 'src/app/models/Servicio';
 import { ServicioService } from 'src/app/services/servicio/servicio.service';
 import { OverlayEventDetail } from '@ionic/core/components';
 import { AlertController, IonModal, ModalController } from '@ionic/angular';
 import { ModalContentPage } from './modal/servicio.modal';
-
 
 @Component({
   selector: 'app-servicio',
@@ -23,7 +22,6 @@ export class ServicioPage implements OnInit {
   ngOnInit() {
       this.servicioService.getAllServicio().subscribe((servicios: Servicio[])=>{
       this.listaServicio = servicios;
-      //console.log(this.listaServicio);
     })
   }
 
@@ -39,14 +37,16 @@ export class ServicioPage implements OnInit {
     modal.onDidDismiss().then((data: any) => {
       if (data.data) {
         if (servicio) {
-          //Actualizo un Servicio
           servicio.descripcion_servicio = data.data.descripcion_servicio;
-          this.servicioService.updateServicio(servicio.id_servicio, servicio.descripcion_servicio).subscribe((servicios: Servicio[])=>{
+          this.servicioService.updateServicio(servicio.id_servicio!, servicio.descripcion_servicio).subscribe((servicios: Servicio[])=>{
             this.listaServicio = servicios;
           })
         } else {
           //Creo un Servicio
-          let nuevoServicio = new Servicio(data.data.descripcion_servicio);
+          let nuevoServicio = {
+            id_servicio: undefined,
+            descripcion_servicio: data.data.descripcion_servicio
+          };
           this.servicioService.addServicio(nuevoServicio).subscribe((servicios: Servicio[])=>{
             this.listaServicio = servicios;
           })
@@ -69,9 +69,8 @@ export class ServicioPage implements OnInit {
           {
             text: 'Eliminar',
             handler: () => {
-              this.servicioService.deleteServicio(servicio.id_servicio).subscribe((servicios: Servicio[])=>{
+              this.servicioService.deleteServicio(servicio.id_servicio!).subscribe((servicios: Servicio[])=>{
                 this.listaServicio = servicios;
-                //console.log(this.listaServicio);
               })
             },
           },
