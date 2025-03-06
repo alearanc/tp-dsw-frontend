@@ -29,16 +29,20 @@ export class LoginPage implements OnInit {
 
   login() {
     if (this.loginForm.valid) {
-      const { email, password } = this.loginForm.value;
-      this.authService.signin(email, password).subscribe(
-        (response) => {
-          this.router.navigate(['/dashboard']);
-        },
-        (error) => {
-          this.error = true;
-          this.loginForm.controls['password'].setErrors({ incorrect: true });
-        }
-      );
+        const { email, password } = this.loginForm.value;
+        this.authService.signin(email, password).subscribe({
+            next: (response) => {
+                this.router.navigate(['/dashboard']);
+            },
+            error: (err) => {
+                this.error = true;
+                if (err.status === 401) {
+                    this.loginForm.controls['password'].setErrors({ incorrect: true });
+                } else {
+                    console.error('Error inesperado:', err);
+                }
+            }
+        });
     }
   }
 

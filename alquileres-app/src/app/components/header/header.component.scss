@@ -26,6 +26,12 @@ ion-button {
 }
 
 ion-button[fill="outline"] {
+  --color: #000;
+  --color-hover: #fff;
+  --background: #fff;
+  --color-focused: #000;
+  --color-activated: #000;
+  --background-hover: #000 !important;
+  --background-hover-opacity: 1 !important;
   --border-color: #000;
-  --background-hover: #fff;
 }

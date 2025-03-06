@@ -6,9 +6,12 @@ import { AuthService } from './services/auth/auth.service';
 
 // Inyecto el AuthService manualmente porque no uso una clase
 export function authInterceptor(req: HttpRequest<any>, next: HttpHandlerFn, authService: AuthService): Observable<HttpEvent<any>> {
+    if (req.url.includes('persona/signin')) {
+        return next(req); // Solucion task #93 en trello
+    }
+
     return next(req).pipe(
         catchError((error) => {
-            // Si me llega un 401, muestro el cartel y cierro sesión
             if (error.status === 401) {
                 Swal.fire({
                     title: 'Sesión expirada',
@@ -18,10 +21,9 @@ export function authInterceptor(req: HttpRequest<any>, next: HttpHandlerFn, auth
                     confirmButtonColor: '#000',
                     confirmButtonText: 'Confirmar'
                 }).then(() => {
-                    authService.signout(); // Cierro la sesión
+                    authService.signout();
                 });
             }
-            // Devuelvo el error para que la cadena siga
             return throwError(() => error);
         })
     );
