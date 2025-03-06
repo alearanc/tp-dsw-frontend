@@ -40,12 +40,12 @@ export class ResultadoInmuebleComponent {
 
     // Priorizo fotosSubidas si coincidenn cn el inmueble
     if (fotosSubidas && fotosSubidas.length > 0 && fotosSubidas[0].inmuebleId === inmueble.id_inmueble) {
-      return `http://localhost:3000/photos/${encodeURIComponent(fotosSubidas[0].urlFoto)}`;
+      return encodeURIComponent(fotosSubidas[0].urlFoto);
     }
 
     // Luego uso las fotos csrgadas localmente
     if (fotosLocal && fotosLocal.length > 0) {
-      return `http://localhost:3000/photos/${encodeURIComponent(fotosLocal[0].urlFoto)}`;
+      return encodeURIComponent(fotosLocal[0].urlFoto);
     }
 
     return './assets/no-cover.jpg';

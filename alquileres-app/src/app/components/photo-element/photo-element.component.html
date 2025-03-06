@@ -1,5 +1,5 @@
 <div class="photo-container">
-  <img [src]="'http://localhost:3000/photos/' + imagen.urlFoto" alt="Foto de la propiedad" class="photo" (click)="verImagen()">
+  <img [src]="imagen.urlFoto" alt="Foto de la propiedad" class="photo" (click)="verImagen()">
   <button (click)="onDelete()" class="delete-button">
     <ion-icon name="trash"></ion-icon>
   </button>

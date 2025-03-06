@@ -17,7 +17,7 @@ export class PhotoElementComponent {
 
   verImagen(){
     Swal.fire({
-      imageUrl: "http://localhost:3000/photos/" + this.imagen.urlFoto,
+      imageUrl: this.imagen.urlFoto,
       showCloseButton: true,
       showConfirmButton: false,
       heightAuto: false,

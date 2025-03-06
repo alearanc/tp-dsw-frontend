@@ -95,7 +95,7 @@ export class InmuebleDetailsPage implements OnInit {
       if (fotos.length !== 0) {
         this.coverPhotos = fotos.map((foto) => {
           const encodedUrl = encodeURIComponent(foto.urlFoto);
-          return `http://localhost:3000/photos/${encodedUrl}`;
+          return encodedUrl;
         });
         this.cdr.detectChanges(); // Forzar detección de cambios si es necesario
       }
