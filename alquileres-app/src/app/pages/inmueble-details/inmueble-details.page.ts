@@ -94,8 +94,7 @@ export class InmuebleDetailsPage implements OnInit {
     this.fotoInmuebleService.getAllPhotosByInmueble(inmuebleId).subscribe((fotos: FotoInmueble[]) => {
       if (fotos.length !== 0) {
         this.coverPhotos = fotos.map((foto) => {
-          const encodedUrl = encodeURIComponent(foto.urlFoto);
-          return encodedUrl;
+          return foto.urlFoto;
         });
         this.cdr.detectChanges(); // Forzar detección de cambios si es necesario
       }
