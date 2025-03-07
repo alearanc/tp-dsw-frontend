@@ -15,7 +15,7 @@ export class CategoriesPage implements OnInit {
   localidades: Localidad[] = [];
   tipoInmuebles: TipoInmueble[] = [];
   type!: string;
-  loading = true;
+  loading= true;
 
   constructor(private route: ActivatedRoute, private localidadService: LocalidadService, private tipoInmuebleService: TipoInmubeleService) { }
 
@@ -31,6 +31,7 @@ export class CategoriesPage implements OnInit {
   }
 
   getLocalidades(){
+    this.loading = true;
     this.localidadService.getAllLocalidad().subscribe((localidades: Localidad[]) => {
       this.localidades = localidades;
       this.loading = false;
@@ -38,6 +39,7 @@ export class CategoriesPage implements OnInit {
   }
 
   getTipoInmuebles(){
+    this.loading = true;
     this.tipoInmuebleService.getAllTipoInmueble().subscribe((tipoInmuebles: TipoInmueble[]) => {
       this.tipoInmuebles = tipoInmuebles;
       this.loading = false;
