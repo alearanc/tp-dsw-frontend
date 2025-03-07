@@ -2,20 +2,26 @@
   <ion-grid fixed="">
     <h1>{{ type === 'localidad' ? 'Localidades' : 'Tipos de alojamiento' }}</h1>
     <ion-row>
-      @if(type === 'localidad'){
-      @for(localidad of localidades; track localidad.cod_postal){
-      <ion-col size="6" size-md="4" size-lg="3">
-        <categoria-link [categoria]="localidad.nombre" [tipoLink]="type" [idCategoria]="localidad.cod_postal">
-        </categoria-link>
-      </ion-col>
-      }
-      }@else{
-      @for(tipoInmueble of tipoInmuebles; track tipoInmueble.id_tipoinmueble){
-      <ion-col size="6" size-md="4" size-lg="3">
-        <categoria-link [categoria]="tipoInmueble.descripcion" [tipoLink]="type" [idCategoria]="tipoInmueble.id_tipoinmueble">
-        </categoria-link>
-      </ion-col>
-      }
+      @if(loading){
+        @for(i of [1,2,3,4,5]; track i){
+          <ion-skeleton-text animated style="width: 227.5px; height: 151.66px;"></ion-skeleton-text>
+        }
+      }@else {
+        @if(type === 'localidad'){
+          @for(localidad of localidades; track localidad.cod_postal){
+          <ion-col size="6" size-md="4" size-lg="3">
+            <categoria-link [categoria]="localidad.nombre" [tipoLink]="type" [idCategoria]="localidad.cod_postal">
+            </categoria-link>
+          </ion-col>
+          }
+        }@else{
+          @for(tipoInmueble of tipoInmuebles; track tipoInmueble.id_tipoinmueble){
+          <ion-col size="6" size-md="4" size-lg="3">
+            <categoria-link [categoria]="tipoInmueble.descripcion" [tipoLink]="type" [idCategoria]="tipoInmueble.id_tipoinmueble">
+            </categoria-link>
+          </ion-col>
+          }
+        }
       }
     </ion-row>
   </ion-grid>
