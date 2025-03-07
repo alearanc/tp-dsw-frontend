@@ -4,7 +4,9 @@
     <ion-row>
       @if(loading){
         @for(i of [1,2,3,4,5]; track i){
-          <ion-skeleton-text animated style="width: 227.5px; height: 151.66px;"></ion-skeleton-text>
+          <ion-col size="6" size-md="4" size-lg="3">
+            <ion-skeleton-text animated style="width: 100%; aspect-ratio: 3 / 2;"></ion-skeleton-text>
+          </ion-col>
         }
       }@else {
         @if(type === 'localidad'){
