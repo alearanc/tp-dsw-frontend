@@ -46,24 +46,24 @@
             align-items: center;
           "
         >
-          <h1>{{inmuebleSelected?.titulo_inmueble}}</h1>
+          <h1>{{inmuebleSelected.titulo_inmueble}}</h1>
           <app-rating
-            [calificacionPromedio]="inmuebleSelected?.puntuacion_promedio || 0"
+            [calificacionPromedio]="inmuebleSelected.puntuacion_promedio || 0"
           ></app-rating>
         </ion-row>
         <ion-row>
           <ion-col size="6">
-            <h5 class="direccion">{{inmuebleSelected?.direccion_inmueble}}</h5>
+            <h5 class="direccion">{{inmuebleSelected.direccion_inmueble}}</h5>
           </ion-col>
           <ion-col size="6">
             <h5 class="precio ion-text-end">
-              $ {{inmuebleSelected?.precio_noche}}
+              $ {{inmuebleSelected.precio_noche}}
             </h5>
           </ion-col>
         </ion-row>
         <ion-col size="12">
           <h3>Descripcion</h3>
-          <p>{{inmuebleSelected?.descripcion_inmueble}}</p>
+          <p>{{inmuebleSelected.descripcion_inmueble}}</p>
           <h3>Servicios</h3>
           <ol>
             @for(servicio of serviciosInmueble; track servicio.id_servicio){
@@ -76,7 +76,7 @@
             <ion-button
               mode="ios"
               (click)="getFechasDisponibles()"
-              [disabled]="showCalendar || disableButton || loading || (this.idUsuario && this.inmuebleSelected?.id_propietario === this.idUsuario)"
+              [disabled]="showCalendar || disableButton || loading || (this.idUsuario && this.inmuebleSelected.id_propietario === this.idUsuario)"
             >
               {{loading ? "Cargando" : disableButton ? "Reservado del día " +
               fechaInicio?.format('DD/MM/YYYY') + " al " +
@@ -90,7 +90,7 @@
             </ion-button>
           </ion-row>
           <ion-row
-            *ngIf="this.inmuebleSelected?.id_propietario === this.idUsuario"
+            *ngIf="this.inmuebleSelected.id_propietario === this.idUsuario"
             class="ion-justify-content-end"
           >
             Esta propiedad te pertenece *
