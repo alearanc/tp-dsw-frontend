@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { catchError, throwError } from 'rxjs';
 import { PersonaService } from '../../services/persona/persona.service';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-signup',
@@ -44,7 +45,11 @@ export class SignupPage implements OnInit {
           return throwError(error);
         })
       ).subscribe((res: any) => {
-        this.router.navigate(['/home']);
+        Swal.fire({
+          title: 'Éxito', text: 'Cuenta registrada con éxito', icon: 'success', heightAuto: false
+        }).then(()=>
+          this.router.navigate(['/login'])
+        )
       });
     }
   }
