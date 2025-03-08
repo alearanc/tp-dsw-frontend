@@ -11,6 +11,7 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 export class LoginPage implements OnInit {
   loginForm!: FormGroup;
   showPassword = false;
+  loginFlag = false
 
   constructor(
     private fb: FormBuilder,
@@ -28,6 +29,7 @@ export class LoginPage implements OnInit {
   }
 
   login() {
+    this.loginFlag = true;
     if (this.loginForm.valid) {
         const { email, password } = this.loginForm.value;
         this.authService.signin(email, password).subscribe({
@@ -35,6 +37,7 @@ export class LoginPage implements OnInit {
                 this.router.navigate(['/dashboard']);
             },
             error: (err) => {
+                this.loginFlag  = false;
                 this.error = true;
                 if (err.status === 401) {
                     this.loginForm.controls['password'].setErrors({ incorrect: true });

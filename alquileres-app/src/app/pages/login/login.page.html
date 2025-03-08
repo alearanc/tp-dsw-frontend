@@ -14,14 +14,17 @@
                 <ion-icon [name]="showPassword ? 'eye-off' : 'eye'"></ion-icon>
               </ion-button>
             </ion-input>
-            <span slot="error">Name is required</span>
           </ion-item>
           <ion-text color="danger" *ngIf="error" class="error-text">
             Credenciales incorrectas
           </ion-text>
-          <ion-button mode="ios" expand="block" type="submit" [disabled]="loginForm.invalid">
-            Iniciar sesión
-            <ion-icon name="chevron-forward"></ion-icon>
+          <ion-button mode="ios" expand="block" type="submit" [disabled]="loginForm.invalid || loginFlag">
+            {{ loginFlag ? 'Iniciando sesión...' : 'Iniciar sesión' }}
+            @if(!loginFlag){
+              <ion-icon name="chevron-forward"></ion-icon>
+            }@else{
+              <ion-spinner name="lines"></ion-spinner>
+            }
           </ion-button>
           <ion-button mode="ios" class="fpbtn" fill="clear" routerLink="/recovery-account">
             Olvidé mi contraseña
