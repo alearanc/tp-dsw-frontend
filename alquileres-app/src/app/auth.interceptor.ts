@@ -6,7 +6,7 @@ import { AuthService } from './services/auth/auth.service';
 
 // Inyecto el AuthService manualmente porque no uso una clase
 export function authInterceptor(req: HttpRequest<any>, next: HttpHandlerFn, authService: AuthService): Observable<HttpEvent<any>> {
-    if (req.url.includes('persona/signin')) {
+    if (req.url.includes('persona/signin') || req.url.includes('persona/recover_account')) {
         return next(req); // Solucion task #93 en trello
     }
 

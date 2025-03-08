@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { PersonaService } from '../../services/persona/persona.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-reset-password',
@@ -47,11 +48,11 @@ export class ResetPasswordPage implements OnInit {
           return throwError(error);
         })
       ).subscribe((res: any) => {
-        this.resetSuccess = 'Contraseña actualizada. Ahora puedes iniciar sesión con tu nueva contraseña.';
-        this.resetError = null;
-        setTimeout(() => {
+        Swal.fire({
+          title: 'Éxito', text: 'Contraseña restablecida con éxito', icon: 'success', heightAuto: false}).then(() => {
           this.router.navigate(['/login']);
-        }, 3000);
+          })
+        this.resetError = null;
       });
     }
   }

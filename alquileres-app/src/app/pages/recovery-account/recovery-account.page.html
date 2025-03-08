@@ -10,10 +10,7 @@
     <ion-text color="danger" *ngIf="recoveryError" class="error-text">
       {{ recoveryError }}
     </ion-text>
-    <ion-text color="success" *ngIf="recoverySuccess" class="success-text">
-      {{ recoverySuccess }}
-    </ion-text>
-    <ion-button mode="ios" expand="block" type="submit" [disabled]="recoveryForm.invalid">
+    <ion-button mode="ios" expand="block" type="submit" [disabled]="recoveryForm.invalid || recoverySuccess">
       Recuperar cuenta
       <ion-icon name="chevron-forward"></ion-icon>
     </ion-button>
