@@ -30,7 +30,7 @@ export class AuthService {
     localStorage.removeItem('authToken');
     localStorage.removeItem('user');
     this.authState.next(false);
-    this.router.navigate(['/login']);
+    window.location.href = '/login';
   }
 
   isAuthenticated(): boolean {
