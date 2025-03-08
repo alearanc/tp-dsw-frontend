@@ -5,3 +5,14 @@ ion-button {
     --background-activated: #222;
     --background-hover: #111;
 }
+
+ion-item{
+    border: 1px solid #d4d4d4 !important;
+    padding-left: 12px !important;
+    margin-top: 4px;
+    display: flex;
+    flex-direction: row-reverse;
+    ion-icon{
+        transform: translateY(-7px);
+    }
+  }
