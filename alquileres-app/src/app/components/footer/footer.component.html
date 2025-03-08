@@ -6,23 +6,24 @@
     <div class="column">
       <h2>Propiedades</h2>
       <ul>
-        <li><a href="#">Tipos de alojamiento</a></li>
-        <li><a href="#">Organizados por ubicación</a></li>
+        <li><a routerLink="categories">Tipos de alojamiento</a></li>
+        <li><a routerLink="categories" [queryParams]="{localidades:true}">Organizados por ubicación</a></li>
       </ul>
     </div>
     <div class="column">
       <h2>Información</h2>
       <ul>
-        <li><a href="#">Sobre el trabajo práctico</a></li>
-        <li><a href="#">Sobre las tecnologías utilizadas</a></li>
-        <li><a href="#">POC</a></li>
+        <li><a href="https://github.com/alearanc/tp-dsw-frontend" target="_blank">Repo del Frontend</a></li>
+        <li><a href="https://github.com/alearanc/tp-dsw-backend" target="_blank">Repo del Backend</a></li>
+        <li><a href="https://github.com/alearanc/POC-React-Native" target="_blank">POC</a></li>
       </ul>
     </div>
     <div class="column">
       <h2>Inicio de sesión</h2>
       <ul>
-        <li><a href="#">Para huéspedes</a></li>
-        <li><a href="#">Para propietarios</a></li>
+        <li><a routerLink="login">Iniciar sesión</a></li>
+        <li><a routerLink="signup">Crear cuenta</a></li>
+        <li><a routerLink="recovery-account">Recuperar contraseña</a></li>
       </ul>
     </div>
     <div class="column">
