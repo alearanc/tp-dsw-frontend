@@ -17,6 +17,20 @@ Aplicación desarrollada en Angular 18 con Ionic para la interfaz de usuario, pe
    ionic serve
    ```
 
+### E2E
+1. Instalar cypress:
+   ```bash
+   npm install cypress --save-dev
+   ```
+2. Ejecutar cypress:
+   ```bash
+   npx cypress open
+   ```
+3. Seleccionar E2E Testing
+4. Seleccionar un navegador, de preferencia, Firefox
+5. Start E2E Testing in Firefox
+6. Una vez en el navegador, seleccionar login.cy.js
+
 ## Principales funcionalidades
 ### Como admin
 - CRUD de tipos de inmueble
@@ -34,6 +48,7 @@ Aplicación desarrollada en Angular 18 con Ionic para la interfaz de usuario, pe
 ## Tecnologías
 - Angular 18
 - Ionic Framework
+- Cypress 14
 
 ## Autores
 - Altamirano, Edgar Gastón
