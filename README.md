@@ -1,4 +1,4 @@
-# AlquileresApp
+# Escapeo
 Aplicación desarrollada en Angular 18 con Ionic para la interfaz de usuario, permitiendo que los usuarios puedan buscar y reservar propiedades (inmuebles) de manera intuitiva.
 
 ## Requisitos previos
